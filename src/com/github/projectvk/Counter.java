@@ -1,7 +1,5 @@
 package com.github.projectvk;
 
-import java.awt.Color;
-
 /**
  * Provide a counter for a participant in the simulation.
  * This includes an identifying string and a count of how
