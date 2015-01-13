@@ -1,3 +1,5 @@
+package com.github.projectvk;
+
 import java.awt.Color;
 
 /**
@@ -18,7 +20,7 @@ public class Counter
 
     /**
      * Provide a name for one of the simulation types.
-     * @param name  A name, e.g. "Fox".
+     * @param name  A name, e.g. "com.github.projectvk.Fox".
      */
     public Counter(String name)
     {

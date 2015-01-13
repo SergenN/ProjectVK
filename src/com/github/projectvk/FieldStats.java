@@ -1,4 +1,5 @@
-import java.awt.Color;
+package com.github.projectvk;
+
 import java.util.HashMap;
 
 /**
@@ -17,7 +18,7 @@ public class FieldStats
     private boolean countsValid;
 
     /**
-     * Construct a FieldStats object.
+     * Construct a com.github.projectvk.FieldStats object.
      */
     public FieldStats()
     {

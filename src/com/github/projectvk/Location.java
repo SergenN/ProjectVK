@@ -1,3 +1,5 @@
+package com.github.projectvk;
+
 /**
  * Represent a location in a rectangular grid.
  * 
