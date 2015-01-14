@@ -1,7 +1,7 @@
 package com.github.projectvk;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -33,29 +33,33 @@ public class SimulatorView extends JFrame
     // A statistics object computing and storing simulation information
     private FieldStats stats;
 
+
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
      * @param width  The simulation's width.
      */
-    public SimulatorView(int height, int width)
+    public SimulatorView(int height, int width, ControlPanel controlPanel)
     {
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();
 
-        setTitle("com.github.projectvk.Fox and com.github.projectvk.Rabbit Simulation");
+        setTitle("Vossen en konijnen simulatie");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
-        
-        setLocation(100, 50);
-        
+
         fieldView = new FieldView(height, width);
 
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
-        contents.add(fieldView, BorderLayout.CENTER);
+        contents.add(fieldView, BorderLayout.EAST);
+        contents.add(controlPanel, BorderLayout.WEST);
         contents.add(population, BorderLayout.SOUTH);
         pack();
+
+        //locatie in het midden v scherm
+        setLocationRelativeTo(null);
+        //zichtbaar maken
         setVisible(true);
     }
     
@@ -125,92 +129,5 @@ public class SimulatorView extends JFrame
     public boolean isViable(Field field)
     {
         return stats.isViable(field);
-    }
-    
-    /**
-     * Provide a graphical view of a rectangular field. This is 
-     * a nested class (a class defined inside a class) which
-     * defines a custom component for the user interface. This
-     * component displays the field.
-     * This is rather advanced GUI stuff - you can ignore this 
-     * for your project if you like.
-     */
-    private class FieldView extends JPanel
-    {
-        private final int GRID_VIEW_SCALING_FACTOR = 6;
-
-        private int gridWidth, gridHeight;
-        private int xScale, yScale;
-        Dimension size;
-        private Graphics g;
-        private Image fieldImage;
-
-        /**
-         * Create a new FieldView component.
-         */
-        public FieldView(int height, int width)
-        {
-            gridHeight = height;
-            gridWidth = width;
-            size = new Dimension(0, 0);
-        }
-
-        /**
-         * Tell the GUI manager how big we would like to be.
-         */
-        public Dimension getPreferredSize()
-        {
-            return new Dimension(gridWidth * GRID_VIEW_SCALING_FACTOR,
-                                 gridHeight * GRID_VIEW_SCALING_FACTOR);
-        }
-
-        /**
-         * Prepare for a new round of painting. Since the component
-         * may be resized, compute the scaling factor again.
-         */
-        public void preparePaint()
-        {
-            if(! size.equals(getSize())) {  // if the size has changed...
-                size = getSize();
-                fieldImage = fieldView.createImage(size.width, size.height);
-                g = fieldImage.getGraphics();
-
-                xScale = size.width / gridWidth;
-                if(xScale < 1) {
-                    xScale = GRID_VIEW_SCALING_FACTOR;
-                }
-                yScale = size.height / gridHeight;
-                if(yScale < 1) {
-                    yScale = GRID_VIEW_SCALING_FACTOR;
-                }
-            }
-        }
-        
-        /**
-         * Paint on grid location on this field in a given color.
-         */
-        public void drawMark(int x, int y, Color color)
-        {
-            g.setColor(color);
-            g.fillRect(x * xScale, y * yScale, xScale-1, yScale-1);
-        }
-
-        /**
-         * The field view component needs to be redisplayed. Copy the
-         * internal image to screen.
-         */
-        public void paintComponent(Graphics g)
-        {
-            if(fieldImage != null) {
-                Dimension currentSize = getSize();
-                if(size.equals(currentSize)) {
-                    g.drawImage(fieldImage, 0, 0, null);
-                }
-                else {
-                    // Rescale the previous image.
-                    g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
-                }
-            }
-        }
     }
 }

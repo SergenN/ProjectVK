@@ -33,6 +33,7 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
+
     
     /**
      * Construct a simulation field with default size.
@@ -60,7 +61,7 @@ public class Simulator
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
-        view = new SimulatorView(depth, width);
+        view = new SimulatorView(depth, width, new ControlPanel(depth, this));
         view.setColor(Rabbit.class, Color.ORANGE);
         view.setColor(Fox.class, Color.BLUE);
         
