@@ -1,3 +1,5 @@
+Credits : René
+
 Haal repo binnen met de SSH Clone URL, als het goed is staan je remotes meteen goed.
 ```bash
 $ git clone git@github.com:IcyPalm/Vossen-en-Konijnen.git
