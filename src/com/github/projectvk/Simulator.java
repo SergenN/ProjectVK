@@ -67,6 +67,7 @@ public class Simulator
         
         // Setup a valid starting point.
         reset();
+
     }
     
     /**
