@@ -14,7 +14,7 @@ public class Rabbit extends Animal
 {
     // Characteristics shared by all rabbits (class variables).
 
-    // The age at which a rabbit can start to breed.
+    // The age at which a rabbit can start to breed.     xxxx
     private static final int BREEDING_AGE = 5;
     // The age to which a rabbit can live.
     private static final int MAX_AGE = 40;
