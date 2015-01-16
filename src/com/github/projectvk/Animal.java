@@ -8,7 +8,7 @@ import java.util.List;
  * @author David J. Barnes and Michael Kölling s
  * @version 2011.07.31
  */
-public abstract class Animal
+public abstract class Animal  
 {
     // Whether the animal is alive or not.
     private boolean alive;
