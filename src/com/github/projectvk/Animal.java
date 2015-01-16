@@ -16,7 +16,9 @@ public abstract class Animal
     private Field field;
     // The animal's position in the field.
     private Location location;
-    
+    // The animal's age
+    private int age;
+
     /**
      * Create a new animal at location in field.
      * 
@@ -41,8 +43,7 @@ public abstract class Animal
      * Check whether the animal is alive or not.
      * @return true if the animal is still alive.
      */
-    protected boolean isAlive()
-    {
+    protected boolean isAlive(){
         return alive;
     }
 
@@ -64,9 +65,8 @@ public abstract class Animal
      * Return the animal's location.
      * @return The animal's location.
      */
-    protected Location getLocation()
-    {
-        return location;
+    protected Location getLocation() {
+        return  location;
     }
     
     /**
@@ -86,8 +86,29 @@ public abstract class Animal
      * Return the animal's field.
      * @return The animal's field.
      */
-    protected Field getField()
-    {
+    protected Field getField(){
         return field;
     }
+
+    /**
+     * Increase the age. This could result in the animals's death.
+     */
+    protected int incrementAge(int age, int MAX_AGE)
+    {
+        age++;
+        if(age > MAX_AGE) {
+            setDead();
+        }
+        return age;
+    }
+
+    /**
+     * A fox can breed if it has reached the breeding age.
+     */
+    protected boolean canBreed(int BREEDING_AGE)
+    {
+        return age >= BREEDING_AGE;
+    }
+
+
 }

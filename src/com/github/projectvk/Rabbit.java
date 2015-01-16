@@ -24,11 +24,10 @@ public class Rabbit extends Animal
     private static final int MAX_LITTER_SIZE = 4;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    
+
     // Individual characteristics (instance fields).
-    
-    // The rabbit's age.
     private int age;
+
 
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -54,7 +53,7 @@ public class Rabbit extends Animal
      */
     public void act(List<Animal> newRabbits)
     {
-        incrementAge();
+        age = incrementAge(age, MAX_AGE);
         if(isAlive()) {
             giveBirth(newRabbits);            
             // Try to move into a free location.
@@ -66,18 +65,6 @@ public class Rabbit extends Animal
                 // Overcrowding.
                 setDead();
             }
-        }
-    }
-
-    /**
-     * Increase the age.
-     * This could result in the rabbit's death.
-     */
-    private void incrementAge()
-    {
-        age++;
-        if(age > MAX_AGE) {
-            setDead();
         }
     }
     
@@ -108,18 +95,10 @@ public class Rabbit extends Animal
     private int breed()
     {
         int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
+        if(canBreed(this.BREEDING_AGE) && rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_LITTER_SIZE) + 1;
         }
         return births;
     }
 
-    /**
-     * A rabbit can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
-     */
-    private boolean canBreed()
-    {
-        return age >= BREEDING_AGE;
-    }
 }
