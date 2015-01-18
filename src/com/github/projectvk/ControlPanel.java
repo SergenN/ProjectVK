@@ -11,7 +11,8 @@ public class ControlPanel extends JPanel implements ActionListener{
     private final int GRID_VIEW_SCALING_FACTOR = 6;
 
     private Simulator simulator;
-    private JButton plusEen, plusHonderd, longSim;
+    private JLabel sim_kop, stat_kop;
+    private JButton plusEen, plusHonderd, longSim, survivorStat;
     private int height;
 
     /**
@@ -21,22 +22,75 @@ public class ControlPanel extends JPanel implements ActionListener{
      * @param simulator - Simulator klasse
      */
     public ControlPanel(int height, Simulator simulator) {
+        //setBackground(new Color(39, 39, 39));
+        setBackground(new Color(33, 33, 33));
+
+        ImageIcon icon = new ImageIcon("img\\fox.png");
+        JLabel thumb = new JLabel();
+        thumb.setIcon(icon);
+
         this.height = height;
         this.simulator = simulator;
+
+        sim_kop = new JLabel("Simulate");
+        sim_kop.setForeground(new Color(132, 132, 132));
+        sim_kop.setFont(new Font("Helvetica", Font.BOLD, 16));
+
+        stat_kop = new JLabel("Statistics");
+        stat_kop.setForeground(new Color(132, 132, 132));
+        stat_kop.setFont(new Font("Helvetica", Font.BOLD, 16));
+
+        // + 1 button
         plusEen = new JButton("+1");
+        plusEen.setBackground(new Color(114, 114, 114));
+        plusEen.setForeground(Color.WHITE);
+        plusEen.setFocusPainted(false);
+        plusEen.setFont(new Font("Helvetica", Font.PLAIN, 10));
         plusEen.addActionListener(this);
+
+        // + 100 button
         plusHonderd = new JButton("+100");
+        plusHonderd.setBackground(new Color(114, 114, 114));
+        plusHonderd.setForeground(Color.WHITE);
+        plusHonderd.setFocusPainted(false);
+        plusHonderd.setFont(new Font("Helvetica", Font.PLAIN, 10));
         plusHonderd.addActionListener(this);
-        longSim = new JButton("Simuleer");//Initializeren van button
+
+        // Simuleer button
+        longSim = new JButton("+4000");//Initializeren van button
+        longSim.setBackground(new Color(114, 114, 114));
+        longSim.setForeground(Color.WHITE);
+        longSim.setFocusPainted(false);
+        longSim.setFont(new Font("Helvetica", Font.PLAIN, 10));
         longSim.addActionListener(this);//Toevoegen actieListener
 
+        // SurvivorStat button
+        survivorStat = new JButton("Survivors");
+        survivorStat.setBackground(new Color(99, 99, 99));
+        survivorStat.setForeground(Color.WHITE);
+        survivorStat.setFocusPainted(false);
+        survivorStat.setFont(new Font("Helvetica", Font.PLAIN, 10));
+        survivorStat.addActionListener(this);
+
         this.setLayout(null);
+        add(sim_kop);
         add(plusEen);
         add(plusHonderd);
         add(longSim);//Toevoegen aan jPanel
-        plusEen.setBounds(10, 20, 80, 30);
-        plusHonderd.setBounds(10, 60, 80, 30);
-        longSim.setBounds(10, 100, 80, 30);//Positie en groote zetten
+        add(stat_kop);
+        add(survivorStat);
+        add(thumb);
+
+        thumb.setBounds(13, 195, 500, 500);
+
+        sim_kop.setBounds(10, 0, 80, 30);
+        plusEen.setBounds(10, 40, 80, 30);
+        plusHonderd.setBounds(10, 80, 80, 30);
+        longSim.setBounds(10, 120, 80, 30);//Positie en groote zetten
+
+        stat_kop.setBounds(10, 160, 80, 30);
+        survivorStat.setBounds(10, 200, 80, 30);
+
         setVisible(true);
 
     }
@@ -67,6 +121,10 @@ public class ControlPanel extends JPanel implements ActionListener{
 
         if (e.getSource() == longSim) {
             simulator.runLongSimulation();
+        }
+
+        if (e.getSource() == survivorStat) {
+            SurvivorsView sView = new SurvivorsView();
         }
     }
 }
