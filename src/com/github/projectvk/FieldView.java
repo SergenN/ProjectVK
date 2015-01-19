@@ -1,9 +1,5 @@
 package com.github.projectvk;
 
-/**
- * Created by Sergen on 14-1-2015.
- */
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -84,8 +80,7 @@ public class FieldView extends JPanel
             Dimension currentSize = getSize();
             if(size.equals(currentSize)) {
                 g.drawImage(fieldImage, 0, 0, null);
-            }
-            else {
+            } else {
                 // Rescale the previous image.
                 g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
             }
