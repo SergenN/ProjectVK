@@ -1,12 +1,11 @@
 package com.github.projectvk;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * A class representing shared characteristics of animals.
- * 
- * @author David J. Barnes and Michael Kölling s
- * @version 2011.07.31
+ *
  */
 public abstract class Animal  
 {
@@ -18,6 +17,8 @@ public abstract class Animal
     private Location location;
     // The animal's age
     private int age;
+    // Random nummer generator
+    private static final Random rand = Randomizer.getRandom();
 
     /**
      * Create a new animal at location in field.
@@ -25,19 +26,65 @@ public abstract class Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(Field field, Location location)
+    public Animal(Field field, Location location, int age)
     {
         alive = true;
-        this.field = field;
+        setField(field);
+        setAge(age);
         setLocation(location);
     }
-    
+
     /**
      * Make this animal act - that is: make it do
      * whatever it wants/needs to do.
      * @param newAnimals A list to receive newly born animals.
      */
-    abstract public void act(List<Animal> newAnimals);
+    abstract protected void act(List<Animal> newAnimals);
+
+    /**
+     * verkrijg de maximum leeftijd van een dier
+     * @return int maximum age
+     */
+    abstract protected int getMaxAge();
+
+    /**
+     *
+     * @return
+     */
+    abstract protected int getBreedingAge();
+
+    /**
+     * Verkrijg de maximale litter grootte
+     * @return max litter grootte
+     */
+    protected abstract int getMaxLitterSize();
+
+    /**
+     * verkrijg de minimum leeftijd om te broeden
+     * @return breeding age
+     */
+    protected abstract double getBreedingProbability();
+
+    /**
+     * Return the animal's location.
+     * @return The animal's location.
+     */
+    protected Location getLocation() {
+        return  location;
+    }
+
+    /**
+     * Place the animal at the new location in the given field.
+     * @param newLocation The animal's new location.
+     */
+    protected void setLocation(Location newLocation)
+    {
+        if(location != null) {
+            field.clear(location);
+        }
+        location = newLocation;
+        field.place(this, newLocation);
+    }
 
     /**
      * Check whether the animal is alive or not.
@@ -45,6 +92,42 @@ public abstract class Animal
      */
     protected boolean isAlive(){
         return alive;
+    }
+
+    /**
+     * verkrijg de age van het dier.
+     * @return int age
+     */
+    protected int getAge(){
+        return age;
+    }
+
+    /**
+     * zet de leeftijd van dit dier.
+     * @param age de leeftijd dat gezet moet worden
+     */
+    protected void setAge(int age){
+        this.age = age;
+    }
+
+    /**
+     * Return the animal's field.
+     * @return The animal's field.
+     */
+    protected Field getField(){
+        return field;
+    }
+
+    protected void setField(Field field){
+        this.field = field;
+    }
+
+    /**
+     * Krijg de random nummer generator
+     * @return Random rand
+     */
+    protected Random getRandom(){
+        return rand;
     }
 
     /**
@@ -62,41 +145,12 @@ public abstract class Animal
     }
 
     /**
-     * Return the animal's location.
-     * @return The animal's location.
-     */
-    protected Location getLocation() {
-        return  location;
-    }
-    
-    /**
-     * Place the animal at the new location in the given field.
-     * @param newLocation The animal's new location.
-     */
-    protected void setLocation(Location newLocation)
-    {
-        if(location != null) {
-            field.clear(location);
-        }
-        location = newLocation;
-        field.place(this, newLocation);
-    }
-    
-    /**
-     * Return the animal's field.
-     * @return The animal's field.
-     */
-    protected Field getField(){
-        return field;
-    }
-
-    /**
      * Increase the age. This could result in the animals's death.
      */
-    protected int incrementAge(int age, int MAX_AGE)
+    protected int incrementAge()
     {
-        age++;
-        if(age > MAX_AGE) {
+        setAge(getAge() + 1);
+        if(getAge() > getMaxAge()) {
             setDead();
         }
         return age;
@@ -105,9 +159,23 @@ public abstract class Animal
     /**
      * A fox can breed if it has reached the breeding age.
      */
-    protected boolean canBreed(int BREEDING_AGE)
+    protected boolean canBreed()
     {
-        return age >= BREEDING_AGE;
+        return getAge() >= getBreedingAge();
+    }
+
+    /**
+     * Generate a number representing the number of births,
+     * if it can breed.
+     * @return The number of births (may be zero).
+     */
+    protected int breed()
+    {
+        int births = 0;
+        if(canBreed() && getRandom().nextDouble() <= getBreedingProbability()) {
+            births = getRandom().nextInt(getMaxLitterSize()) + 1;
+        }
+        return births;
     }
 
 

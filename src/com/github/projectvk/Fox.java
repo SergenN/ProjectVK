@@ -1,20 +1,14 @@
 package com.github.projectvk;
 
-import java.util.List;
 import java.util.Iterator;
-import java.util.Random;
+import java.util.List;
 
 /**
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
  */
 public class Fox extends Animal
 {
-    // Characteristics shared by all foxes (class variables).
-    
     // The age at which a fox can start to breed.
     private static final int BREEDING_AGE = 15;
     // The age to which a fox can live.
@@ -26,13 +20,9 @@ public class Fox extends Animal
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
     private static final int RABBIT_FOOD_VALUE = 9;
-    // A shared random number generator to control breeding.
-    private static final Random rand = Randomizer.getRandom();
 
     // The fox's food level, which is increased by eating rabbits.
     private int foodLevel;
-
-    private int age;
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -44,27 +34,59 @@ public class Fox extends Animal
      */
     public Fox(boolean randomAge, Field field, Location location)
     {
-        super(field, location);
+        super(field, location, 0);
+        foodLevel = RABBIT_FOOD_VALUE;
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
-            foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
-        }
-        else {
-            age = 0;
-            foodLevel = RABBIT_FOOD_VALUE;
+            setAge(getRandom().nextInt(MAX_AGE));
+            foodLevel = getRandom().nextInt(RABBIT_FOOD_VALUE);
         }
     }
-    
+
+    /**
+     * verkrijg de maximum leeftijd van een dier
+     * @return int maximum age
+     */
+    @Override
+    protected int getMaxAge() {
+        return MAX_AGE;
+    }
+
+    /**
+     * verkrijg de minimum leeftijd om te broeden
+     * @return breeding age
+     */
+    @Override
+    protected int getBreedingAge() {
+        return BREEDING_AGE;
+    }
+
+    /**
+     * Verkrijg de maximale litter grootte
+     * @return max litter grootte
+     */
+    @Override
+    protected int getMaxLitterSize() {
+        return MAX_LITTER_SIZE;
+    }
+
+    /**
+     * verkrijg de minimum leeftijd om te broeden
+     * @return breeding age
+     */
+    @Override
+    protected double getBreedingProbability() {
+        return BREEDING_PROBABILITY;
+    }
+
     /**
      * This is what the fox does most of the time: it hunts for
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
-     * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
     public void act(List<Animal> newFoxes)
     {
-        age = incrementAge(age, this.MAX_AGE);
+        incrementAge();
         incrementHunger();
         if(isAlive()) {
             giveBirth(newFoxes);            
@@ -84,7 +106,7 @@ public class Fox extends Animal
             }
         }
     }
-    
+
     /**
      * Look for rabbits adjacent to the current location.
      * Only the first live rabbit is eaten.
@@ -128,20 +150,7 @@ public class Fox extends Animal
             newFoxes.add(young);
         }
     }
-        
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
-    private int breed()
-    {
-        int births = 0;
-        if(canBreed(BREEDING_AGE) && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
-    }
+
     /**
      * Make this fox more hungry. This could result in the fox's death.
      */
