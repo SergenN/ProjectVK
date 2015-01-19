@@ -128,6 +128,14 @@ public class Fox extends Animal
                     return where;
                 }
             }
+            if(animal instanceof Dodo) {
+                Dodo dodo = (Dodo) animal;
+                if(dodo.isAlive()) {
+                    dodo.setDead();
+                    foodLevel = RABBIT_FOOD_VALUE;
+                    return where;
+                }
+            }
         }
         return null;
     }

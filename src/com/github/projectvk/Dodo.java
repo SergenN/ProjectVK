@@ -79,7 +79,7 @@ public class Dodo extends Animal{
                 setLocation(newLocation);
             }
             else {
-                // Overcrowding.   xx
+                // Overcrowding.
                 setDead();
             }
         }

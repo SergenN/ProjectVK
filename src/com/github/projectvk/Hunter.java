@@ -108,6 +108,14 @@ public class Hunter implements Actor{
                     return where;
                 }
             }
+            if(animal instanceof Dodo){
+                Dodo dodo = (Dodo) animal;
+                if(dodo.isAlive()){
+                    dodo.setDead();
+                    moodLevel = HUNTER_MOOD;
+                    return where;
+                }
+            }
         }
         return null;
     }
@@ -131,6 +139,10 @@ public class Hunter implements Actor{
         getField().clear(location);
         location = null;
         setField(null);
+    }
+
+    public boolean isHome(){
+        return isHome;
     }
 
 }
