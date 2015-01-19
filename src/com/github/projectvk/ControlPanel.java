@@ -12,7 +12,7 @@ public class ControlPanel extends JPanel implements ActionListener{
 
     private Simulator simulator;
     private JLabel sim_kop, stat_kop;
-    private JButton plusEen, plusHonderd, longSim, survivorStat;
+    private JButton plusEen, plusHonderd, longSim, survivorStat, births,total;
     private int height;
 
     /**
@@ -45,7 +45,7 @@ public class ControlPanel extends JPanel implements ActionListener{
         plusEen.setBackground(new Color(114, 114, 114));
         plusEen.setForeground(Color.WHITE);
         plusEen.setFocusPainted(false);
-        plusEen.setFont(new Font("Helvetica", Font.PLAIN, 10));
+        plusEen.setFont(new Font("Helvetica", Font.PLAIN, 12));
         plusEen.addActionListener(this);
 
         // + 100 button
@@ -53,7 +53,7 @@ public class ControlPanel extends JPanel implements ActionListener{
         plusHonderd.setBackground(new Color(114, 114, 114));
         plusHonderd.setForeground(Color.WHITE);
         plusHonderd.setFocusPainted(false);
-        plusHonderd.setFont(new Font("Helvetica", Font.PLAIN, 10));
+        plusHonderd.setFont(new Font("Helvetica", Font.PLAIN, 12));
         plusHonderd.addActionListener(this);
 
         // Simuleer button
@@ -61,16 +61,32 @@ public class ControlPanel extends JPanel implements ActionListener{
         longSim.setBackground(new Color(114, 114, 114));
         longSim.setForeground(Color.WHITE);
         longSim.setFocusPainted(false);
-        longSim.setFont(new Font("Helvetica", Font.PLAIN, 10));
+        longSim.setFont(new Font("Helvetica", Font.PLAIN, 12));
         longSim.addActionListener(this);//Toevoegen actieListener
 
         // SurvivorStat button
-        survivorStat = new JButton("Survivors");
+        survivorStat = new JButton("Deaths");
         survivorStat.setBackground(new Color(99, 99, 99));
         survivorStat.setForeground(Color.WHITE);
         survivorStat.setFocusPainted(false);
-        survivorStat.setFont(new Font("Helvetica", Font.PLAIN, 10));
+        survivorStat.setFont(new Font("Helvetica", Font.PLAIN, 12));
         survivorStat.addActionListener(this);
+
+        // Births button
+        births = new JButton("Births");
+        births.setBackground(new Color(99, 99, 99));
+        births.setForeground(Color.WHITE);
+        births.setFocusPainted(false);
+        births.setFont(new Font("Helvetica", Font.PLAIN, 12));
+        births.addActionListener(this);
+
+        // Total button
+        total = new JButton("Quantity");
+        total.setBackground(new Color(99, 99, 99));
+        total.setForeground(Color.WHITE);
+        total.setFocusPainted(false);
+        total.setFont(new Font("Helvetica", Font.PLAIN, 12));
+        total.addActionListener(this);
 
         this.setLayout(null);
         add(sim_kop);
@@ -79,17 +95,21 @@ public class ControlPanel extends JPanel implements ActionListener{
         add(longSim);//Toevoegen aan jPanel
         add(stat_kop);
         add(survivorStat);
+        add(births);
+        add(total);
         add(thumb);
 
         thumb.setBounds(13, 195, 500, 500);
 
-        sim_kop.setBounds(10, 0, 80, 30);
-        plusEen.setBounds(10, 40, 80, 30);
-        plusHonderd.setBounds(10, 80, 80, 30);
-        longSim.setBounds(10, 120, 80, 30);//Positie en groote zetten
+        sim_kop.setBounds(10, 20, 80, 30);
+        plusEen.setBounds(10, 60, 80, 30);
+        plusHonderd.setBounds(10, 100, 80, 30);
+        longSim.setBounds(10, 140, 80, 30);//Positie en groote zetten
 
-        stat_kop.setBounds(10, 160, 80, 30);
-        survivorStat.setBounds(10, 200, 80, 30);
+        stat_kop.setBounds(10, 180, 80, 30);
+        survivorStat.setBounds(10, 220, 80, 30);
+        births.setBounds(10, 260, 80, 30);
+        total.setBounds(10, 300, 80, 30);
 
         setVisible(true);
 
