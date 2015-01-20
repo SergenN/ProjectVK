@@ -100,7 +100,7 @@ public class Rabbit extends Animal
             addBirth();
         }
     }
-        
+
     /**
      * Generate a number representing the number of births,
      * if it can breed.

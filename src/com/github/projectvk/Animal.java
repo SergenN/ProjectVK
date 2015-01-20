@@ -102,6 +102,7 @@ public abstract class Animal
 
     protected void addBirth()
     {
+
         births ++;
     }
 
