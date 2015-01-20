@@ -12,7 +12,7 @@ public class ControlPanel extends JPanel implements ActionListener{
 
     private Simulator simulator;
     private JLabel sim_kop, stat_kop;
-    private JButton plusEen, plusHonderd, longSim, survivorStat, births,total;
+    private JButton plusEen, plusHonderd, longSim, birthsStat, births,total;
     private int height;
 
     /**
@@ -65,12 +65,12 @@ public class ControlPanel extends JPanel implements ActionListener{
         longSim.addActionListener(this);//Toevoegen actieListener
 
         // SurvivorStat button
-        survivorStat = new JButton("Deaths");
-        survivorStat.setBackground(new Color(99, 99, 99));
-        survivorStat.setForeground(Color.WHITE);
-        survivorStat.setFocusPainted(false);
-        survivorStat.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        survivorStat.addActionListener(this);
+        birthsStat = new JButton("Births");
+        birthsStat.setBackground(new Color(99, 99, 99));
+        birthsStat.setForeground(Color.WHITE);
+        birthsStat.setFocusPainted(false);
+        birthsStat.setFont(new Font("Helvetica", Font.PLAIN, 12));
+        birthsStat.addActionListener(this);
 
         // Births button
         births = new JButton("Births");
@@ -94,7 +94,7 @@ public class ControlPanel extends JPanel implements ActionListener{
         add(plusHonderd);
         add(longSim);//Toevoegen aan jPanel
         add(stat_kop);
-        add(survivorStat);
+        add(birthsStat);
         add(births);
         add(total);
         add(thumb);
@@ -107,7 +107,7 @@ public class ControlPanel extends JPanel implements ActionListener{
         longSim.setBounds(10, 140, 80, 30);//Positie en groote zetten
 
         stat_kop.setBounds(10, 180, 80, 30);
-        survivorStat.setBounds(10, 220, 80, 30);
+        birthsStat.setBounds(10, 220, 80, 30);
         births.setBounds(10, 260, 80, 30);
         total.setBounds(10, 300, 80, 30);
 
@@ -143,8 +143,8 @@ public class ControlPanel extends JPanel implements ActionListener{
             simulator.runLongSimulation();
         }
 
-        if (e.getSource() == survivorStat) {
-            SurvivorsView sView = new SurvivorsView();
+        if (e.getSource() == birthsStat) {
+            BirthsGraphView sView = new BirthsGraphView();
         }
     }
 }

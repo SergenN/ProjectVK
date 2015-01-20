@@ -1,9 +1,6 @@
 package com.github.projectvk;
 
-import java.util.Random;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.awt.Color;
 
 /**
@@ -33,6 +30,11 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
+
+    //Statistics animals
+    private List<Double> deaths = new ArrayList<Double>();
+    public static List<Double> births = new ArrayList<Double>();
+    private List<Double> eating = new ArrayList<Double>();
 
     
     /**
@@ -96,8 +98,13 @@ public class Simulator
      * Iterate over the whole field updating the state of each
      * fox and rabbit.
      */
+
+
+
     public void simulateOneStep()
     {
+        int totalbirths = 0;
+
         step++;
 
         // Provide space for newborn animals.
@@ -106,10 +113,24 @@ public class Simulator
         for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
             Animal animal = it.next();
             animal.act(newAnimals);
+
+            // Add all the stats
+            totalbirths+=animal.getBirths();
+
             if(! animal.isAlive()) {
                 it.remove();
             }
         }
+
+        // Setup birth data for graph
+        if(births.size() >= 100) {
+            births.remove(0);
+            births.add((double)totalbirths);
+        } else {
+            births.add((double)totalbirths);
+        }
+
+        System.out.println(births);
                
         // Add the newly born foxes and rabbits to the main lists.
         animals.addAll(newAnimals);

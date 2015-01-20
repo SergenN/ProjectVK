@@ -17,25 +17,14 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class SurvivorsView implements ExampleChart {
+public class BirthsGraphView implements ExampleChart {
 
 
-    private List<Double> rabbitsList = new ArrayList<Double>();
+    private List<Double> rabbitsList = Simulator.births;
 
-    public SurvivorsView(){
-        allData();
+    public BirthsGraphView(){
         Chart chart = getChart();
         new SwingWrapper(chart).displayChart();
-    }
-
-    public void allData(){
-        for (int i = 0; i < 20; i++) {
-            rabbitsList.add(32.0);
-            rabbitsList.add(22.0);
-            rabbitsList.add(42.0);
-            rabbitsList.add(32.0);
-            rabbitsList.add(23.0);
-        }
     }
 
     public Chart getChart() {

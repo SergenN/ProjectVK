@@ -97,6 +97,7 @@ public class Rabbit extends Animal
             Location loc = free.remove(0);
             Rabbit young = new Rabbit(false, field, loc);
             newRabbits.add(young);
+            addBirth();
         }
     }
         

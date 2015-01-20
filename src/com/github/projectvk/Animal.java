@@ -1,5 +1,6 @@
 package com.github.projectvk;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,11 @@ public abstract class Animal
     private Field field;
     // The animal's position in the field.
     private Location location;
-    
+
+    // Stats
+    private int deaths;
+    private int births;
+
     /**
      * Create a new animal at location in field.
      * 
@@ -89,5 +94,23 @@ public abstract class Animal
     protected Field getField()
     {
         return field;
+    }
+
+    /**
+     * Add a birth of an animal
+    */
+
+    protected void addBirth()
+    {
+        births ++;
+    }
+
+    /**
+     * Return the animal's births.
+     * @return The animal's births.
+     */
+    protected int getBirths()
+    {
+        return births;
     }
 }
