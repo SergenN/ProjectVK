@@ -1,4 +1,7 @@
-package com.github.projectvk;
+package com.github.projectvk.model;
+
+import com.github.projectvk.Field;
+import com.github.projectvk.Location;
 
 import java.util.List;
 

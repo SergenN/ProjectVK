@@ -1,4 +1,7 @@
-package com.github.projectvk;
+package com.github.projectvk.model;
+
+import com.github.projectvk.Location;
+import com.github.projectvk.controller.Randomizer;
 
 import java.util.Collections;
 import java.util.LinkedList;

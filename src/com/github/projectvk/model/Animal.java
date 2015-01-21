@@ -1,6 +1,9 @@
-package com.github.projectvk;
+package com.github.projectvk.model;
 
-import java.util.ArrayList;
+import com.github.projectvk.Field;
+import com.github.projectvk.Location;
+import com.github.projectvk.Randomizer;
+
 import java.util.List;
 import java.util.Random;
 

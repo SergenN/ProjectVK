@@ -1,4 +1,4 @@
-package com.github.projectvk;
+package com.github.projectvk.controller;
 
 /**
  * Represent a location in a rectangular grid.

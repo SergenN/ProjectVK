@@ -1,10 +1,11 @@
-package com.github.projectvk;
+package com.github.projectvk.view;
 
 
 /**
  * Created by Thijs on 18-1-2015.
  */
 
+import com.github.projectvk.controller.Simulator;
 import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.ChartBuilder;
 import com.xeiam.xchart.StyleManager.ChartType;
@@ -12,8 +13,6 @@ import com.xeiam.xchart.StyleManager.LegendPosition;
 import com.xeiam.xchart.SwingWrapper;
 import com.xeiam.xchart.demo.charts.ExampleChart;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 

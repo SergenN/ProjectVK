@@ -1,10 +1,18 @@
-package com.github.projectvk;
+package com.github.projectvk.model;
+
+import com.github.projectvk.Actor;
+import com.github.projectvk.Field;
+import com.github.projectvk.Location;
+import com.github.projectvk.Randomizer;
+import com.github.projectvk.model.Dodo;
+import com.github.projectvk.model.Fox;
+import com.github.projectvk.model.Rabbit;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class Hunter implements Actor{
+public class Hunter implements Actor {
 
     // number of steps a hunter can go before his mood dropped so low he wants to go home.
     private static final int HUNTER_MOOD = 10;

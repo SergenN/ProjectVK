@@ -1,4 +1,4 @@
-package com.github.projectvk;
+package com.github.projectvk.view;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,23 +1,36 @@
-package com.github.projectvk;
+package com.github.projectvk.model;
+
+import com.github.projectvk.Field;
+import com.github.projectvk.Location;
 
 import java.util.List;
 
 /**
- * Created by Sergen on 19-1-2015.
+ * A simple model of a rabbit.
+ * Rabbits age, move, breed, and die.
  */
-public class Dodo extends Animal{
-
-    // The age at which a rabbit can start to breed.     xxxx
-    private static final int BREEDING_AGE = 7;
+public class Rabbit extends Animal
+{
+    // The age at which a rabbit can start to breed.
+    private static final int BREEDING_AGE = 5;
     // The age to which a rabbit can live.
-    private static final int MAX_AGE = 170;
+    private static final int MAX_AGE = 40;
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.10;
+    private static final double BREEDING_PROBABILITY = 0.12;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 3;
+    private static final int MAX_LITTER_SIZE = 4;
 
 
-    public Dodo(boolean randomAge, Field field, Location location){
+    /**
+     * Create a new rabbit. A rabbit may be created with age
+     * zero (a new born) or with a random age.
+     * 
+     * @param randomAge If true, the rabbit will have a random age.
+     * @param field The field currently occupied.
+     * @param location The location within the field.
+     */
+    public Rabbit(boolean randomAge, Field field, Location location)
+    {
         super(field, location, 0);
         if(randomAge) {
             setAge(getRandom().nextInt(getMaxAge()));
@@ -26,7 +39,6 @@ public class Dodo extends Animal{
 
     /**
      * verkrijg de maximum leeftijd van een dier
-     *
      * @return int maximum age
      */
     @Override
@@ -35,7 +47,8 @@ public class Dodo extends Animal{
     }
 
     /**
-     * @return
+     * verkrijg de minimum leeftijd om te broeden
+     * @return breeding age
      */
     @Override
     protected int getBreedingAge() {
@@ -44,7 +57,6 @@ public class Dodo extends Animal{
 
     /**
      * Verkrijg de maximale litter grootte
-     *
      * @return max litter grootte
      */
     @Override
@@ -54,7 +66,6 @@ public class Dodo extends Animal{
 
     /**
      * verkrijg de minimum leeftijd om te broeden
-     *
      * @return breeding age
      */
     @Override
@@ -63,16 +74,15 @@ public class Dodo extends Animal{
     }
 
     /**
-     * Make this animal act - that is: make it do
-     * whatever it wants/needs to do.
-     *
-     * @param newDodos A list to receive newly born animals.
+     * This is what the rabbit does most of the time - it runs 
+     * around. Sometimes it will breed or die of old age.
+     * @param newRabbits A list to return newly born rabbits.
      */
-    @Override
-    protected void act(List<Animal> newDodos) {
+    public void act(List<Animal> newRabbits)
+    {
         incrementAge();
         if(isAlive()) {
-            giveBirth(newDodos);
+            giveBirth(newRabbits);            
             // Try to move into a free location.
             Location newLocation = getField().freeAdjacentLocation(getLocation());
             if(newLocation != null) {
@@ -84,21 +94,25 @@ public class Dodo extends Animal{
             }
         }
     }
-
+    
     /**
-     * Check whether or not this dodo is to give birth at this step.
+     * Check whether or not this rabbit is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newDodos A list to return newly born dodos.
+     * @param newRabbits A list to return newly born rabbits.
      */
-    private void giveBirth(List<Animal> newDodos)
+    private void giveBirth(List<Animal> newRabbits)
     {
+        // New rabbits are born into adjacent locations.
+        // Get a list of adjacent free locations.
         Field field = getField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Dodo young = new Dodo(false, field, loc);
-            newDodos.add(young);
+            Rabbit young = new Rabbit(false, field, loc);
+            newRabbits.add(young);
+            addBirth();
         }
     }
+
 }

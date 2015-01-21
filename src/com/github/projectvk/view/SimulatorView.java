@@ -1,4 +1,9 @@
-package com.github.projectvk;
+package com.github.projectvk.view;
+
+import com.github.projectvk.ControlPanel;
+import com.github.projectvk.Field;
+import com.github.projectvk.FieldStats;
+import com.github.projectvk.FieldView;
 
 import javax.swing.*;
 import java.awt.*;

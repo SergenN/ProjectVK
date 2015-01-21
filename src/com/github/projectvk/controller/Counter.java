@@ -1,4 +1,4 @@
-package com.github.projectvk;
+package com.github.projectvk.controller;
 
 /**
  * Provide a counter for a participant in the simulation.
@@ -15,7 +15,7 @@ public class Counter
 
     /**
      * Provide a name for one of the simulation types.
-     * @param name  A name, e.g. "com.github.projectvk.Fox".
+     * @param name  A name, e.g. "com.github.projectvk.model.Fox".
      */
     public Counter(String name)
     {

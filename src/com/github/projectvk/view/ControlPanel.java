@@ -1,4 +1,7 @@
-package com.github.projectvk;
+package com.github.projectvk.view;
+
+import com.github.projectvk.controller.Simulator;
+import com.github.projectvk.view.BirthsGraphView;
 
 import javax.swing.*;
 import java.awt.*;
