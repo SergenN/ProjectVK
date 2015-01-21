@@ -97,9 +97,10 @@ public class Rabbit extends Animal
             Location loc = free.remove(0);
             Rabbit young = new Rabbit(false, field, loc);
             newRabbits.add(young);
+            addBirth();
         }
     }
-        
+
     /**
      * Generate a number representing the number of births,
      * if it can breed.
