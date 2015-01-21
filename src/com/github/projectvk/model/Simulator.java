@@ -1,6 +1,5 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.controller.ControlPanel;
 import com.github.projectvk.view.SimulatorView;
 
 import java.awt.*;
@@ -73,10 +72,11 @@ public class Simulator
         animals = new ArrayList<Animal>();
         actors = new ArrayList<Actor>();
         field = new Field(depth, width);
+
         //runner = new ThreadRunner(this);
 
         // Create a view of the state of each location in the field.
-        view = new SimulatorView(depth, width, new ControlPanel(depth/*, runner*/));
+        view = new SimulatorView(depth, width);
         view.setColor(Rabbit.class, new Color(0, 150, 136));
         view.setColor(Fox.class, new Color(81, 45, 168));
         view.setColor(Dodo.class, Color.green);
@@ -165,8 +165,6 @@ public class Simulator
         // Add the newly born foxes and rabbits to the main lists.
         actors.addAll(newActors);
         view.showStatus(step, field);
-
-
     }
         
     /**

@@ -10,7 +10,6 @@ import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.ChartBuilder;
 import com.xeiam.xchart.StyleManager.ChartType;
 import com.xeiam.xchart.StyleManager.LegendPosition;
-import com.xeiam.xchart.SwingWrapper;
 import com.xeiam.xchart.demo.charts.ExampleChart;
 
 import java.util.List;
@@ -22,8 +21,8 @@ public class BirthsGraphView implements ExampleChart {
     private List<Double> rabbitsList = Simulator.births;
 
     public BirthsGraphView(){
-        Chart chart = getChart();
-        new SwingWrapper(chart).displayChart();
+        /*Chart chart = getChart();
+        new SwingWrapper(chart).displayChart();*/
     }
 
     public Chart getChart() {

@@ -22,18 +22,17 @@ public class ControlPanel extends JPanel implements ActionListener{
      * Constructor voor het maken van de control panel
      *
      * @param height - Hoogte van de simulator
-     * @param runner - Threadrunner klasse
      */
-    public ControlPanel(int height/*, ThreadRunner runner*/) {
+    public ControlPanel(int height) {
         //setBackground(new Color(39, 39, 39));
         setBackground(new Color(33, 33, 33));
 
         ImageIcon icon = new ImageIcon("img\\fox.png");
         JLabel thumb = new JLabel();
         thumb.setIcon(icon);
-
         this.height = height;
-        runner = new ThreadRunner();
+        System.out.println("TEST");
+        this.runner = new ThreadRunner();
 
         sim_kop = new JLabel("Simulate");
         sim_kop.setForeground(new Color(132, 132, 132));
