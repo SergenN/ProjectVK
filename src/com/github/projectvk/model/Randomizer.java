@@ -1,4 +1,4 @@
-package com.github.projectvk.controller;
+package com.github.projectvk.model;
 
 import java.util.Random;
 
@@ -15,7 +15,7 @@ public class Randomizer
     private static final boolean useShared = true;
 
     /**
-     * Constructor for objects of class com.github.projectvk.controller.Randomizer
+     * Constructor for objects of class com.github.projectvk.model.Randomizer
      */
     public Randomizer()
     {

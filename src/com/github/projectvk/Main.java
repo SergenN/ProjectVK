@@ -1,6 +1,6 @@
 package com.github.projectvk;
 
-import com.github.projectvk.controller.Simulator;
+import com.github.projectvk.model.Simulator;
 
 public class Main {
 

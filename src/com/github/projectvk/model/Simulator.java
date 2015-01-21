@@ -1,7 +1,4 @@
-package com.github.projectvk.controller;
-
-import com.github.projectvk.*;
-import com.github.projectvk.model.*;
+package com.github.projectvk.model;
 
 import java.util.*;
 import java.awt.Color;

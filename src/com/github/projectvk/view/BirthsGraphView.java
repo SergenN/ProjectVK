@@ -5,7 +5,7 @@ package com.github.projectvk.view;
  * Created by Thijs on 18-1-2015.
  */
 
-import com.github.projectvk.controller.Simulator;
+import com.github.projectvk.model.Simulator;
 import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.ChartBuilder;
 import com.xeiam.xchart.StyleManager.ChartType;

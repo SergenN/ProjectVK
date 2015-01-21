@@ -1,4 +1,4 @@
-package com.github.projectvk.controller;
+package com.github.projectvk.model;
 
 /**
  * Provide a counter for a participant in the simulation.

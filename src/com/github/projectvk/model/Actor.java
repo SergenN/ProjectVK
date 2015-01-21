@@ -1,8 +1,5 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.model.Field;
-import com.github.projectvk.controller.Location;
-
 import java.util.List;
 
 public interface Actor {

@@ -1,7 +1,4 @@
-package com.github.projectvk.controller;
-
-import com.github.projectvk.controller.Counter;
-import com.github.projectvk.model.Field;
+package com.github.projectvk.model;
 
 import java.util.HashMap;
 
@@ -18,7 +15,7 @@ public class FieldStats
     private boolean countsValid;
 
     /**
-     * Construct a com.github.projectvk.controller.FieldStats object.
+     * Construct a com.github.projectvk.model.FieldStats object.
      */
     public FieldStats()
     {

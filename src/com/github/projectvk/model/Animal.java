@@ -1,8 +1,5 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.controller.Location;
-import com.github.projectvk.controller.Randomizer;
-
 import java.util.List;
 import java.util.Random;
 
