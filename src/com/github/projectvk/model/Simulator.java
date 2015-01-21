@@ -3,6 +3,9 @@ package com.github.projectvk.model;
 import java.util.*;
 import java.awt.Color;
 
+import com.github.projectvk.controller.ControlPanel;
+import com.github.projectvk.view.SimulatorView;
+
 /**
  * A simple predator-prey simulator, based on a rectangular field
  * containing rabbits and foxes.
@@ -71,8 +74,8 @@ public class Simulator
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width, new ControlPanel(depth, this));
-        view.setColor(Rabbit.class, new Color(0, 150, 136)));
-        view.setColor(Fox.class, Color(81, 45, 168));
+        view.setColor(Rabbit.class, new Color(0, 150, 136));
+        view.setColor(Fox.class, new Color(81, 45, 168));
         view.setColor(Dodo.class, Color.green);
         view.setColor(Hunter.class, Color.gray);
         // Setup a valid starting point.
