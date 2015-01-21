@@ -9,9 +9,6 @@ import java.awt.Color;
 /**
  * A simple predator-prey simulator, based on a rectangular field
  * containing rabbits and foxes.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
  */
 public class Simulator
 {
@@ -23,10 +20,16 @@ public class Simulator
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
+    private static final double RABBIT_CREATION_PROBABILITY = 0.08;
+    // The probability that a dodo will spawn in any given grid position
+    private static final double DODO_CREATION_PROBABILITY = 0.03;
+    // The probability that a hunter will spawn in any given grid position
+    private static final double HUNTER_CREATION_PROBABILITY = 0.05;
 
     // List of animals in the field.
     private List<Animal> animals;
+    //List of actors in the field.
+    private List<Actor> actors;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -58,13 +61,15 @@ public class Simulator
         }
         
         animals = new ArrayList<Animal>();
+        actors = new ArrayList<Actor>();
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width, new ControlPanel(depth, this));
         view.setColor(Rabbit.class, Color.ORANGE);
         view.setColor(Fox.class, Color.BLUE);
-        
+        view.setColor(Dodo.class, Color.green);
+        view.setColor(Hunter.class, Color.gray);
         // Setup a valid starting point.
         reset();
 
@@ -102,7 +107,7 @@ public class Simulator
 
         // Provide space for newborn animals.
         List<Animal> newAnimals = new ArrayList<Animal>();        
-        // Let all rabbits act.
+        // Let all rabbits/foxes act.
         for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
             Animal animal = it.next();
             animal.act(newAnimals);
@@ -114,6 +119,21 @@ public class Simulator
         // Add the newly born foxes and rabbits to the main lists.
         animals.addAll(newAnimals);
 
+        List<Actor> newActors = new ArrayList<Actor>();
+        // Let all hunters act.
+        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+            Actor actor = it.next();
+            actor.act(newActors);
+            Hunter hunter = (Hunter)actor;
+            if(hunter.isHome()) {
+                it.remove();
+            }
+        }
+
+        //TODO check if area is full of rabbits and make the hunters return.
+
+        // Add the newly born foxes and rabbits to the main lists.
+        actors.addAll(newActors);
         view.showStatus(step, field);
     }
         
@@ -124,6 +144,7 @@ public class Simulator
     {
         step = 0;
         animals.clear();
+        actors.clear();
         populate();
         
         // Show the starting state in the view.
@@ -148,6 +169,17 @@ public class Simulator
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location);
                     animals.add(rabbit);
+                }
+
+                else if(rand.nextDouble() <= DODO_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Dodo dodo = new Dodo(true, field, location);
+                    animals.add(dodo);
+                }
+                else if(rand.nextDouble() <= HUNTER_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Hunter hunter = new Hunter(true, field, location);
+                    actors.add(hunter);
                 }
                 // else leave the location empty.
             }

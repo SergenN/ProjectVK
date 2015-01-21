@@ -2,9 +2,6 @@ package com.github.projectvk;
 
 /**
  * Represent a location in a rectangular grid.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
  */
 public class Location
 {

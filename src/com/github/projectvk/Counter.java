@@ -5,9 +5,6 @@ package com.github.projectvk;
  * This includes an identifying string and a count of how
  * many participants of this type currently exist within 
  * the simulation.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
  */
 public class Counter
 {

@@ -11,9 +11,6 @@ import java.util.Map;
  * representing its contents. It uses a default background color.
  * Colors for each type of species can be defined using the
  * setColor method.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
  */
 public class SimulatorView extends JFrame
 {
