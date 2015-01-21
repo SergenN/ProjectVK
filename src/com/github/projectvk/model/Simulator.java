@@ -3,10 +3,8 @@ package com.github.projectvk.model;
 import com.github.projectvk.view.SimulatorView;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -42,11 +40,10 @@ public class Simulator
     //private ThreadRunner runner;
 
     //Statistics animals
-    private List<Double> deaths = new ArrayList<Double>();
-    public static List<Double> births = new ArrayList<Double>();
-    private List<Double> eating = new ArrayList<Double>();
 
-    
+    private HashMap<String, Integer> births = new HashMap<String, Integer>();
+
+
     /**
      * Construct a simulation field with default size.
      */
@@ -117,8 +114,6 @@ public class Simulator
 
     public void simulateOneStep()
     {
-        int totalbirths = 0;
-
         step++;
 
         // Provide space for newborn animals.
@@ -128,24 +123,15 @@ public class Simulator
             Animal animal = it.next();
             animal.act(newAnimals);
 
-            // Add all the stats
-            totalbirths+=animal.getBirths();
-
             if(! animal.isAlive()) {
                 it.remove();
             }
         }
 
-        // Setup birth data for graph
-        if(births.size() >= 100) {
-            births.remove(0);
-            births.add((double)totalbirths);
-        } else {
-            births.add((double)totalbirths);
-        }
+        Statistics.updateData();
+        System.out.println(Statistics.fox_birth_history);
 
-        System.out.println(births);
-               
+
         // Add the newly born foxes and rabbits to the main lists.
         animals.addAll(newAnimals);
 

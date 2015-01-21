@@ -99,6 +99,7 @@ public class Fox extends Animal
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
+                Statistics.addData(Statistics.fox_steps, 1);
             }
             else {
                 // Overcrowding.
@@ -157,6 +158,12 @@ public class Fox extends Animal
             Fox young = new Fox(false, field, loc);
             newFoxes.add(young);
         }
+        Statistics.addData(Statistics.fox_birth, 1);
+    }
+
+    public void setDead(){
+        super.setDead();
+        Statistics.addData(Statistics.fox_death, 1);
     }
 
     /**

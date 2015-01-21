@@ -9,7 +9,7 @@ public class ThreadRunner implements Runnable{
 
     private int steps;
     private boolean inf;
-    private final long delay = 100;
+    private final long delay = 0;
     private boolean running;
 
     public ThreadRunner(){

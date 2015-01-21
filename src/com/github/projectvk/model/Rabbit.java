@@ -1,5 +1,8 @@
 package com.github.projectvk.model;
 
+import com.github.projectvk.view.BirthsGraphView;
+
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -84,6 +87,7 @@ public class Rabbit extends Animal
             Location newLocation = getField().freeAdjacentLocation(getLocation());
             if(newLocation != null) {
                 setLocation(newLocation);
+                Statistics.addData(Statistics.rabbit_steps, 1);
             }
             else {
                 // Overcrowding.
@@ -108,8 +112,13 @@ public class Rabbit extends Animal
             Location loc = free.remove(0);
             Rabbit young = new Rabbit(false, field, loc);
             newRabbits.add(young);
-            addBirth();
         }
+        Statistics.addData(Statistics.rabbit_birth, 1);
+    }
+
+    public void setDead(){
+        super.setDead();
+        Statistics.addData(Statistics.rabbit_death, 1);
     }
 
 }
