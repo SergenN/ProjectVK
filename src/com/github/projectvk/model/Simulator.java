@@ -1,10 +1,14 @@
 package com.github.projectvk.model;
 
-import java.util.*;
-import java.awt.Color;
-
 import com.github.projectvk.controller.ControlPanel;
+import com.github.projectvk.runner.ThreadRunner;
 import com.github.projectvk.view.SimulatorView;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -39,6 +43,8 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
+    //Init the thread runner needed for ControlPanel class
+    private ThreadRunner runner;
 
     //Statistics animals
     private List<Double> deaths = new ArrayList<Double>();
@@ -71,9 +77,10 @@ public class Simulator
         animals = new ArrayList<Animal>();
         actors = new ArrayList<Actor>();
         field = new Field(depth, width);
+        runner = new ThreadRunner(this);
 
         // Create a view of the state of each location in the field.
-        view = new SimulatorView(depth, width, new ControlPanel(depth, this));
+        view = new SimulatorView(depth, width, new ControlPanel(depth, runner));
         view.setColor(Rabbit.class, new Color(0, 150, 136));
         view.setColor(Fox.class, new Color(81, 45, 168));
         view.setColor(Dodo.class, Color.green);

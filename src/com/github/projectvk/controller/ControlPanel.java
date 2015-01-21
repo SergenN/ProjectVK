@@ -1,6 +1,6 @@
 package com.github.projectvk.controller;
 
-import com.github.projectvk.model.Simulator;
+import com.github.projectvk.runner.ThreadRunner;
 import com.github.projectvk.view.BirthsGraphView;
 
 import javax.swing.*;
@@ -13,7 +13,7 @@ public class ControlPanel extends JPanel implements ActionListener{
 
     private final int GRID_VIEW_SCALING_FACTOR = 6;
 
-    private Simulator simulator;
+    private ThreadRunner runner;
     private JLabel sim_kop, stat_kop;
     private JButton plusEen, plusHonderd, longSim, birthsStat, births,total;
     private int height;
@@ -22,9 +22,9 @@ public class ControlPanel extends JPanel implements ActionListener{
      * Constructor voor het maken van de control panel
      *
      * @param height - Hoogte van de simulator
-     * @param simulator - Simulator klasse
+     * @param runner - Threadrunner klasse
      */
-    public ControlPanel(int height, Simulator simulator) {
+    public ControlPanel(int height, ThreadRunner runner) {
         //setBackground(new Color(39, 39, 39));
         setBackground(new Color(33, 33, 33));
 
@@ -33,7 +33,7 @@ public class ControlPanel extends JPanel implements ActionListener{
         thumb.setIcon(icon);
 
         this.height = height;
-        this.simulator = simulator;
+        this.runner = runner;
 
         sim_kop = new JLabel("Simulate");
         sim_kop.setForeground(new Color(132, 132, 132));
@@ -135,15 +135,15 @@ public class ControlPanel extends JPanel implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == plusEen) {
-            simulator.simulateOneStep();
+            runner.runSimulate(1);
         }
 
         if (e.getSource() == plusHonderd) {
-            simulator.simulate(100);
+            runner.runSimulate(100);
         }
 
         if (e.getSource() == longSim) {
-            simulator.runLongSimulation();
+            runner.runSimulate(1000);
         }
 
         if (e.getSource() == birthsStat) {
