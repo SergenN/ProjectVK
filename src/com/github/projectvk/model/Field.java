@@ -1,12 +1,9 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.Location;
+import com.github.projectvk.controller.Location;
 import com.github.projectvk.controller.Randomizer;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Represent a rectangular grid of field positions.

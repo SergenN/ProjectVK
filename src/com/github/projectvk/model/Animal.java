@@ -1,8 +1,7 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.Field;
-import com.github.projectvk.Location;
-import com.github.projectvk.Randomizer;
+import com.github.projectvk.controller.Location;
+import com.github.projectvk.controller.Randomizer;
 
 import java.util.List;
 import java.util.Random;
@@ -185,7 +184,6 @@ public abstract class Animal
             births = getRandom().nextInt(getMaxLitterSize()) + 1;
         }
         return births;
-        return field;
     }
 
     /**

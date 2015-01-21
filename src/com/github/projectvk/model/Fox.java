@@ -1,9 +1,9 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.Dodo;
-import com.github.projectvk.Field;
-import com.github.projectvk.Location;
-import com.github.projectvk.Rabbit;
+import com.github.projectvk.model.Dodo;
+import com.github.projectvk.model.Field;
+import com.github.projectvk.controller.Location;
+import com.github.projectvk.model.Rabbit;
 
 import java.util.Iterator;
 import java.util.List;

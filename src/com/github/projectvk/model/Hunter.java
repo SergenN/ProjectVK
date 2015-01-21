@@ -1,12 +1,7 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.Actor;
-import com.github.projectvk.Field;
-import com.github.projectvk.Location;
-import com.github.projectvk.Randomizer;
-import com.github.projectvk.model.Dodo;
-import com.github.projectvk.model.Fox;
-import com.github.projectvk.model.Rabbit;
+import com.github.projectvk.controller.Location;
+import com.github.projectvk.controller.Randomizer;
 
 import java.util.Iterator;
 import java.util.List;

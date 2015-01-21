@@ -1,10 +1,18 @@
 package com.github.projectvk;
 
+import com.github.projectvk.controller.Simulator;
+
 public class Main {
 
+    private Simulator simulator;
+
     public static void main(String[] args){
-        Simulator simulator = new Simulator();
-        //BirthsGraphView sView = new BirthsGraphView();
+        Main main = new Main();
+        main.simulator = new Simulator();
+    }
+
+    public Simulator getSimulator(){
+        return simulator;
     }
 
 }
