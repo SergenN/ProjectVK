@@ -1,5 +1,6 @@
 package com.github.projectvk.runner;
 
+import com.github.projectvk.Main;
 import com.github.projectvk.model.Simulator;
 
 /**
@@ -11,18 +12,22 @@ public class ThreadRunner implements Runnable{
     private boolean inf;
     private Simulator sim;
     private final long delay = 500;
+    private boolean running;
 
-    public ThreadRunner(Simulator sim){
+    public ThreadRunner(){
         steps = 0;
         inf = false;
-        this.sim = sim;
+        running = false;
+        sim = Main.getSimulator();
     }
 
     public void runSimulate(int steps){
+        System.out.println(steps + "," + this.steps + "," + Thread.currentThread().isAlive() + "," + running);
         this.steps += steps;
         if(this.steps > 0) {
-            if (!Thread.currentThread().isAlive()) {
-                new Thread(this).run();
+            if (!running && Thread.currentThread().isAlive()) {
+                this.run();
+                //new Thread(this).run();
             }
         }
     }
@@ -30,8 +35,9 @@ public class ThreadRunner implements Runnable{
     public void runSimulate(boolean infinite){
         this.inf = infinite;
         if(infinite){
-            if(!Thread.currentThread().isAlive()){
-                new Thread(this).run();
+            if(!running && Thread.currentThread().isAlive()){
+                this.run();
+                //new Thread(this).run();
             }
         }
     }
@@ -39,6 +45,7 @@ public class ThreadRunner implements Runnable{
     public void stopSimulate(){
         inf = false;
         steps = 0;
+        running = false;
     }
 
     private void decrementSteps(){
@@ -50,14 +57,16 @@ public class ThreadRunner implements Runnable{
 
     @Override
     public void run() {
-        if(steps > 0 || inf){
+        running = true;
+        while (running && (steps > 0 || inf)) {
             sim.simulateOneStep();
             decrementSteps();
+            try {
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        try {
-            Thread.sleep(delay);
-        } catch (InterruptedException e){
-            e.printStackTrace();
-        }
+        running = false;
     }
 }

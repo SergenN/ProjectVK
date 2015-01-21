@@ -4,14 +4,14 @@ import com.github.projectvk.model.Simulator;
 
 public class Main {
 
-    private Simulator simulator;
+    private static Simulator simulator;
 
     public static void main(String[] args){
-        Main main = new Main();
-        main.simulator = new Simulator();
+        //Main main = new Main();
+        simulator = new Simulator();
     }
 
-    public Simulator getSimulator(){
+    public static Simulator getSimulator(){
         return simulator;
     }
 
