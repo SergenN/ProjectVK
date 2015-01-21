@@ -80,7 +80,7 @@ public class Simulator
         view.setColor(Rabbit.class, new Color(0, 150, 136));
         view.setColor(Fox.class, new Color(81, 45, 168));
         view.setColor(Dodo.class, Color.green);
-        view.setColor(Hunter.class, Color.gray);
+        view.setColor(Hunter.class, Color.red);
         // Setup a valid starting point.
         reset();
 
