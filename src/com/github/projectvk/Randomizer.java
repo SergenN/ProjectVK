@@ -4,9 +4,6 @@ import java.util.Random;
 
 /**
  * Provide control over the randomization of the simulation.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
  */
 public class Randomizer
 {
