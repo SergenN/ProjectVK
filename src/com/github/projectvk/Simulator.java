@@ -78,6 +78,7 @@ public class Simulator
      */
     public void runLongSimulation()
     {
+
         simulate(4000);
     }
     
@@ -136,6 +137,8 @@ public class Simulator
         animals.addAll(newAnimals);
 
         view.showStatus(step, field);
+
+
     }
         
     /**
