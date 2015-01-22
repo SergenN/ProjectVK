@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
-public class ControlPanel extends JPanel implements ActionListener{
+public class ControlPanel extends JPanel{
 
     private final int GRID_VIEW_SCALING_FACTOR = 6;
 
@@ -20,12 +20,16 @@ public class ControlPanel extends JPanel implements ActionListener{
     private int height;
     private Simulator simulator;
 
-    public void buttonStyle(JButton button){
+    public void buttonStyle(JButton button, String command){
         button.setBackground(new Color(114, 114, 114));
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
         button.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        button.addActionListener(this);
+        button.setActionCommand(command);
+
+
+        button.addActionListener(simulator.getButtonHandler());
+
         add(button);
     }
 
@@ -60,31 +64,47 @@ public class ControlPanel extends JPanel implements ActionListener{
         stat_kop = new JLabel("Statistics");
         headerStyle(stat_kop);
 
-        // BUTTONS
+
+
+
+        /*
+         *  Buttons
+         */
+
+
         // + 1 button
         plusEen = new JButton("+1");
-        buttonStyle(plusEen);
+        buttonStyle(plusEen, "plusEen");
+
+
         // + 100 button
         plusHonderd = new JButton("+100");
-        buttonStyle(plusHonderd);
+        buttonStyle(plusHonderd, "plusHonderd");
+
         // Stop button
         stop = new JButton("P");
-        buttonStyle(stop);
+        buttonStyle(stop, "stop");
+
         // Start button
         start = new JButton("S");
-        buttonStyle(start);
+        buttonStyle(start, "start");
+
         // Simuleer button
         longSim = new JButton("+1000");
-        buttonStyle(longSim);
+        buttonStyle(longSim, "longSim");
+
         // Births button
         birthsStat = new JButton("Births");
-        buttonStyle(birthsStat);
+        buttonStyle(birthsStat, "birthsStat");
+
         // Deaths button
         deathsStat = new JButton("Deaths");
-        buttonStyle(deathsStat);
+        buttonStyle(deathsStat, "deathsStat");
+
         // Steps button
         stepsStat = new JButton("Quantity");
-        buttonStyle(stepsStat);
+        buttonStyle(stepsStat, "stepsStat");
+
 
         //Positie en groote zetten
         thumb.setBounds(13, 195, 500, 500);
@@ -113,50 +133,10 @@ public class ControlPanel extends JPanel implements ActionListener{
         return new Dimension(100, height * GRID_VIEW_SCALING_FACTOR);
     }
 
+
     /**
-     * vang een actie(button click) op en process
-     *
-     * @param e - de actie
+     * Disables buttons while running
      */
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == plusEen) {
-            simulator.start(1);
-            disableButton();
-        }
-
-        if (e.getSource() == plusHonderd) {
-            simulator.start(100);
-            disableButton();
-        }
-
-        if (e.getSource() == longSim) {
-            simulator.start(1000);
-            disableButton();
-        }
-
-        if (e.getSource() == birthsStat) {
-            new BirthsGraphView();
-        }
-
-        if(e.getSource() == deathsStat){
-            new DeathsGraphView();
-        }
-
-        if(e.getSource() == stepsStat){
-            new StepsGraphView();
-        }
-
-        if(e.getSource() == stop){
-            simulator.start();
-            disableButton();
-        }
-
-        if(e.getSource() == start){
-            simulator.stop();
-            disableButton();
-        }
-    }
-
     public void disableButton (){
         if(simulator.isRunning()) {
             plusEen.setEnabled(false);

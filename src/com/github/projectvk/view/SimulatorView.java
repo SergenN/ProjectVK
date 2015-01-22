@@ -1,9 +1,6 @@
 package com.github.projectvk.view;
 
-import com.github.projectvk.controller.ControlPanel;
-import com.github.projectvk.model.Field;
-import com.github.projectvk.model.FieldStats;
-import com.github.projectvk.model.Simulator;
+import com.github.projectvk.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,6 +71,15 @@ public class SimulatorView extends JFrame
         //zichtbaar maken
         setVisible(true);
         setResizable(false);
+
+        this.setColor(Rabbit.class, new Color(76, 114, 255));
+        this.setColor(Fox.class, new Color(255, 196, 76));
+        this.setColor(Dodo.class, new Color(166, 76, 255));
+        this.setColor(Hunter.class, new Color(76, 219, 76));
+
+
+
+
     }
 
     public ControlPanel getControlPanel(){

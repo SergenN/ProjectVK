@@ -1,6 +1,8 @@
 package com.github.projectvk.model;
 
 import com.github.projectvk.Main;
+import com.github.projectvk.controller.ButtonHandler;
+import com.github.projectvk.controller.Controller;
 import com.github.projectvk.view.SimulatorView;
 
 import java.awt.*;
@@ -43,6 +45,11 @@ public class Simulator implements Runnable
     private boolean infinite = false;
     private int toStep = 0;
 
+    // Buttonhandler to catch events buttons create
+    private ButtonHandler buttonHandler;
+
+    private Controller controller;
+
     /**
      * Construct a simulation field with default size.
      */
@@ -68,16 +75,28 @@ public class Simulator implements Runnable
         actors = new ArrayList<Actor>();
         field = new Field(depth, width);
 
+        controller = new Controller(this/*, view.getControlPanel()*/);
+        buttonHandler = new ButtonHandler(controller);
+        System.out.println(buttonHandler.toString());
+
+        view = new SimulatorView(depth, width, this);
+
         //runner = new ThreadRunner(this);
 
         // Create a view of the state of each location in the field.
-        view = new SimulatorView(depth, width, this);
-        view.setColor(Rabbit.class, new Color(76, 114, 255));
-        view.setColor(Fox.class, new Color(255, 196, 76));
-        view.setColor(Dodo.class, new Color(166, 76, 255));
-        view.setColor(Hunter.class, new Color(76, 219, 76));
+
+
         // Setup a valid starting point.
         reset();
+    }
+
+    /**
+     * Returns Buttonhandler
+     * @return
+     */
+    public ButtonHandler getButtonHandler() {
+
+        return buttonHandler;
     }
     
     /**
@@ -225,4 +244,6 @@ public class Simulator implements Runnable
             }
         }
     }
+
+
 }
