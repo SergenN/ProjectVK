@@ -35,6 +35,8 @@ public class SimulatorView extends JFrame
     // A statistics object computing and storing simulation information
     private FieldStats stats;
 
+    private ControlPanel controlPanel;
+
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
@@ -42,7 +44,7 @@ public class SimulatorView extends JFrame
      */
     public SimulatorView(int height, int width, Simulator simulator)
     {
-        ControlPanel controlPanel = new ControlPanel(height, simulator);
+        controlPanel = new ControlPanel(height, simulator);
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();
 
@@ -71,6 +73,10 @@ public class SimulatorView extends JFrame
         setLocationRelativeTo(null);
         //zichtbaar maken
         setVisible(true);
+    }
+
+    public ControlPanel getControlPanel(){
+        return controlPanel;
     }
     
     /**
