@@ -1,5 +1,6 @@
 package com.github.projectvk.model;
 
+import com.github.projectvk.Main;
 import com.github.projectvk.view.SimulatorView;
 
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.util.List;
  * A simple predator-prey simulator, based on a rectangular field
  * containing rabbits and foxes.
  */
-public class Simulator
+public class Simulator implements Runnable
 {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
@@ -36,7 +37,9 @@ public class Simulator
     private SimulatorView view;
     //Init the thread runner needed for ControlPanel class
     //private ThreadRunner runner;
-        
+
+    private boolean running = false;
+
     /**
      * Construct a simulation field with default size.
      */
@@ -65,7 +68,7 @@ public class Simulator
         //runner = new ThreadRunner(this);
 
         // Create a view of the state of each location in the field.
-        view = new SimulatorView(depth, width);
+        view = new SimulatorView(depth, width, this);
         view.setColor(Rabbit.class, new Color(0, 150, 136));
         view.setColor(Fox.class, new Color(81, 45, 168));
         view.setColor(Dodo.class, new Color(168, 0, 29));
@@ -165,5 +168,31 @@ public class Simulator
                 // else leave the location empty.
             }
         }
+    }
+
+    /**
+     * Start a new thread that runs the run method
+     */
+    public void start(){
+        running = true;
+        new Thread(this).start();
+    }
+
+    public void stop(){
+        running = false;
+    }
+
+    @Override
+    public void run() {
+        while (running) {
+                Main.getSimulator().simulateOneStep();
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        running = false;
     }
 }

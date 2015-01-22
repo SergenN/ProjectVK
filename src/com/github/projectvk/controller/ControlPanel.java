@@ -1,6 +1,6 @@
 package com.github.projectvk.controller;
 
-import com.github.projectvk.runner.ThreadRunner;
+import com.github.projectvk.model.Simulator;
 import com.github.projectvk.view.BirthsGraphView;
 import com.github.projectvk.view.DeathsGraphView;
 import com.github.projectvk.view.StepsGraphView;
@@ -15,17 +15,17 @@ public class ControlPanel extends JPanel implements ActionListener{
 
     private final int GRID_VIEW_SCALING_FACTOR = 6;
 
-    private ThreadRunner runner;
     private JLabel sim_kop, stat_kop;
     private JButton plusEen, plusHonderd, longSim, birthsStat, deathsStat,stepsStat, start, stop;
     private int height;
+    private Simulator simulator;
 
     /**
      * Constructor voor het maken van de control panel
      *
      * @param height - Hoogte van de simulator
      */
-    public ControlPanel(int height, ThreadRunner runner) {
+    public ControlPanel(int height, Simulator simulator) {
         setBackground(new Color(33, 33, 33));
 
         ImageIcon icon = new ImageIcon("img\\fox.png");
@@ -33,7 +33,7 @@ public class ControlPanel extends JPanel implements ActionListener{
         thumb.setIcon(icon);
         this.height = height;
         System.out.println("TEST");
-        this.runner = runner;
+        this.simulator = simulator;
 
         sim_kop = new JLabel("Simulate");
         sim_kop.setForeground(new Color(132, 132, 132));
@@ -157,15 +157,15 @@ public class ControlPanel extends JPanel implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == plusEen) {
-            runner.runSimulate(1);
+            simulator.simulateOneStep();
         }
 
         if (e.getSource() == plusHonderd) {
-            runner.runSimulate(100);
+            simulator.simulateOneStep();
         }
 
         if (e.getSource() == longSim) {
-            runner.runSimulate(1000);
+            simulator.simulateOneStep();
         }
 
         if (e.getSource() == birthsStat) {
@@ -181,11 +181,11 @@ public class ControlPanel extends JPanel implements ActionListener{
         }
 
         if(e.getSource() == stop){
-
+            simulator.start();
         }
 
         if(e.getSource() == start){
-
+            simulator.stop();
         }
     }
 }
