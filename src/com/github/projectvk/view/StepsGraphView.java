@@ -13,9 +13,9 @@ import com.xeiam.xchart.StyleManager.LegendPosition;
 import com.xeiam.xchart.SwingWrapper;
 import com.xeiam.xchart.demo.charts.ExampleChart;
 
-public class BirthsGraphView implements ExampleChart {
+public class StepsGraphView implements ExampleChart {
 
-    public BirthsGraphView(){
+    public StepsGraphView(){
         Chart chart = getChart();
         new SwingWrapper(chart).displayChart();
     }
@@ -23,10 +23,9 @@ public class BirthsGraphView implements ExampleChart {
     public Chart getChart() {
 
         // Retrieve all data from the Simulator class
-        double[] foxes = Statistics.convertToGraphData(Statistics.fox_birth_history);
-        double[] rabbits = Statistics.convertToGraphData(Statistics.rabbit_birth_history);
-        double[] dodos = Statistics.convertToGraphData(Statistics.dodo_birth_history);
-
+        double[] foxes = Statistics.convertToGraphData(Statistics.fox_steps_history);
+        double[] rabbits = Statistics.convertToGraphData(Statistics.rabbit_steps_history);
+        double[] dodos = Statistics.convertToGraphData(Statistics.dodo_steps_history);
 
         // Put the turn steps in a double array
         double[] turns = new double[foxes.length];
@@ -35,7 +34,7 @@ public class BirthsGraphView implements ExampleChart {
         }
 
         // Create Chart
-        Chart chart = new ChartBuilder().chartType(ChartType.Line).width(600).height(400).title(getClass().getSimpleName()).xAxisTitle("Stap").yAxisTitle("Aantallen").build();
+        Chart chart = new ChartBuilder().chartType(ChartType.Scatter).width(600).height(400).title(getClass().getSimpleName()).xAxisTitle("Stap").yAxisTitle("Aantallen").build();
         chart.addSeries("Rabbits", turns, rabbits);
         chart.addSeries("Foxes", turns, foxes);
         chart.addSeries("Dodo", turns, dodos);

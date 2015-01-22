@@ -1,7 +1,6 @@
 package com.github.projectvk.runner;
 
 import com.github.projectvk.Main;
-import com.github.projectvk.model.Simulator;
 
 /**
  * Created by Sergen on 21-1-2015.
@@ -10,15 +9,13 @@ public class ThreadRunner implements Runnable{
 
     private int steps;
     private boolean inf;
-    private Simulator sim;
-    private final long delay = 500;
+    private final long delay = 0;
     private boolean running;
 
     public ThreadRunner(){
         steps = 0;
         inf = false;
         running = false;
-        sim = Main.getSimulator();
     }
 
     public void runSimulate(int steps){
@@ -26,8 +23,7 @@ public class ThreadRunner implements Runnable{
         this.steps += steps;
         if(this.steps > 0) {
             if (!running && Thread.currentThread().isAlive()) {
-                this.run();
-                //new Thread(this).run();
+                new Thread(this).run();
             }
         }
     }
@@ -36,8 +32,7 @@ public class ThreadRunner implements Runnable{
         this.inf = infinite;
         if(infinite){
             if(!running && Thread.currentThread().isAlive()){
-                this.run();
-                //new Thread(this).run();
+                new Thread(this).run();
             }
         }
     }
@@ -59,7 +54,7 @@ public class ThreadRunner implements Runnable{
     public void run() {
         running = true;
         while (running && (steps > 0 || inf)) {
-            sim.simulateOneStep();
+            Main.getSimulator().simulateOneStep();
             decrementSteps();
             try {
                 Thread.sleep(delay);

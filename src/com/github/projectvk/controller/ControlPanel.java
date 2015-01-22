@@ -2,6 +2,8 @@ package com.github.projectvk.controller;
 
 import com.github.projectvk.runner.ThreadRunner;
 import com.github.projectvk.view.BirthsGraphView;
+import com.github.projectvk.view.DeathsGraphView;
+import com.github.projectvk.view.StepsGraphView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,25 +17,24 @@ public class ControlPanel extends JPanel implements ActionListener{
 
     private ThreadRunner runner;
     private JLabel sim_kop, stat_kop;
-    private JButton plusEen, plusHonderd, longSim, birthsStat, births,total;
+    private JButton plusEen, plusHonderd, longSim, birthsStat, deathsStat,stepsStat;
     private int height;
 
     /**
      * Constructor voor het maken van de control panel
      *
      * @param height - Hoogte van de simulator
-     * @param runner - Threadrunner klasse
      */
-    public ControlPanel(int height/*, ThreadRunner runner*/) {
+    public ControlPanel(int height) {
         //setBackground(new Color(39, 39, 39));
         setBackground(new Color(33, 33, 33));
 
         ImageIcon icon = new ImageIcon("img\\fox.png");
         JLabel thumb = new JLabel();
         thumb.setIcon(icon);
-
         this.height = height;
-        runner = new ThreadRunner();
+        System.out.println("TEST");
+        this.runner = new ThreadRunner();
 
         sim_kop = new JLabel("Simulate");
         sim_kop.setForeground(new Color(132, 132, 132));
@@ -67,7 +68,7 @@ public class ControlPanel extends JPanel implements ActionListener{
         longSim.setFont(new Font("Helvetica", Font.PLAIN, 12));
         longSim.addActionListener(this);//Toevoegen actieListener
 
-        // SurvivorStat button
+        // Births button
         birthsStat = new JButton("Births");
         birthsStat.setBackground(new Color(99, 99, 99));
         birthsStat.setForeground(Color.WHITE);
@@ -75,21 +76,21 @@ public class ControlPanel extends JPanel implements ActionListener{
         birthsStat.setFont(new Font("Helvetica", Font.PLAIN, 12));
         birthsStat.addActionListener(this);
 
-        // Births button
-        births = new JButton("Births");
-        births.setBackground(new Color(99, 99, 99));
-        births.setForeground(Color.WHITE);
-        births.setFocusPainted(false);
-        births.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        births.addActionListener(this);
+        // Deaths button
+        deathsStat = new JButton("Deaths");
+        deathsStat.setBackground(new Color(99, 99, 99));
+        deathsStat.setForeground(Color.WHITE);
+        deathsStat.setFocusPainted(false);
+        deathsStat.setFont(new Font("Helvetica", Font.PLAIN, 12));
+        deathsStat.addActionListener(this);
 
-        // Total button
-        total = new JButton("Quantity");
-        total.setBackground(new Color(99, 99, 99));
-        total.setForeground(Color.WHITE);
-        total.setFocusPainted(false);
-        total.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        total.addActionListener(this);
+        // Steps button
+        stepsStat = new JButton("Quantity");
+        stepsStat.setBackground(new Color(99, 99, 99));
+        stepsStat.setForeground(Color.WHITE);
+        stepsStat.setFocusPainted(false);
+        stepsStat.setFont(new Font("Helvetica", Font.PLAIN, 12));
+        stepsStat.addActionListener(this);
 
         this.setLayout(null);
         add(sim_kop);
@@ -98,8 +99,8 @@ public class ControlPanel extends JPanel implements ActionListener{
         add(longSim);//Toevoegen aan jPanel
         add(stat_kop);
         add(birthsStat);
-        add(births);
-        add(total);
+        add(deathsStat);
+        add(stepsStat);
         add(thumb);
 
         thumb.setBounds(13, 195, 500, 500);
@@ -111,8 +112,8 @@ public class ControlPanel extends JPanel implements ActionListener{
 
         stat_kop.setBounds(10, 180, 80, 30);
         birthsStat.setBounds(10, 220, 80, 30);
-        births.setBounds(10, 260, 80, 30);
-        total.setBounds(10, 300, 80, 30);
+        deathsStat.setBounds(10, 260, 80, 30);
+        stepsStat.setBounds(10, 300, 80, 30);
 
         setVisible(true);
 
@@ -147,7 +148,15 @@ public class ControlPanel extends JPanel implements ActionListener{
         }
 
         if (e.getSource() == birthsStat) {
-            BirthsGraphView sView = new BirthsGraphView();
+            new BirthsGraphView();
+        }
+
+        if(e.getSource() == deathsStat){
+            new DeathsGraphView();
+        }
+
+        if(e.getSource() == stepsStat){
+            new StepsGraphView();
         }
     }
 }

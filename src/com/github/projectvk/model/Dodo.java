@@ -77,6 +77,7 @@ public class Dodo extends Animal {
             Location newLocation = getField().freeAdjacentLocation(getLocation());
             if(newLocation != null) {
                 setLocation(newLocation);
+                Statistics.addData(Statistics.dodo_steps, 1);
             }
             else {
                 // Overcrowding.
@@ -100,5 +101,12 @@ public class Dodo extends Animal {
             Dodo young = new Dodo(false, field, loc);
             newDodos.add(young);
         }
+        Statistics.addData(Statistics.dodo_birth, 1);
     }
+
+    public void setDead(){
+        super.setDead();
+        Statistics.addData(Statistics.dodo_death, 1);
+    }
+
 }
