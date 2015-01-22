@@ -1,4 +1,4 @@
-package com.github.projectvk.controller;
+package com.github.projectvk.view;
 
 import com.github.projectvk.model.Simulator;
 import com.github.projectvk.view.BirthsGraphView;
