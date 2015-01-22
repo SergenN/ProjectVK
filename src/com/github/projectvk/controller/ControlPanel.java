@@ -157,15 +157,15 @@ public class ControlPanel extends JPanel implements ActionListener{
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == plusEen) {
-            simulator.simulateOneStep();
+            simulator.start(1);
         }
 
         if (e.getSource() == plusHonderd) {
-            simulator.simulateOneStep();
+            simulator.start(100);
         }
 
         if (e.getSource() == longSim) {
-            simulator.simulateOneStep();
+            simulator.start(1000);
         }
 
         if (e.getSource() == birthsStat) {

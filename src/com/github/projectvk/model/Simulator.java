@@ -38,7 +38,10 @@ public class Simulator implements Runnable
     //Init the thread runner needed for ControlPanel class
     //private ThreadRunner runner;
 
+    //
     private boolean running = false;
+    private boolean infinite = false;
+    private int toStep = 0;
 
     /**
      * Construct a simulation field with default size.
@@ -174,25 +177,47 @@ public class Simulator implements Runnable
      * Start a new thread that runs the run method
      */
     public void start(){
+        this.toStep = -1;
         running = true;
         new Thread(this).start();
     }
+
+    /**
+     * Start a new thread that runs the run method
+     */
+    public void start(int toStep){
+        this.toStep = toStep;
+        running = true;
+        new Thread(this).start();
+    }
+
 
     public void stop(){
         running = false;
     }
 
+    public void decrementStep(){
+        if (toStep > 0){
+            toStep--;
+        }
+    }
+
     @Override
     public void run() {
         while (running) {
+            if(toStep < 0 || toStep != -1) {
                 Main.getSimulator().simulateOneStep();
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println(toStep);
+                decrementStep();
+            }
+            if(toStep == 0){
+                stop();
             }
         }
-        running = false;
     }
 }
