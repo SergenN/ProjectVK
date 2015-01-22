@@ -3,7 +3,7 @@ package com.github.projectvk.view;
 import com.github.projectvk.controller.ControlPanel;
 import com.github.projectvk.model.Field;
 import com.github.projectvk.model.FieldStats;
-import com.github.projectvk.runner.ThreadRunner;
+import com.github.projectvk.model.Simulator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,18 +34,15 @@ public class SimulatorView extends JFrame
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
-    private ThreadRunner runner;
-
 
     /**
      * Create a view of the given width and height.
      * @param height The simulation's height.
      * @param width  The simulation's width.
      */
-    public SimulatorView(int height, int width)
+    public SimulatorView(int height, int width, Simulator simulator)
     {
-        runner = new ThreadRunner();
-        ControlPanel controlPanel = new ControlPanel(height, runner);
+        ControlPanel controlPanel = new ControlPanel(height, simulator);
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();
 

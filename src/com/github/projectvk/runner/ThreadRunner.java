@@ -1,10 +1,8 @@
-package com.github.projectvk.runner;
-
-import com.github.projectvk.Main;
+//package com.github.projectvk.runner;
 
 /**
  * Created by Sergen on 21-1-2015.
- */
+ *
 public class ThreadRunner implements Runnable{
 
     private int steps;
@@ -64,4 +62,4 @@ public class ThreadRunner implements Runnable{
         }
         running = false;
     }
-}
+}*/

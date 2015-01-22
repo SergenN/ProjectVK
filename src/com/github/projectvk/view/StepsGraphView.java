@@ -26,6 +26,7 @@ public class StepsGraphView implements ExampleChart {
         double[] foxes = Statistics.convertToGraphData(Statistics.fox_steps_history);
         double[] rabbits = Statistics.convertToGraphData(Statistics.rabbit_steps_history);
         double[] dodos = Statistics.convertToGraphData(Statistics.dodo_steps_history);
+        double[] hunters = Statistics.convertToGraphData(Statistics.hunter_steps_history);
 
         // Put the turn steps in a double array
         double[] turns = new double[foxes.length];
@@ -38,6 +39,7 @@ public class StepsGraphView implements ExampleChart {
         chart.addSeries("Rabbits", turns, rabbits);
         chart.addSeries("Foxes", turns, foxes);
         chart.addSeries("Dodo", turns, dodos);
+        chart.addSeries("Hunters", turns, hunters);
 
         // Customize Chart
         chart.getStyleManager().setLegendPosition(LegendPosition.InsideNW);
