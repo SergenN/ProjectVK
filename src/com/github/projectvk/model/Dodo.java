@@ -5,22 +5,32 @@ import java.util.List;
 /**
  * Created by Sergen on 19-1-2015.
  */
-public class Dodo extends Animal implements Actor{
+public class Dodo extends NaturalEntity{
 
     // The age at which a rabbit can start to breed.     xxxx
     private static final int BREEDING_AGE = 7;
     // The age to which a rabbit can live.
-    private static final int MAX_AGE = 170;
+    private static final int MAX_AGE = 60;
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.10;
+    private static final double BREEDING_PROBABILITY = 0.08;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 3;
+    // the maximum number a rabbit can move without food before dying
+    private static final int FOOD_LEVEL = 10;
+    // The rabbits it's natural prey
+    private static final Class[] PREY = {Grass.class};
+    // Can the animal walk/breed on grass (will remove grass
+    private static final boolean IGNORE_GRASS = true;
+    // the minimum foodlevel an entity needs to breed
+    private static final int BREED_FOODLEVEL = 5;
 
 
-    public Dodo(boolean randomAge, Field field, Location location){
+    public Dodo(Boolean randomAge, Field field, Location location){
         super(field, location, 0);
+        setFoodLevel(FOOD_LEVEL);
         if(randomAge) {
             setAge(getRandom().nextInt(getMaxAge()));
+            setFoodLevel(getRandom().nextInt(getFoodDecayLevel()));
         }
     }
 
@@ -63,45 +73,49 @@ public class Dodo extends Animal implements Actor{
     }
 
     /**
-     * Make this animal act - that is: make it do
-     * whatever it wants/needs to do.
+     * verkrijg alle prooi klassen
      *
-     * @param newDodos A list to receive newly born animals.
+     * @return Class[] of prey entities
      */
     @Override
-    public void act(List<Actor> newDodos) {
-        incrementAge();
-        if(isAlive()) {
-            giveBirth(newDodos);
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
-            if(newLocation != null) {
-                setLocation(newLocation);
-                Statistics.addData(Statistics.dodo_steps, 1);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
-        }
+    protected Class[] getPrey() {
+        return PREY;
+    }
+
+    @Override
+    protected int getFoodDecayLevel() {
+        return FOOD_LEVEL;
     }
 
     /**
-     * Check whether or not this dodo is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newDodos A list to return newly born dodos.
+     * Check if the Entity can breed/walk on grassland
+     *
+     * @return canOverrideGras
      */
-    private void giveBirth(List<Actor> newDodos)
-    {
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Dodo young = new Dodo(false, field, loc);
-            newDodos.add(young);
-        }
-        Statistics.addData(Statistics.dodo_birth, 1);
+    @Override
+    protected boolean canOverrideGras() {
+        return IGNORE_GRASS;
+    }
+
+    /**
+     * Get the minimal food needed for breed
+     *
+     * @return int minimal needed food lvl
+     */
+    @Override
+    protected int getMinimalBreedFood() {
+        return BREED_FOODLEVEL;
+    }
+
+    /**
+     * Make this animal act - that is: make it do
+     * whatever it wants/needs to do.
+     *
+     * @param newActors A list to receive newly born animals.
+     */
+    @Override
+    public void act(List<Actor> newActors) {
+        super.act(newActors, this.getClass());
     }
 
     public void setDead(){
