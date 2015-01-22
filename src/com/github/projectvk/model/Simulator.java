@@ -86,35 +86,33 @@ public class Simulator
         // Provide space for newborn animals.
         List<Actor> newActors = new ArrayList<Actor>();
         // Let all rabbits/foxes act.
-        if(newActors != null) {
             try {
-                for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
-                    Actor actor = it.next();
+                if(newActors != null) {
+                    for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+                        Actor actor = it.next();
 
-                    it.remove();
-                    actor.act(newActors);
+                        actor.act(newActors);
 
-                    if (actor instanceof Animal) {
-                        Animal animal = (Animal) actor;
+                        if (actor instanceof Animal) {
+                            Animal animal = (Animal) actor;
 
-                        if (!animal.isAlive()) {
-                            it.remove();
+                            if (!animal.isAlive()) {
+                                it.remove();
+                            }
                         }
-                    }
 
-                    if (actor instanceof Hunter) {
-                        Hunter hunter = (Hunter) actor;
-                        if (hunter.isHome()) {
-                            it.remove();
+                        if (actor instanceof Hunter) {
+                            Hunter hunter = (Hunter) actor;
+                            if (hunter.isHome()) {
+                                it.remove();
+                            }
                         }
                     }
                 }
             } catch (ConcurrentModificationException e) {
                 simulateOneStep();
-            }
-            actors.addAll(newActors);
         }
-
+        actors.addAll(newActors);
         Statistics.updateData();
 
         //TODO check if area is full of rabbits and make the hunters return.
