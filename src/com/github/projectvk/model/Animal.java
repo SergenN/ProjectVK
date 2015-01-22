@@ -1,13 +1,12 @@
 package com.github.projectvk.model;
 
-import java.util.List;
 import java.util.Random;
 
 /**
  * A class representing shared characteristics of animals.
  *
  */
-public abstract class Animal  
+public abstract class Animal implements Actor
 {
     // Whether the animal is alive or not.
     private boolean alive;
@@ -40,13 +39,6 @@ public abstract class Animal
     }
 
     /**
-     * Make this animal act - that is: make it do
-     * whatever it wants/needs to do.
-     * @param newAnimals A list to receive newly born animals.
-     */
-    abstract protected void act(List<Animal> newAnimals);
-
-    /**
      * verkrijg de maximum leeftijd van een dier
      * @return int maximum age
      */
@@ -74,7 +66,7 @@ public abstract class Animal
      * Return the animal's location.
      * @return The animal's location.
      */
-    protected Location getLocation() {
+    public Location getLocation() {
         return  location;
     }
 
@@ -82,7 +74,7 @@ public abstract class Animal
      * Place the animal at the new location in the given field.
      * @param newLocation The animal's new location.
      */
-    protected void setLocation(Location newLocation)
+    public void setLocation(Location newLocation)
     {
         if(location != null) {
             field.clear(location);
@@ -119,11 +111,11 @@ public abstract class Animal
      * Return the animal's field.
      * @return The animal's field.
      */
-    protected Field getField(){
+    public Field getField(){
         return field;
     }
 
-    protected void setField(Field field){
+    public void setField(Field field){
         this.field = field;
     }
 

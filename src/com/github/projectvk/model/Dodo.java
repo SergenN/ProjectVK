@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Sergen on 19-1-2015.
  */
-public class Dodo extends Animal {
+public class Dodo extends Animal implements Actor{
 
     // The age at which a rabbit can start to breed.     xxxx
     private static final int BREEDING_AGE = 7;
@@ -69,7 +69,7 @@ public class Dodo extends Animal {
      * @param newDodos A list to receive newly born animals.
      */
     @Override
-    protected void act(List<Animal> newDodos) {
+    public void act(List<Actor> newDodos) {
         incrementAge();
         if(isAlive()) {
             giveBirth(newDodos);
@@ -91,7 +91,7 @@ public class Dodo extends Animal {
      * New births will be made into free adjacent locations.
      * @param newDodos A list to return newly born dodos.
      */
-    private void giveBirth(List<Animal> newDodos)
+    private void giveBirth(List<Actor> newDodos)
     {
         Field field = getField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());

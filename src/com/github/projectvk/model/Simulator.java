@@ -26,8 +26,6 @@ public class Simulator
     // The probability that a hunter will spawn in any given grid position
     private static final double HUNTER_CREATION_PROBABILITY = 0.05;
 
-    // List of animals in the field.
-    private List<Animal> animals;
     //List of actors in the field.
     private List<Actor> actors;
     // The current state of the field.
@@ -38,12 +36,7 @@ public class Simulator
     private SimulatorView view;
     //Init the thread runner needed for ControlPanel class
     //private ThreadRunner runner;
-
-    //Statistics animals
-
-    private HashMap<String, Integer> births = new HashMap<String, Integer>();
-
-
+        
     /**
      * Construct a simulation field with default size.
      */
@@ -65,8 +58,7 @@ public class Simulator
             depth = DEFAULT_DEPTH;
             width = DEFAULT_WIDTH;
         }
-        
-        animals = new ArrayList<Animal>();
+
         actors = new ArrayList<Actor>();
         field = new Field(depth, width);
 
@@ -84,70 +76,51 @@ public class Simulator
     }
     
     /**
-     * Run the simulation from its current state for a reasonably long period,
-     * (4000 steps).
-     */
-    public void runLongSimulation()
-    {
-        simulate(4000);
-    }
-    
-    /**
-     * Run the simulation from its current state for the given number of steps.
-     * Stop before the given number of steps if it ceases to be viable.
-     * @param numSteps The number of steps to run for.
-     */
-    public void simulate(int numSteps)
-    {
-        for(int step = 1; step <= numSteps && view.isViable(field); step++) {
-            simulateOneStep();
-        }
-    }
-    
-    /**
      * Run the simulation from its current state for a single step.
      * Iterate over the whole field updating the state of each
      * fox and rabbit.
      */
-
-
-
     public void simulateOneStep()
     {
         step++;
-
         // Provide space for newborn animals.
-        List<Animal> newAnimals = new ArrayList<Animal>();        
+        List<Actor> newActors = new ArrayList<Actor>();
         // Let all rabbits/foxes act.
-        for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
-            Animal animal = it.next();
-            animal.act(newAnimals);
+        if(newActors != null) {
+            try {
+                for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+                    Actor actor = it.next();
 
             if(! animal.isAlive()) {
                 it.remove();
+                    actor.act(newActors);
+
+                    if (actor instanceof Animal) {
+                        Animal animal = (Animal) actor;
+                        totalBirths += animal.getBirths();
+
+                        if (!animal.isAlive()) {
+                            it.remove();
+                        }
+                    }
+
+                    if (actor instanceof Hunter) {
+                        Hunter hunter = (Hunter) actor;
+                        if (hunter.isHome()) {
+                            it.remove();
+                        }
+                    }
+                }
+            } catch (ConcurrentModificationException e) {
+                simulateOneStep();
             }
+            actors.addAll(newActors);
         }
 
         Statistics.updateData();
 
-        // Add the newly born foxes and rabbits to the main lists.
-        animals.addAll(newAnimals);
-
-        List<Actor> newActors = new ArrayList<Actor>();
-        // Let all hunters act.
-        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
-            Actor actor = it.next();
-            actor.act(newActors);
-            Hunter hunter = (Hunter)actor;
-            if(hunter.isHome()) {
-                it.remove();
-            }
-        }
-
         //TODO check if area is full of rabbits and make the hunters return.
-
         // Add the newly born foxes and rabbits to the main lists.
-        actors.addAll(newActors);
         view.showStatus(step, field);
     }
         
@@ -157,7 +130,6 @@ public class Simulator
     public void reset()
     {
         step = 0;
-        animals.clear();
         actors.clear();
         populate();
         
@@ -177,18 +149,18 @@ public class Simulator
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Fox fox = new Fox(true, field, location);
-                    animals.add(fox);
+                    actors.add(fox);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location);
-                    animals.add(rabbit);
+                    actors.add(rabbit);
                 }
 
                 else if(rand.nextDouble() <= DODO_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Dodo dodo = new Dodo(true, field, location);
-                    animals.add(dodo);
+                    actors.add(dodo);
                 }
                 else if(rand.nextDouble() <= HUNTER_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
