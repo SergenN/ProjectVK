@@ -72,6 +72,7 @@ public class Hunter implements Actor {
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
+                Statistics.addData(Statistics.hunter_steps, 1);
             }
             else {
                 goHome();

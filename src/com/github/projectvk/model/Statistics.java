@@ -18,6 +18,7 @@ public class Statistics {
     public static List<Double> fox_steps = new ArrayList<Double>();
     public static List<Double> dodo_steps = new ArrayList<Double>();
     public static List<Double> rabbit_steps = new ArrayList<Double>();
+    public static List<Double> hunter_steps = new ArrayList<Double>();
 
     public static List<Double> fox_death = new ArrayList<Double>();
     public static List<Double> dodo_death = new ArrayList<Double>();
@@ -31,6 +32,7 @@ public class Statistics {
     public static List<Double> fox_steps_history = new ArrayList<Double>();
     public static List<Double> dodo_steps_history = new ArrayList<Double>();
     public static List<Double> rabbit_steps_history = new ArrayList<Double>();
+    public static List<Double> hunter_steps_history = new ArrayList<Double>();
 
     public static List<Double> fox_death_history = new ArrayList<Double>();
     public static List<Double> dodo_death_history = new ArrayList<Double>();
@@ -48,7 +50,6 @@ public class Statistics {
 
     public static void addDataToHistory(List<Double> list, List<Double> source){
 
-        System.out.println(source);
         if(source.isEmpty()){
             source.add(0.0);
         }
@@ -76,6 +77,7 @@ public class Statistics {
         addDataToHistory(fox_steps_history, fox_steps);
         addDataToHistory(dodo_steps_history, dodo_steps);
         addDataToHistory(rabbit_steps_history, rabbit_steps);
+        addDataToHistory(hunter_steps_history, rabbit_steps);
     }
 
     public static double[] convertToGraphData(List<Double> list){

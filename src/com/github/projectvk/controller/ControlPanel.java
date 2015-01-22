@@ -17,7 +17,7 @@ public class ControlPanel extends JPanel implements ActionListener{
 
     private ThreadRunner runner;
     private JLabel sim_kop, stat_kop;
-    private JButton plusEen, plusHonderd, longSim, birthsStat, deathsStat,stepsStat;
+    private JButton plusEen, plusHonderd, longSim, birthsStat, deathsStat,stepsStat, start, stop;
     private int height;
 
     /**
@@ -26,7 +26,6 @@ public class ControlPanel extends JPanel implements ActionListener{
      * @param height - Hoogte van de simulator
      */
     public ControlPanel(int height, ThreadRunner runner) {
-        //setBackground(new Color(39, 39, 39));
         setBackground(new Color(33, 33, 33));
 
         ImageIcon icon = new ImageIcon("img\\fox.png");
@@ -59,6 +58,22 @@ public class ControlPanel extends JPanel implements ActionListener{
         plusHonderd.setFocusPainted(false);
         plusHonderd.setFont(new Font("Helvetica", Font.PLAIN, 12));
         plusHonderd.addActionListener(this);
+
+        // Stop button
+        stop = new JButton("P");
+        stop.setBackground(new Color(114, 114, 114));
+        stop.setForeground(Color.WHITE);
+        stop.setFocusPainted(false);
+        stop.setFont(new Font("Helvetica", Font.PLAIN, 12));
+        stop.addActionListener(this);
+
+        // Start button
+        start = new JButton("S");
+        start.setBackground(new Color(114, 114, 114));
+        start.setForeground(Color.WHITE);
+        start.setFocusPainted(false);
+        start.setFont(new Font("Helvetica", Font.PLAIN, 12));
+        start.addActionListener(this);
 
         // Simuleer button
         longSim = new JButton("+4000");//Initializeren van button
@@ -96,6 +111,8 @@ public class ControlPanel extends JPanel implements ActionListener{
         add(sim_kop);
         add(plusEen);
         add(plusHonderd);
+        add(stop);
+        add(start);
         add(longSim);//Toevoegen aan jPanel
         add(stat_kop);
         add(birthsStat);
@@ -105,15 +122,19 @@ public class ControlPanel extends JPanel implements ActionListener{
 
         thumb.setBounds(13, 195, 500, 500);
 
+        //Positie en groote zetten
+
         sim_kop.setBounds(10, 20, 80, 30);
         plusEen.setBounds(10, 60, 80, 30);
         plusHonderd.setBounds(10, 100, 80, 30);
-        longSim.setBounds(10, 140, 80, 30);//Positie en groote zetten
+        longSim.setBounds(10, 140, 80, 30);
+        stop.setBounds(10, 180, 35, 30);
+        start.setBounds(55, 180, 35, 30);
 
-        stat_kop.setBounds(10, 180, 80, 30);
-        birthsStat.setBounds(10, 220, 80, 30);
-        deathsStat.setBounds(10, 260, 80, 30);
-        stepsStat.setBounds(10, 300, 80, 30);
+        stat_kop.setBounds(10, 220, 80, 30);
+        birthsStat.setBounds(10, 260, 80, 30);
+        deathsStat.setBounds(10, 300, 80, 30);
+        stepsStat.setBounds(10, 340, 80, 30);
 
         setVisible(true);
 
@@ -157,6 +178,14 @@ public class ControlPanel extends JPanel implements ActionListener{
 
         if(e.getSource() == stepsStat){
             new StepsGraphView();
+        }
+
+        if(e.getSource() == stop){
+
+        }
+
+        if(e.getSource() == start){
+
         }
     }
 }
