@@ -129,8 +129,6 @@ public class Simulator
         }
 
         Statistics.updateData();
-        System.out.println(Statistics.fox_birth_history);
-
 
         // Add the newly born foxes and rabbits to the main lists.
         animals.addAll(newAnimals);

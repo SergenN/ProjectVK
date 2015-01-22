@@ -42,14 +42,22 @@ public class Statistics {
         if(list.isEmpty()){
             list.add(0.0);
         }
+
         list.set(0, list.get(0) + amount);
     }
 
     public static void addDataToHistory(List<Double> list, List<Double> source){
+
+        System.out.println(source);
+        if(source.isEmpty()){
+            source.add(0.0);
+        }
+
 //      Setup birth data for graph
         if(list.size() >= HISTORY_TURNS) {
-            list.remove(0);
+
             list.add(source.get(0));
+            list.remove(0);
         } else {
             list.add(source.get(0));
         }
