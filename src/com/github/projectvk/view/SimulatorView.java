@@ -71,8 +71,8 @@ public class SimulatorView extends JFrame
         setLocationRelativeTo(null);
         //zichtbaar maken
         setVisible(true);
+        setResizable(false);
     }
-    
     /**
      * Define a color to be used for a given class of animal.
      * @param animalClass The animal's Class object.
