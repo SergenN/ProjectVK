@@ -20,109 +20,74 @@ public class ControlPanel extends JPanel implements ActionListener{
     private int height;
     private Simulator simulator;
 
+    public void buttonStyle(JButton button){
+        button.setBackground(new Color(114, 114, 114));
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setFont(new Font("Helvetica", Font.PLAIN, 12));
+        button.addActionListener(this);
+        add(button);
+    }
+
+    public void headerStyle(JComponent label){
+        label.setForeground(new Color(132, 132, 132));
+        label.setFont(new Font("Helvetica", Font.BOLD, 16));
+        add(label);
+    }
+
+
     /**
      * Constructor voor het maken van de control panel
      *
      * @param height - Hoogte van de simulator
      */
     public ControlPanel(int height, Simulator simulator) {
-        setBackground(new Color(33, 33, 33));
 
+        setBackground(new Color(33, 33, 33));
+        this.setLayout(null);
+        this.height = height;
+        this.simulator = simulator;
+
+        // FOX PICTURE
         ImageIcon icon = new ImageIcon("img\\fox.png");
         JLabel thumb = new JLabel();
         thumb.setIcon(icon);
-        this.height = height;
-        System.out.println("TEST");
-        this.simulator = simulator;
-
-        sim_kop = new JLabel("Simulate");
-        sim_kop.setForeground(new Color(132, 132, 132));
-        sim_kop.setFont(new Font("Helvetica", Font.BOLD, 16));
-
-        stat_kop = new JLabel("Statistics");
-        stat_kop.setForeground(new Color(132, 132, 132));
-        stat_kop.setFont(new Font("Helvetica", Font.BOLD, 16));
-
-        // + 1 button
-        plusEen = new JButton("+1");
-        plusEen.setBackground(new Color(114, 114, 114));
-        plusEen.setForeground(Color.WHITE);
-        plusEen.setFocusPainted(false);
-        plusEen.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        plusEen.addActionListener(this);
-
-        // + 100 button
-        plusHonderd = new JButton("+100");
-        plusHonderd.setBackground(new Color(114, 114, 114));
-        plusHonderd.setForeground(Color.WHITE);
-        plusHonderd.setFocusPainted(false);
-        plusHonderd.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        plusHonderd.addActionListener(this);
-
-        // Stop button
-        stop = new JButton("P");
-        stop.setBackground(new Color(114, 114, 114));
-        stop.setForeground(Color.WHITE);
-        stop.setFocusPainted(false);
-        stop.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        stop.addActionListener(this);
-
-        // Start button
-        start = new JButton("S");
-        start.setBackground(new Color(114, 114, 114));
-        start.setForeground(Color.WHITE);
-        start.setFocusPainted(false);
-        start.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        start.addActionListener(this);
-
-        // Simuleer button
-        longSim = new JButton("+4000");//Initializeren van button
-        longSim.setBackground(new Color(114, 114, 114));
-        longSim.setForeground(Color.WHITE);
-        longSim.setFocusPainted(false);
-        longSim.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        longSim.addActionListener(this);//Toevoegen actieListener
-
-        // Births button
-        birthsStat = new JButton("Births");
-        birthsStat.setBackground(new Color(99, 99, 99));
-        birthsStat.setForeground(Color.WHITE);
-        birthsStat.setFocusPainted(false);
-        birthsStat.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        birthsStat.addActionListener(this);
-
-        // Deaths button
-        deathsStat = new JButton("Deaths");
-        deathsStat.setBackground(new Color(99, 99, 99));
-        deathsStat.setForeground(Color.WHITE);
-        deathsStat.setFocusPainted(false);
-        deathsStat.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        deathsStat.addActionListener(this);
-
-        // Steps button
-        stepsStat = new JButton("Quantity");
-        stepsStat.setBackground(new Color(99, 99, 99));
-        stepsStat.setForeground(Color.WHITE);
-        stepsStat.setFocusPainted(false);
-        stepsStat.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        stepsStat.addActionListener(this);
-
-        this.setLayout(null);
-        add(sim_kop);
-        add(plusEen);
-        add(plusHonderd);
-        add(stop);
-        add(start);
-        add(longSim);//Toevoegen aan jPanel
-        add(stat_kop);
-        add(birthsStat);
-        add(deathsStat);
-        add(stepsStat);
         add(thumb);
 
-        thumb.setBounds(13, 195, 500, 500);
+        // HEADERS
+        sim_kop = new JLabel("Simulate");
+        headerStyle(sim_kop);
+        stat_kop = new JLabel("Statistics");
+        headerStyle(stat_kop);
+
+        // BUTTONS
+        // + 1 button
+        plusEen = new JButton("+1");
+        buttonStyle(plusEen);
+        // + 100 button
+        plusHonderd = new JButton("+100");
+        buttonStyle(plusHonderd);
+        // Stop button
+        stop = new JButton("P");
+        buttonStyle(stop);
+        // Start button
+        start = new JButton("S");
+        buttonStyle(start);
+        // Simuleer button
+        longSim = new JButton("+1000");
+        buttonStyle(longSim);
+        // Births button
+        birthsStat = new JButton("Births");
+        buttonStyle(birthsStat);
+        // Deaths button
+        deathsStat = new JButton("Deaths");
+        buttonStyle(deathsStat);
+        // Steps button
+        stepsStat = new JButton("Quantity");
+        buttonStyle(stepsStat);
 
         //Positie en groote zetten
+        thumb.setBounds(13, 195, 500, 500);
 
         sim_kop.setBounds(10, 20, 80, 30);
         plusEen.setBounds(10, 60, 80, 30);
@@ -135,10 +100,8 @@ public class ControlPanel extends JPanel implements ActionListener{
         birthsStat.setBounds(10, 260, 80, 30);
         deathsStat.setBounds(10, 300, 80, 30);
         stepsStat.setBounds(10, 340, 80, 30);
-
-        setVisible(true);
-
     }
+
 
     /**
      * verkrijg de geprefereerde groote voor deze jPane
