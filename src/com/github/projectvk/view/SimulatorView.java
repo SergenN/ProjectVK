@@ -73,6 +73,7 @@ public class SimulatorView extends JFrame
         setLocationRelativeTo(null);
         //zichtbaar maken
         setVisible(true);
+        setResizable(false);
     }
 
     public ControlPanel getControlPanel(){
