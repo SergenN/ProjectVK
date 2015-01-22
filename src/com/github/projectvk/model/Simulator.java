@@ -91,13 +91,11 @@ public class Simulator
                 for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
                     Actor actor = it.next();
 
-            if(! animal.isAlive()) {
-                it.remove();
+                    it.remove();
                     actor.act(newActors);
 
                     if (actor instanceof Animal) {
                         Animal animal = (Animal) actor;
-                        totalBirths += animal.getBirths();
 
                         if (!animal.isAlive()) {
                             it.remove();
