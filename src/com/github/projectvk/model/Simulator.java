@@ -122,18 +122,28 @@ public class Simulator
         step++;
 
         // Provide space for newborn animals.
-        List<Animal> newAnimals = new ArrayList<Animal>();        
+        List<Actor> newActors = new ArrayList<Actor>();
         // Let all rabbits/foxes act.
-        for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
-            Animal animal = it.next();
-            animal.act(newAnimals);
+        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+            Actor actor = it.next();
 
-            // Add all the stats
-            totalbirths+=animal.getBirths();
+            actor.act(newActors);
+            if(actor instanceof Animal){
+                Animal animal = (Animal) actor;
+                totalbirths += animal.getBirths();
 
-            if(! animal.isAlive()) {
-                it.remove();
+                if(! animal.isAlive()){
+                    it.remove();
+                }
             }
+
+            if(actor instanceof Hunter){
+                Hunter hunter = (Hunter)actor;
+                if(hunter.isHome()) {
+                    it.remove();
+                }
+            }
+            actors.addAll(newActors);
         }
 
         // Setup birth data for graph
@@ -145,25 +155,10 @@ public class Simulator
         }
 
         System.out.println(births);
-               
-        // Add the newly born foxes and rabbits to the main lists.
-        animals.addAll(newAnimals);
-
-        List<Actor> newActors = new ArrayList<Actor>();
-        // Let all hunters act.
-        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
-            Actor actor = it.next();
-            actor.act(newActors);
-            Hunter hunter = (Hunter)actor;
-            if(hunter.isHome()) {
-                it.remove();
-            }
-        }
 
         //TODO check if area is full of rabbits and make the hunters return.
 
         // Add the newly born foxes and rabbits to the main lists.
-        actors.addAll(newActors);
         view.showStatus(step, field);
     }
         
