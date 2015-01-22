@@ -3,6 +3,7 @@ package com.github.projectvk.view;
 import com.github.projectvk.controller.ControlPanel;
 import com.github.projectvk.model.Field;
 import com.github.projectvk.model.FieldStats;
+import com.github.projectvk.runner.ThreadRunner;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +34,7 @@ public class SimulatorView extends JFrame
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
+    private ThreadRunner runner;
 
 
     /**
@@ -42,9 +44,9 @@ public class SimulatorView extends JFrame
      */
     public SimulatorView(int height, int width)
     {
-        ControlPanel controlPanel = new ControlPanel(height);
+        runner = new ThreadRunner();
+        ControlPanel controlPanel = new ControlPanel(height, runner);
         stats = new FieldStats();
-
         colors = new LinkedHashMap<Class, Color>();
 
         setTitle("Vossen en konijnen simulatie");
