@@ -121,14 +121,17 @@ public class ControlPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == plusEen) {
             simulator.start(1);
+            disableButton();
         }
 
         if (e.getSource() == plusHonderd) {
             simulator.start(100);
+            disableButton();
         }
 
         if (e.getSource() == longSim) {
             simulator.start(1000);
+            disableButton();
         }
 
         if (e.getSource() == birthsStat) {
@@ -145,10 +148,28 @@ public class ControlPanel extends JPanel implements ActionListener{
 
         if(e.getSource() == stop){
             simulator.start();
+            disableButton();
         }
 
         if(e.getSource() == start){
             simulator.stop();
+            disableButton();
+        }
+    }
+
+    public void disableButton (){
+        if(simulator.isRunning()) {
+            plusEen.setEnabled(false);
+            plusHonderd.setEnabled(false);
+            start.setEnabled(true);
+            stop.setEnabled(false);
+            longSim.setEnabled(false);
+        } else {
+            plusEen.setEnabled(true);
+            plusHonderd.setEnabled(true);
+            start.setEnabled(false);
+            stop.setEnabled(true);
+            longSim.setEnabled(true);
         }
     }
 }

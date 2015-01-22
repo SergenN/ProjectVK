@@ -194,12 +194,17 @@ public class Simulator implements Runnable
 
     public void stop(){
         running = false;
+        view.getControlPanel().disableButton();
     }
 
     public void decrementStep(){
         if (toStep > 0){
             toStep--;
         }
+    }
+
+    public boolean isRunning(){
+        return running;
     }
 
     @Override
