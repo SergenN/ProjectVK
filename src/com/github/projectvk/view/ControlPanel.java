@@ -143,7 +143,7 @@ public class ControlPanel extends JPanel{
      * Disables buttons while running
      */
     public void disableButton (){
-        if(controller.isSimulatorIsRunning()) {
+        if(controller.isSimulatorRunning()) {
             plusEen.setEnabled(false);
             plusHonderd.setEnabled(false);
             start.setEnabled(false);

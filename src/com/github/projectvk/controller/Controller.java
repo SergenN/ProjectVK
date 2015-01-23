@@ -58,8 +58,8 @@ public class Controller {
         return buttonHandler;
     }
 
-    public boolean isSimulatorIsRunning() {
-        System.out.println("Sim is running!");
+    public boolean isSimulatorRunning() {
+        //System.out.println("Sim is running!");
         return simulator.isRunning();
 
     }
@@ -72,8 +72,8 @@ public class Controller {
         return ( new int[]{simulatorView.getHeight(), simulatorView.getWidth()});
     }
 
-    public int getFieldHeight(){ return simulatorView.getHeight();}
-    public int getFieldWidth(){  return simulatorView.getWidth();}
+    public int getFieldHeight(){ return simulatorView.getFieldHeight();}
+    public int getFieldWidth(){  return simulatorView.getFieldWidth();}
 
     public void setView(int step, Field field){
         simulatorView.showStatus(step, field);

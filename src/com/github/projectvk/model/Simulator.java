@@ -68,7 +68,7 @@ public class Simulator implements Runnable
     {
 
         this.controller = controller;
-        controller.setSimulator(this);
+        //controller.setSimulator(this);
 
         actors = new ArrayList<Actor>();
 
@@ -76,7 +76,9 @@ public class Simulator implements Runnable
 
         // Creates new Field, Fetches new Field sizes from controller
         field = new Field(controller.getFieldHeight(), controller.getFieldWidth());
-        controller.disableButtons();
+        System.out.println(controller.getFieldHeight()+" , "+ controller.getFieldWidth());
+        //field = new Field(120, 80);
+       // controller.disableButtons();
 
         //System.out.println(buttonHandler.toString());
 
@@ -150,7 +152,7 @@ public class Simulator implements Runnable
         populate();
         
         // Show the starting state in the view.
-        controller.setView(step, field);
+        controller.showStatus(step, field);
     }
     
     /**
@@ -232,8 +234,8 @@ public class Simulator implements Runnable
     public void run() {
         while (running) {
             if(toStep < 0 || toStep != -1) {
-                //Main.getSimulator().simulateOneStep();
-                this.simulateOneStep();
+                Main.getSimulator().simulateOneStep();
+                //this.simulateOneStep();
                 try {
                     Thread.sleep(1);
                 } catch (InterruptedException e) {

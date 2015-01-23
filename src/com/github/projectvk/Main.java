@@ -23,12 +23,6 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        //if (args.length != 0)
-
-
-
-
-
         /**
          * Initialising Script
          */
@@ -37,11 +31,12 @@ public class Main {
         controller = new Controller();
 
         // Create View
-        simulatorView = new SimulatorView(80, 100, controller);
+        simulatorView = new SimulatorView(100, 200, controller);
         controller.setSimulatorView(simulatorView);
 
         // Create Simulator
         simulator = new Simulator(controller);
+        controller.setSimulator(simulator);
 
 
 

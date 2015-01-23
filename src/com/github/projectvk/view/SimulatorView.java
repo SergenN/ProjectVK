@@ -20,7 +20,7 @@ public class SimulatorView extends JFrame
 
 
     // Default height and width
-    private static final int DEFAULT_HEIGHT = 80;
+    private static final int DEFAULT_HEIGHT = 100;
     private static final int DEFAULT_WIDTH = 100;
 
 
@@ -43,6 +43,20 @@ public class SimulatorView extends JFrame
     private ControlPanel controlPanel;
     private SettingsView settingPanel;
 
+    private int height, width;
+
+    /**
+     * Contstructor to use default window settings
+     * @param controller
+     */
+    public SimulatorView(Controller controller){
+        this(DEFAULT_HEIGHT, DEFAULT_WIDTH, controller);
+        System.out.println("The dimensions must be greater than zero.");
+        System.out.println("Using default values.");
+
+
+    }
+
     /**
      *
      * @param height
@@ -51,14 +65,17 @@ public class SimulatorView extends JFrame
      */
     public SimulatorView(int height, int width/*, Simulator simulator*/, Controller controller)
     {
+        this.controller = controller;
         // Making sure the simulator has a height and width set. If not, set it to default.
         if(width <= 0 || height <= 0) {
             System.out.println("The dimensions must be greater than zero.");
             System.out.println("Using default values.");
-            height = DEFAULT_HEIGHT;
-            width = DEFAULT_WIDTH;
+
         }
-        this.controller = controller;
+
+        this.height = height;
+        this.width = width;
+
         //controller.setSimulatorView(this);
 
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -175,6 +192,14 @@ public class SimulatorView extends JFrame
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
         fieldView.repaint();
+    }
+
+    public int getFieldHeight(){
+        return height;
+    }
+
+    public int getFieldWidth(){
+        return width;
     }
 
     /**
