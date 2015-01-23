@@ -82,12 +82,12 @@ public class ControlPanel extends JPanel{
         buttonStyle(plusHonderd, "plusHonderd");
 
         // Stop button
-        stop = new JButton("P");
-        buttonStyle(stop, "start");
+        stop = new JButton("S");
+        buttonStyle(stop, "stop");
 
         // Start button
-        start = new JButton("S");
-        buttonStyle(start, "stop");
+        start = new JButton("P");
+        buttonStyle(start, "start");
 
         // Simuleer button
         longSim = new JButton("+1000");
@@ -141,14 +141,14 @@ public class ControlPanel extends JPanel{
         if(simulator.isRunning()) {
             plusEen.setEnabled(false);
             plusHonderd.setEnabled(false);
-            start.setEnabled(true);
-            stop.setEnabled(false);
+            start.setEnabled(false);
+            stop.setEnabled(true);
             longSim.setEnabled(false);
         } else {
             plusEen.setEnabled(true);
             plusHonderd.setEnabled(true);
-            start.setEnabled(false);
-            stop.setEnabled(true);
+            start.setEnabled(true);
+            stop.setEnabled(false);
             longSim.setEnabled(true);
         }
     }
