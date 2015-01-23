@@ -17,12 +17,9 @@ import java.util.Map;
  */
 public class SimulatorView extends JFrame
 {
-
-
     // Default height and width
     private static final int DEFAULT_HEIGHT = 100;
     private static final int DEFAULT_WIDTH = 100;
-
 
     // Colors used for empty locations.
     private static final Color EMPTY_COLOR = new Color(229, 229, 229, 255);
@@ -34,6 +31,7 @@ public class SimulatorView extends JFrame
     private final String POPULATION_PREFIX = "Population: ";
     private JLabel stepLabel, population;
     private FieldView fieldView;
+    private Controller controller;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
@@ -54,8 +52,6 @@ public class SimulatorView extends JFrame
         this(DEFAULT_HEIGHT, DEFAULT_WIDTH, controller);
         System.out.println("The dimensions must be greater than zero.");
         System.out.println("Using default values.");
-
-
     }
 
     /**
@@ -89,7 +85,7 @@ public class SimulatorView extends JFrame
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);*/
         settingPanel = new SettingsView(new GridLayout(5,2));
        // controlPanel = new ControlPanel(height, simulator);
-        graphView = new GraphView(height, simulator);
+        graphView = new GraphView(height, controller);
         controlPanel = new ControlPanel(height, controller);
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();

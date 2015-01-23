@@ -1,6 +1,6 @@
 package com.github.projectvk.view;
 
-import com.github.projectvk.model.Simulator;
+import com.github.projectvk.controller.Controller;
 import com.xeiam.xchart.*;
 
 import javax.swing.*;
@@ -12,7 +12,7 @@ public class GraphView extends JPanel{
     private final int GRID_VIEW_SCALING_FACTOR = 6;
 
     private int height;
-    private Simulator simulator;
+    private Controller controller;
     private JButton pbirthsStat, deathsStat,stepsStat;
 
     /**
@@ -20,7 +20,7 @@ public class GraphView extends JPanel{
      *
      * @param height - Hoogte van de simulator
      */
-    public GraphView(int height, Simulator simulator) {
+    public GraphView(int height, Controller controller) {
 
         Chart chart = getChart();
         this.setLayout(new BorderLayout());
@@ -29,7 +29,7 @@ public class GraphView extends JPanel{
         this.setBackground(new Color(210, 210, 210));
 
         this.height = height;
-        this.simulator = simulator;
+        this.controller = controller;
     }
 
     /**

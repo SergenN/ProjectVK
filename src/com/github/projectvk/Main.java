@@ -31,7 +31,7 @@ public class Main {
         controller = new Controller();
 
         // Create View
-        simulatorView = new SimulatorView(100, 200, controller);
+        simulatorView = new SimulatorView(80, 100, controller);
         controller.setSimulatorView(simulatorView);
 
         // Create Simulator
