@@ -90,6 +90,7 @@ public class SimulatorView extends JFrame
         this.setColor(Dodo.class, new Color(166, 76, 255));
         this.setColor(Hunter.class, new Color(76, 219, 76));
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 
