@@ -107,7 +107,7 @@ public class ControlPanel extends JPanel{
 
 
         //Positie en groote zetten
-        thumb.setBounds(13, 195, 500, 500);
+        thumb.setBounds(13, 205, 500, 500);
 
         sim_kop.setBounds(10, 20, 80, 30);
         plusEen.setBounds(10, 60, 80, 30);
