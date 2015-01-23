@@ -96,14 +96,18 @@ public class ControlPanel extends JPanel{
         // Births button
         birthsStat = new JButton("Births");
         buttonStyle(birthsStat, "birthsStat");
+        birthsStat.setEnabled(false);
+
 
         // Deaths button
         deathsStat = new JButton("Deaths");
         buttonStyle(deathsStat, "deathsStat");
+        deathsStat.setEnabled(false);
 
         // Steps button
         stepsStat = new JButton("Quantity");
         buttonStyle(stepsStat, "stepsStat");
+        stepsStat.setEnabled(false);
 
 
         //Positie en groote zetten
@@ -145,17 +149,14 @@ public class ControlPanel extends JPanel{
             stop.setEnabled(true);
             longSim.setEnabled(false);
             birthsStat.setEnabled(true);
-            deathsStat.setEnabled(true);
             stepsStat.setEnabled(true);
+            deathsStat.setEnabled(true);
         } else {
             plusEen.setEnabled(true);
             plusHonderd.setEnabled(true);
             start.setEnabled(true);
             stop.setEnabled(false);
             longSim.setEnabled(true);
-            birthsStat.setEnabled(false);
-            deathsStat.setEnabled(false);
-            stepsStat.setEnabled(false);
         }
     }
 }
