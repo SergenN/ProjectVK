@@ -34,13 +34,14 @@ public class SimulatorView extends JFrame
     private final String POPULATION_PREFIX = "Population: ";
     private JLabel stepLabel, population;
     private FieldView fieldView;
-    private Controller controller;
+    
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
 
     private ControlPanel controlPanel;
+    private GraphView graphView;
     private SettingsView settingPanel;
 
     private int height, width;
@@ -65,6 +66,7 @@ public class SimulatorView extends JFrame
      */
     public SimulatorView(int height, int width/*, Simulator simulator*/, Controller controller)
     {
+        //JTabbedPane tabbedPane = new JTabbedPane();
         this.controller = controller;
         // Making sure the simulator has a height and width set. If not, set it to default.
         if(width <= 0 || height <= 0) {
@@ -86,6 +88,8 @@ public class SimulatorView extends JFrame
         tabbedPane.addTab("Tab1", null);
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);*/
         settingPanel = new SettingsView(new GridLayout(5,2));
+       // controlPanel = new ControlPanel(height, simulator);
+        graphView = new GraphView(height, simulator);
         controlPanel = new ControlPanel(height, controller);
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();
@@ -100,18 +104,19 @@ public class SimulatorView extends JFrame
         population.setFont(new Font("Helvetica", Font.PLAIN, 10));
 
         fieldView = new FieldView(height, width);
-        tabbedPane.addTab("Veld", fieldView);
-        tabbedPane.addTab("Settings", settingPanel);
+//        tabbedPane.addTab("Veld", fieldView);
+//        tabbedPane.addTab("Settings", settingPanel);
 
         Container contents = getContentPane();
         //contents.setBackground(new Color(39, 39, 39));
         contents.setBackground(new Color(211, 47, 47));
 
-        contents.add(tabbedPane, BorderLayout.NORTH);
+//        contents.add(tabbedPane, BorderLayout.NORTH);
         contents.add(stepLabel);
         stepLabel.setBounds(50, 50, 500, 500);
-        contents.add(fieldView, BorderLayout.EAST);
+        contents.add(fieldView, BorderLayout.CENTER);
         contents.add(controlPanel, BorderLayout.WEST);
+        contents.add(graphView, BorderLayout.EAST);
         contents.add(population, BorderLayout.SOUTH);
         pack();
 

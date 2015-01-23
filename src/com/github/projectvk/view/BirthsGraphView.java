@@ -13,7 +13,10 @@ import com.xeiam.xchart.StyleManager.LegendPosition;
 import com.xeiam.xchart.SwingWrapper;
 import com.xeiam.xchart.demo.charts.ExampleChart;
 
-public class BirthsGraphView implements ExampleChart {
+import javax.swing.*;
+import java.awt.*;
+
+public class BirthsGraphView extends JFrame implements ExampleChart {
 
     public BirthsGraphView(){
         Chart chart = getChart();
