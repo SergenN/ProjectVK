@@ -83,11 +83,11 @@ public class ControlPanel extends JPanel{
 
         // Stop button
         stop = new JButton("P");
-        buttonStyle(start, "start");
+        buttonStyle(stop, "start");
 
         // Start button
         start = new JButton("S");
-        buttonStyle(stop, "stop");
+        buttonStyle(start, "stop");
 
         // Simuleer button
         longSim = new JButton("+1000");
