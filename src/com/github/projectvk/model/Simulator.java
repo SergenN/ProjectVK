@@ -28,6 +28,8 @@ public class Simulator implements Runnable
     private static final double DODO_CREATION_PROBABILITY = 0.03;
     // The probability that a hunter will spawn in any given grid position
     private static final double HUNTER_CREATION_PROBABILITY = 0.05;
+    // the probability grass will spawn in any given position
+    private static final double GRASS_CREATION_PROBABILITY = 0.50;
 
     //List of actors in the field.
     private List<Actor> actors;
@@ -117,10 +119,10 @@ public class Simulator implements Runnable
 
                         actor.act(newActors);
 
-                        if (actor instanceof Animal) {
-                            Animal animal = (Animal) actor;
+                        if (actor instanceof NaturalEntity) {
+                            NaturalEntity naturalEntity = (NaturalEntity) actor;
 
-                            if (!animal.isAlive()) {
+                            if (!naturalEntity.isAlive()) {
                                 it.remove();
                             }
                         }
@@ -176,7 +178,11 @@ public class Simulator implements Runnable
                     Rabbit rabbit = new Rabbit(true, field, location);
                     actors.add(rabbit);
                 }
-
+                else if(rand.nextDouble() <= GRASS_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Grass grass = new Grass(true, field, location);
+                    actors.add(grass);
+                }
                 else if(rand.nextDouble() <= DODO_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Dodo dodo = new Dodo(true, field, location);
@@ -236,7 +242,6 @@ public class Simulator implements Runnable
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(toStep);
                 decrementStep();
             }
             if(toStep == 0){
@@ -244,6 +249,4 @@ public class Simulator implements Runnable
             }
         }
     }
-
-
 }

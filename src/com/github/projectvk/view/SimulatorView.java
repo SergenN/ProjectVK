@@ -33,6 +33,7 @@ public class SimulatorView extends JFrame
     private FieldStats stats;
 
     private ControlPanel controlPanel;
+    private SettingsView settingPanel;
 
     /**
      * Create a view of the given width and height.
@@ -41,12 +42,20 @@ public class SimulatorView extends JFrame
      */
     public SimulatorView(int height, int width, Simulator simulator)
     {
+        JTabbedPane tabbedPane = new JTabbedPane();
+/*        tabbedPane.addTab("Tab1", getContentPane());
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+
+        //JComponent panel2 = makeTextPanel("Panel #2");
+        tabbedPane.addTab("Tab1", null);
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);*/
+        settingPanel = new SettingsView(new GridLayout(5,2));
         controlPanel = new ControlPanel(height, simulator);
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();
 
         setTitle("Vossen en konijnen simulatie");
-        stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
+        stepLabel = new JLabel();
         stepLabel.setForeground(Color.WHITE);
         stepLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
 
@@ -55,12 +64,16 @@ public class SimulatorView extends JFrame
         population.setFont(new Font("Helvetica", Font.PLAIN, 10));
 
         fieldView = new FieldView(height, width);
+        tabbedPane.addTab("Veld", fieldView);
+        tabbedPane.addTab("Settings", settingPanel);
 
         Container contents = getContentPane();
         //contents.setBackground(new Color(39, 39, 39));
         contents.setBackground(new Color(211, 47, 47));
 
-        contents.add(stepLabel, BorderLayout.NORTH);
+        contents.add(tabbedPane, BorderLayout.NORTH);
+        contents.add(stepLabel);
+        stepLabel.setBounds(50,50,500,500);
         contents.add(fieldView, BorderLayout.EAST);
         contents.add(controlPanel, BorderLayout.WEST);
         contents.add(population, BorderLayout.SOUTH);

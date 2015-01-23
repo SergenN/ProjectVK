@@ -33,4 +33,6 @@ public interface Actor {
      * @param newActors
      */
     public void act(List<Actor> newActors);
+
+
 }

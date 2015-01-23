@@ -1,15 +1,12 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.view.BirthsGraphView;
-
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
  */
-public class Rabbit extends Animal
+public class Rabbit extends NaturalEntity
 {
     // The age at which a rabbit can start to breed.
     private static final int BREEDING_AGE = 5;
@@ -19,6 +16,14 @@ public class Rabbit extends Animal
     private static final double BREEDING_PROBABILITY = 0.12;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 4;
+    // the maximum number a rabbit can move without food before dying
+    private static final int FOOD_LEVEL = 8;
+    // The rabbits it's natural prey
+    private static final Class[] PREY = {Grass.class};
+    // Can the animal walk/breed on grass (will remove grass
+    private static final boolean IGNORE_GRASS = true;
+    // the minimum foodlevel an entity needs to breed
+    private static final int BREED_FOODLEVEL = 2;
 
 
     /**
@@ -29,11 +34,13 @@ public class Rabbit extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Rabbit(boolean randomAge, Field field, Location location)
+    public Rabbit(Boolean randomAge, Field field, Location location)
     {
         super(field, location, 0);
+        setFoodLevel(FOOD_LEVEL);
         if(randomAge) {
             setAge(getRandom().nextInt(getMaxAge()));
+            setFoodLevel(getRandom().nextInt(FOOD_LEVEL));
         }
     }
 
@@ -74,48 +81,51 @@ public class Rabbit extends Animal
     }
 
     /**
-     * This is what the rabbit does most of the time - it runs 
-     * around. Sometimes it will breed or die of old age.
-     * @param newRabbits A list to return newly born rabbits.
+     * verkrijg alle prooi klassen
+     *
+     * @return Class[] of prey entities
      */
-    public void act(List<Actor> newRabbits)
-    {
-        incrementAge();
-        if(isAlive()) {
-            giveBirth(newRabbits);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
-            if(newLocation != null) {
-                setLocation(newLocation);
-                Statistics.addData(Statistics.rabbit_steps, 1);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
-        }
-    }
-    
-    /**
-     * Check whether or not this rabbit is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newRabbits A list to return newly born rabbits.
-     */
-    private void giveBirth(List<Actor> newRabbits)
-    {
-        // New rabbits are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Rabbit young = new Rabbit(false, field, loc);
-            newRabbits.add(young);
-        }
-        Statistics.addData(Statistics.rabbit_birth, 1);
+    @Override
+    protected Class[] getPrey() {
+        return PREY;
     }
 
+    @Override
+    protected int getFoodDecayLevel() {
+        return FOOD_LEVEL;
+    }
+
+    /**
+     * Check if the Entity can breed/walk on grassland
+     *
+     * @return canOverrideGras
+     */
+    @Override
+    protected boolean canOverrideGras() {
+        return IGNORE_GRASS;
+    }
+
+    /**
+     * Get the minimal food needed for breed
+     *
+     * @return int minimal needed food lvl
+     */
+    @Override
+    protected int getMinimalBreedFood() {
+        return BREED_FOODLEVEL;
+    }
+
+    /**
+     * This is what the rabbit does most of the time - it runs 
+     * around. Sometimes it will breed or die of old age.
+     * @param newActors A list to return newly born rabbits.
+     */
+    public void act(List<Actor> newActors)
+    {
+        super.act(newActors, this.getClass());
+    }
+
+    @Override
     public void setDead(){
         super.setDead();
         Statistics.addData(Statistics.rabbit_death, 1);

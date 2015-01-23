@@ -125,7 +125,26 @@ public class Field
         }
         return free;
     }
-    
+
+    /**
+     * Get a shuffled list of the free adjacent locations.
+     * @param location Get locations adjacent to this.
+     * @param ignoreGrass ignore the grass and see it as free field.
+     * @return A list of free adjacent locations.
+     */
+    public List<Location> getFreeAdjacentLocations(Location location, boolean ignoreGrass)
+    {
+        List<Location> free = new LinkedList<Location>();
+        List<Location> adjacent = adjacentLocations(location);
+        for(Location next : adjacent) {
+            if(getObjectAt(next) == null || getObjectAt(next) instanceof Grass) {
+                free.add(next);
+            }
+        }
+        return free;
+    }
+
+
     /**
      * Try to find a free location that is adjacent to the
      * given location. If there is none, return null.
@@ -138,6 +157,26 @@ public class Field
     {
         // The available free ones.
         List<Location> free = getFreeAdjacentLocations(location);
+        if(free.size() > 0) {
+            return free.get(0);
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
+     * Try to find a free location that is adjacent to the
+     * given location. If there is none, return null.
+     * The returned location will be within the valid bounds
+     * of the field.
+     * @param location The location from which to generate an adjacency.
+     * @return A valid location within the grid area.
+     */
+    public Location freeAdjacentLocation(Location location, boolean ignoreGrass)
+    {
+        // The available free ones.
+        List<Location> free = getFreeAdjacentLocations(location, true);
         if(free.size() > 0) {
             return free.get(0);
         }

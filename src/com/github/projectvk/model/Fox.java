@@ -1,13 +1,12 @@
 package com.github.projectvk.model;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.
  */
-public class Fox extends Animal
+public class Fox extends NaturalEntity
 {
     // The age at which a fox can start to breed.
     private static final int BREEDING_AGE = 15;
@@ -19,10 +18,14 @@ public class Fox extends Animal
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 9;
+    private static final int FOOD_LEVEL = 9;
+    // The fox it's natural prey
+    private static final Class[] PREY = {Dodo.class, Rabbit.class};
+    // Can the animal walk/breed on grass (will remove grass
+    private static final boolean IGNORE_GRASS = true;
+    // the minimum foodlevel an entity needs to breed
+    private static final int BREED_FOODLEVEL = 5;
 
-    // The fox's food level, which is increased by eating rabbits.
-    private int foodLevel;
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -32,13 +35,13 @@ public class Fox extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location)
+    public Fox(Boolean randomAge, Field field, Location location)
     {
         super(field, location, 0);
-        foodLevel = RABBIT_FOOD_VALUE;
+        setFoodLevel(FOOD_LEVEL);
         if(randomAge) {
             setAge(getRandom().nextInt(MAX_AGE));
-            foodLevel = getRandom().nextInt(RABBIT_FOOD_VALUE);
+            setFoodLevel(getRandom().nextInt(FOOD_LEVEL));
         }
     }
 
@@ -79,101 +82,60 @@ public class Fox extends Animal
     }
 
     /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
-     * or die of old age.
-     * @param newFoxes A list to return newly born foxes.
+     * verkrijg alle prooi klassen
+     *
+     * @return Class[] of prey entities
      */
-    public void act(List<Actor> newFoxes)
-    {
-        incrementAge();
-        incrementHunger();
-        if(isAlive()) {
-            giveBirth(newFoxes);            
-            // Move towards a source of food if found.
-            Location newLocation = findFood();
-            if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
-            }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
-                Statistics.addData(Statistics.fox_steps, 1);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
-        }
+    @Override
+    protected Class[] getPrey() {
+        return PREY;
     }
 
     /**
-     * Look for rabbits adjacent to the current location.
-     * Only the first live rabbit is eaten.
-     * @return Where food was found, or null if it wasn't.
+     * verkrijg de foodDecayLevel
+     * @return
      */
-    private Location findFood()
-    {
-        Field field = getField();
-        List<Location> adjacent = field.adjacentLocations(getLocation());
-        Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
-            Location where = it.next();
-            Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) { 
-                    rabbit.setDead();
-                    foodLevel = RABBIT_FOOD_VALUE;
-                    return where;
-                }
-            }
-            if(animal instanceof Dodo) {
-                Dodo dodo = (Dodo) animal;
-                if(dodo.isAlive()) {
-                    dodo.setDead();
-                    foodLevel = RABBIT_FOOD_VALUE;
-                    return where;
-                }
-            }
-        }
-        return null;
+    @Override
+    protected int getFoodDecayLevel() {
+        return FOOD_LEVEL;
     }
 
     /**
-     * Check whether or not this fox is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born foxes.
+     * Check if the Entity can breed/walk on grassland
+     *
+     * @return canOverrideGras
      */
-    public void giveBirth(List<Actor> newFoxes)
-    {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
-            newFoxes.add(young);
-        }
-        Statistics.addData(Statistics.fox_birth, 1);
+    @Override
+    protected boolean canOverrideGras() {
+        return IGNORE_GRASS;
     }
 
+    /**
+     * Get the minimal food needed for breed
+     *
+     * @return int minimal needed food lvl
+     */
+    @Override
+    protected int getMinimalBreedFood() {
+        return BREED_FOODLEVEL;
+    }
+
+    /**
+     *
+     */
+    @Override
     public void setDead(){
         super.setDead();
         Statistics.addData(Statistics.fox_death, 1);
     }
 
     /**
-     * Make this fox more hungry. This could result in the fox's death.
+     * acteer
+     *
+     * @param actors
      */
-    protected void incrementHunger()
-    {
-        foodLevel--;
-        if(foodLevel <= 0) {
-            setDead();
-        }
+    @Override
+    public void act(List<Actor> actors) {
+        super.act(actors, getClass());
     }
 }
