@@ -19,13 +19,13 @@ public class Simulator implements Runnable
     // The default width for the grid.
     private static final int DEFAULT_WIDTH = 120;
     // The default depth of the grid.
-    private static final int DEFAULT_DEPTH = 78;
+    private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a dodo will spawn in any given grid position
-    private static final double DODO_CREATION_PROBABILITY = 0.03;
+    private static final double DODO_CREATION_PROBABILITY = 0.15;
     // The probability that a hunter will spawn in any given grid position
     private static final double HUNTER_CREATION_PROBABILITY = 0.05;
     // the probability grass will spawn in any given position

@@ -54,9 +54,9 @@ public class ControlPanel extends JPanel{
 
         // FOX PICTURE
         ImageIcon icon = new ImageIcon("img\\fox.png");
-        JLabel thumb = new JLabel();
-        thumb.setIcon(icon);
-        add(thumb);
+        JLabel fox = new JLabel();
+        fox.setIcon(icon);
+        add(fox);
 
         // HEADERS
         sim_kop = new JLabel("Simulate");
@@ -111,7 +111,7 @@ public class ControlPanel extends JPanel{
 
 
         //Positie en groote zetten
-        thumb.setBounds(13, 195, 500, 500);
+        fox.setBounds(13, 205, 500, 500);
 
         sim_kop.setBounds(10, 20, 80, 30);
         plusEen.setBounds(10, 60, 80, 30);
