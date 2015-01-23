@@ -113,8 +113,8 @@ public class ControlPanel extends JPanel{
         plusEen.setBounds(10, 60, 80, 30);
         plusHonderd.setBounds(10, 100, 80, 30);
         longSim.setBounds(10, 140, 80, 30);
-        stop.setBounds(10, 180, 35, 30);
-        start.setBounds(55, 180, 35, 30);
+        start.setBounds(10, 180, 35, 30);
+        stop.setBounds(55, 180, 35, 30);
 
         stat_kop.setBounds(10, 220, 80, 30);
         birthsStat.setBounds(10, 260, 80, 30);
@@ -144,12 +144,18 @@ public class ControlPanel extends JPanel{
             start.setEnabled(false);
             stop.setEnabled(true);
             longSim.setEnabled(false);
+            birthsStat.setEnabled(true);
+            deathsStat.setEnabled(true);
+            stepsStat.setEnabled(true);
         } else {
             plusEen.setEnabled(true);
             plusHonderd.setEnabled(true);
             start.setEnabled(true);
             stop.setEnabled(false);
             longSim.setEnabled(true);
+            birthsStat.setEnabled(false);
+            deathsStat.setEnabled(false);
+            stepsStat.setEnabled(false);
         }
     }
 }

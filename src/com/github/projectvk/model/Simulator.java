@@ -82,7 +82,7 @@ public class Simulator implements Runnable
         System.out.println(buttonHandler.toString());
 
         view = new SimulatorView(depth, width, this);
-
+        view.getControlPanel().disableButton();
         //runner = new ThreadRunner(this);
 
         // Create a view of the state of each location in the field.
@@ -205,6 +205,7 @@ public class Simulator implements Runnable
         this.toStep = -1;
         running = true;
         new Thread(this).start();
+        view.getControlPanel().disableButton();
     }
 
     /**
@@ -214,6 +215,7 @@ public class Simulator implements Runnable
         this.toStep = toStep;
         running = true;
         new Thread(this).start();
+        view.getControlPanel().disableButton();
     }
 
 
