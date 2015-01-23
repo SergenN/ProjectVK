@@ -10,36 +10,36 @@ public class Field
 {
     // A random number generator for providing random locations.
     private static final Random rand = Randomizer.getRandom();
-    
-    // The depth and width of the field.
-    private int depth, width;
+
+    // The height and width of the field.
+    private int height, width;
     // Storage for the animals.
     private Object[][] field;
 
     /**
      * Represent a field of the given dimensions.
-     * @param depth The depth of the field.
+     * @param height The height of the field.
      * @param width The width of the field.
      */
-    public Field(int depth, int width)
+    public Field(int height, int width)
     {
-        this.depth = depth;
+        this.height = height;
         this.width = width;
-        field = new Object[depth][width];
+        field = new Object[height][width];
     }
-    
+
     /**
      * Empty the field.
      */
     public void clear()
     {
-        for(int row = 0; row < depth; row++) {
+        for(int row = 0; row < height; row++) {
             for(int col = 0; col < width; col++) {
                 field[row][col] = null;
             }
         }
     }
-    
+
     /**
      * Clear the given location.
      * @param location The location to clear.
@@ -48,7 +48,7 @@ public class Field
     {
         field[location.getRow()][location.getCol()] = null;
     }
-    
+
     /**
      * Place an animal at the given location.
      * If there is already an animal at the location it will
@@ -61,7 +61,7 @@ public class Field
     {
         place(animal, new Location(row, col));
     }
-    
+
     /**
      * Place an animal at the given location.
      * If there is already an animal at the location it will
@@ -73,7 +73,7 @@ public class Field
     {
         field[location.getRow()][location.getCol()] = animal;
     }
-    
+
     /**
      * Return the animal at the given location, if any.
      * @param location Where in the field.
@@ -83,7 +83,7 @@ public class Field
     {
         return getObjectAt(location.getRow(), location.getCol());
     }
-    
+
     /**
      * Return the animal at the given location, if any.
      * @param row The desired row.
@@ -94,7 +94,7 @@ public class Field
     {
         return field[row][col];
     }
-    
+
     /**
      * Generate a random location that is adjacent to the
      * given location, or is the same location.
@@ -108,7 +108,7 @@ public class Field
         List<Location> adjacent = adjacentLocations(location);
         return adjacent.get(0);
     }
-    
+
     /**
      * Get a shuffled list of the free adjacent locations.
      * @param location Get locations adjacent to this.
@@ -202,7 +202,7 @@ public class Field
             int col = location.getCol();
             for(int roffset = -1; roffset <= 1; roffset++) {
                 int nextRow = row + roffset;
-                if(nextRow >= 0 && nextRow < depth) {
+                if(nextRow >= 0 && nextRow < height) {
                     for(int coffset = -1; coffset <= 1; coffset++) {
                         int nextCol = col + coffset;
                         // Exclude invalid locations and the original location.
@@ -212,7 +212,7 @@ public class Field
                     }
                 }
             }
-            
+
             // Shuffle the list. Several other methods rely on the list
             // being in a random order.
             Collections.shuffle(locations, rand);
@@ -221,14 +221,14 @@ public class Field
     }
 
     /**
-     * Return the depth of the field.
-     * @return The depth of the field.
+     * Return the height of the field.
+     * @return The height of the field.
      */
-    public int getDepth()
+    public int getHeight()
     {
-        return depth;
+        return height;
     }
-    
+
     /**
      * Return the width of the field.
      * @return The width of the field.
