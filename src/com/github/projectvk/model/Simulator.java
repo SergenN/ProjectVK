@@ -37,7 +37,7 @@ public class Simulator implements Runnable
     private Field field;
     // The current step of the simulation.
     private int step;
-    // A graphical view of the simulation.
+    // A graphical view of the simulation. ----> Simulatorview --> Init
     private SimulatorView view;
     //Init the thread runner needed for ControlPanel class
     //private ThreadRunner runner;
@@ -48,59 +48,52 @@ public class Simulator implements Runnable
     private int toStep = 0;
 
     // Buttonhandler to catch events buttons create
-    private ButtonHandler buttonHandler;
+    //private ButtonHandler buttonHandler;
 
     private Controller controller;
 
     /**
      * Construct a simulation field with default size.
      */
-    public Simulator()
+    /**public Simulator()
     {
-        this(DEFAULT_DEPTH, DEFAULT_WIDTH);
-    }
-    
+        //this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+    }**/
+
     /**
-     * Create a simulation field with the given size.
-     * @param depth Depth of the field. Must be greater than zero.
-     * @param width Width of the field. Must be greater than zero.
+     * Creates a Simulator Object with a Controller Connection
+     * @param controller
      */
-    public Simulator(int depth, int width)
+    public Simulator(Controller controller)
     {
-        if(width <= 0 || depth <= 0) {
-            System.out.println("The dimensions must be greater than zero.");
-            System.out.println("Using default values.");
-            depth = DEFAULT_DEPTH;
-            width = DEFAULT_WIDTH;
-        }
+
+        this.controller = controller;
+        //controller.setSimulator(this);
 
         actors = new ArrayList<Actor>();
-        field = new Field(depth, width);
 
-        controller = new Controller(this/*, view.getControlPanel()*/);
-        buttonHandler = new ButtonHandler(controller);
-        System.out.println(buttonHandler.toString());
+        //this.field = field;
 
-        view = new SimulatorView(depth, width, this);
-        view.getControlPanel().disableButton();
+        // Creates new Field, Fetches new Field sizes from controller
+        field = new Field(controller.getFieldHeight(), controller.getFieldWidth());
+        System.out.println(controller.getFieldHeight()+" , "+ controller.getFieldWidth());
+        //field = new Field(120, 80);
+       // controller.disableButtons();
+
+        //System.out.println(buttonHandler.toString());
+
+        /**///view =
+        /**///view.getControlPanel().disableButton();
+
         //runner = new ThreadRunner(this);
 
         // Create a view of the state of each location in the field.
-
 
         // Setup a valid starting point.
         reset();
     }
 
-    /**
-     * Returns Buttonhandler
-     * @return
-     */
-    public ButtonHandler getButtonHandler() {
 
-        return buttonHandler;
-    }
-    
     /**
      * Run the simulation from its current state for a single step.
      * Iterate over the whole field updating the state of each
@@ -111,7 +104,7 @@ public class Simulator implements Runnable
         step++;
         // Provide space for newborn animals.
         List<Actor> newActors = new ArrayList<Actor>();
-        // Let all rabbits/foxes act.
+        // Let all entities act.
             try {
                 if(newActors != null) {
                     for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
@@ -143,7 +136,10 @@ public class Simulator implements Runnable
 
         //TODO check if area is full of rabbits and make the hunters return.
         // Add the newly born foxes and rabbits to the main lists.
-        view.showStatus(step, field);
+        //
+        controller.showStatus(step, field);
+
+        //view.showStatus(step, field);
     }
         
     /**
@@ -156,7 +152,7 @@ public class Simulator implements Runnable
         populate();
         
         // Show the starting state in the view.
-        view.showStatus(step, field);
+        controller.showStatus(step, field);
     }
     
     /**
@@ -166,7 +162,7 @@ public class Simulator implements Runnable
     {
         Random rand = Randomizer.getRandom();
         field.clear();
-        for(int row = 0; row < field.getDepth(); row++) {
+        for(int row = 0; row < field.getHeight(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
@@ -205,7 +201,7 @@ public class Simulator implements Runnable
         this.toStep = -1;
         running = true;
         new Thread(this).start();
-        view.getControlPanel().disableButton();
+        controller.disableButtons();
     }
 
     /**
@@ -215,13 +211,13 @@ public class Simulator implements Runnable
         this.toStep = toStep;
         running = true;
         new Thread(this).start();
-        view.getControlPanel().disableButton();
+        controller.disableButtons();
     }
 
 
     public void stop(){
         running = false;
-        view.getControlPanel().disableButton();
+        controller.disableButtons();
     }
 
     public void decrementStep(){
@@ -239,8 +235,9 @@ public class Simulator implements Runnable
         while (running) {
             if(toStep < 0 || toStep != -1) {
                 Main.getSimulator().simulateOneStep();
+                //this.simulateOneStep();
                 try {
-                    Thread.sleep(50);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

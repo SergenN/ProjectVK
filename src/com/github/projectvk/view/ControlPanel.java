@@ -1,5 +1,6 @@
 package com.github.projectvk.view;
 
+import com.github.projectvk.controller.Controller;
 import com.github.projectvk.model.Simulator;
 import com.github.projectvk.view.BirthsGraphView;
 import com.github.projectvk.view.DeathsGraphView;
@@ -18,7 +19,7 @@ public class ControlPanel extends JPanel{
     private JLabel sim_kop, stat_kop;
     private JButton plusEen, plusHonderd, longSim, birthsStat, deathsStat,stepsStat, start, stop;
     private int height;
-    private Simulator simulator;
+    private Controller controller;
 
     public void buttonStyle(JButton button, String command){
         button.setBackground(new Color(114, 114, 114));
@@ -28,7 +29,7 @@ public class ControlPanel extends JPanel{
         button.setActionCommand(command);
 
 
-        button.addActionListener(simulator.getButtonHandler());
+        button.addActionListener(controller.getButtonHandler());
 
         add(button);
     }
@@ -45,12 +46,12 @@ public class ControlPanel extends JPanel{
      *
      * @param height - Hoogte van de simulator
      */
-    public ControlPanel(int height, Simulator simulator) {
+    public ControlPanel(int height, Controller controller) {
 
         setBackground(new Color(33, 33, 33));
         this.setLayout(null);
         this.height = height;
-        this.simulator = simulator;
+        this.controller = controller;
 
         // FOX PICTURE
         ImageIcon icon = new ImageIcon("img\\fox.png");
@@ -142,7 +143,7 @@ public class ControlPanel extends JPanel{
      * Disables buttons while running
      */
     public void disableButton (){
-        if(simulator.isRunning()) {
+        if(controller.isSimulatorRunning()) {
             plusEen.setEnabled(false);
             plusHonderd.setEnabled(false);
             start.setEnabled(false);

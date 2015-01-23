@@ -1,5 +1,6 @@
 package com.github.projectvk.view;
 
+import com.github.projectvk.controller.Controller;
 import com.github.projectvk.model.*;
 
 import javax.swing.*;
@@ -16,6 +17,13 @@ import java.util.Map;
  */
 public class SimulatorView extends JFrame
 {
+
+
+    // Default height and width
+    private static final int DEFAULT_HEIGHT = 100;
+    private static final int DEFAULT_WIDTH = 100;
+
+
     // Colors used for empty locations.
     private static final Color EMPTY_COLOR = new Color(229, 229, 229, 255);
 
@@ -26,7 +34,7 @@ public class SimulatorView extends JFrame
     private final String POPULATION_PREFIX = "Population: ";
     private JLabel stepLabel, population;
     private FieldView fieldView;
-    
+    private Controller controller;
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
@@ -35,13 +43,41 @@ public class SimulatorView extends JFrame
     private ControlPanel controlPanel;
     private SettingsView settingPanel;
 
+    private int height, width;
+
     /**
-     * Create a view of the given width and height.
-     * @param height The simulation's height.
-     * @param width  The simulation's width.
+     * Contstructor to use default window settings
+     * @param controller
      */
-    public SimulatorView(int height, int width, Simulator simulator)
+    public SimulatorView(Controller controller){
+        this(DEFAULT_HEIGHT, DEFAULT_WIDTH, controller);
+        System.out.println("The dimensions must be greater than zero.");
+        System.out.println("Using default values.");
+
+
+    }
+
+    /**
+     *
+     * @param height
+     * @param width
+     * @param //simulator
+     */
+    public SimulatorView(int height, int width/*, Simulator simulator*/, Controller controller)
     {
+        this.controller = controller;
+        // Making sure the simulator has a height and width set. If not, set it to default.
+        if(width <= 0 || height <= 0) {
+            System.out.println("The dimensions must be greater than zero.");
+            System.out.println("Using default values.");
+
+        }
+
+        this.height = height;
+        this.width = width;
+
+        //controller.setSimulatorView(this);
+
         JTabbedPane tabbedPane = new JTabbedPane();
 /*        tabbedPane.addTab("Tab1", getContentPane());
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -50,7 +86,7 @@ public class SimulatorView extends JFrame
         tabbedPane.addTab("Tab1", null);
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);*/
         settingPanel = new SettingsView(new GridLayout(5,2));
-        controlPanel = new ControlPanel(height, simulator);
+        controlPanel = new ControlPanel(height, controller);
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();
 
@@ -73,7 +109,7 @@ public class SimulatorView extends JFrame
 
         contents.add(tabbedPane, BorderLayout.NORTH);
         contents.add(stepLabel);
-        stepLabel.setBounds(50,50,500,500);
+        stepLabel.setBounds(50, 50, 500, 500);
         contents.add(fieldView, BorderLayout.EAST);
         contents.add(controlPanel, BorderLayout.WEST);
         contents.add(population, BorderLayout.SOUTH);
@@ -141,7 +177,7 @@ public class SimulatorView extends JFrame
 
         fieldView.preparePaint();
 
-        for(int row = 0; row < field.getDepth(); row++) {
+        for(int row = 0; row < field.getHeight(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
                 Object animal = field.getObjectAt(row, col);
                 if(animal != null) {
@@ -157,6 +193,14 @@ public class SimulatorView extends JFrame
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
         fieldView.repaint();
+    }
+
+    public int getFieldHeight(){
+        return height;
+    }
+
+    public int getFieldWidth(){
+        return width;
     }
 
     /**

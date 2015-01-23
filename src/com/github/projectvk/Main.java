@@ -1,23 +1,50 @@
 package com.github.projectvk;
 
+import com.github.projectvk.controller.Controller;
 import com.github.projectvk.model.Simulator;
+import com.github.projectvk.view.SimulatorView;
 
 public class Main {
 
+    //private static Simulator simulator;
+
+    private static Controller controller;
+    private static SimulatorView simulatorView;
     private static Simulator simulator;
 
-    /**
-     * Main methode
-     */
-    public static void main(String[] args) {
-        setSimulator(new Simulator());
-    }
+    //private static final
 
     public static Simulator getSimulator() {
         return simulator;
     }
 
-    public static void setSimulator(Simulator simulator) {
-        Main.simulator = simulator;
+    /**
+     * Main methode
+     */
+    public static void main(String[] args) {
+
+        /**
+         * Initialising Script
+         */
+
+        // Create Controller Object
+        controller = new Controller();
+
+        // Create View
+        simulatorView = new SimulatorView(100, 200, controller);
+        controller.setSimulatorView(simulatorView);
+
+        // Create Simulator
+        simulator = new Simulator(controller);
+        controller.setSimulator(simulator);
+
+
+
+
+
+
+
+
     }
+
 }

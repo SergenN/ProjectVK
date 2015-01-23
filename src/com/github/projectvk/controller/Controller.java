@@ -1,11 +1,8 @@
 package com.github.projectvk.controller;
 
+import com.github.projectvk.model.Field;
 import com.github.projectvk.model.Simulator;
-import com.github.projectvk.view.BirthsGraphView;
-
-import com.github.projectvk.view.DeathsGraphView;
-import com.github.projectvk.view.StepsGraphView;
-
+import com.github.projectvk.view.*;
 
 
 /**
@@ -14,16 +11,27 @@ import com.github.projectvk.view.StepsGraphView;
 public class Controller {
 
     private Simulator simulator;
+    private ControlPanel panel;
+    private SimulatorView simulatorView;
+    private ButtonHandler buttonHandler;
+    //private boolean simulatorRunning = false;
 
+    public Controller(){
 
-    public Controller(Simulator simulator){
-
-        this.simulator = simulator;
-
+        // Make new ButtonHandler to catch ButtonEvents
+        this.buttonHandler = new ButtonHandler(this);
 
     }
 
-    protected void ControllerDo(String doThis) {
+    public void setSimulatorView(SimulatorView simulatorView) {
+        this.simulatorView = simulatorView;
+    }
+
+    public void setSimulator(Simulator simulator) {
+        this.simulator = simulator;
+    }
+
+    protected void controllerDo(String doThis) {
 
         System.out.println(doThis);
         if (doThis == "plusEen") simulator.start(1);
@@ -35,7 +43,42 @@ public class Controller {
         if (doThis == "deathsStat") new DeathsGraphView();
         if (doThis == "stepsStat") new StepsGraphView();
 
+        //if (doThis == "")
+
 
     }
+
+    public void showStatus(int step, Field field){
+
+        simulatorView.showStatus(step, field);
+
+    }
+
+    public ButtonHandler getButtonHandler() {
+        return buttonHandler;
+    }
+
+    public boolean isSimulatorRunning() {
+        //System.out.println("Sim is running!");
+        return simulator.isRunning();
+
+    }
+
+    /**
+     * Returns Int[] with the HEIGHT on pos 0, and WIDTH on pos 1
+     * @return int[]
+     */
+    public int[] getFieldSize(){
+        return ( new int[]{simulatorView.getHeight(), simulatorView.getWidth()});
+    }
+
+    public int getFieldHeight(){ return simulatorView.getFieldHeight();}
+    public int getFieldWidth(){  return simulatorView.getFieldWidth();}
+
+    public void setView(int step, Field field){
+        simulatorView.showStatus(step, field);
+    }
+
+    public void disableButtons(){simulatorView.getControlPanel().disableButton();}
 
 }
