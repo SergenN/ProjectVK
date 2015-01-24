@@ -75,14 +75,8 @@ public class SimulatorView extends JFrame
         this.width = width;
 
         //controller.setSimulatorView(this);
-
-        JTabbedPane tabbedPane = new JTabbedPane();
-/*        tabbedPane.addTab("Tab1", getContentPane());
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-
         //JComponent panel2 = makeTextPanel("Panel #2");
-        tabbedPane.addTab("Tab1", null);
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);*/
+
         settingPanel = new SettingsView(new GridLayout(5,2));
        // controlPanel = new ControlPanel(height, simulator);
         graphView = new GraphView(height, controller);
@@ -100,16 +94,11 @@ public class SimulatorView extends JFrame
         population.setFont(new Font("Helvetica", Font.PLAIN, 10));
 
         fieldView = new FieldView(height, width);
-//        tabbedPane.addTab("Veld", fieldView);
-//        tabbedPane.addTab("Settings", settingPanel);
 
         Container contents = getContentPane();
-        //contents.setBackground(new Color(39, 39, 39));
         contents.setBackground(new Color(211, 47, 47));
 
-//        contents.add(tabbedPane, BorderLayout.NORTH);
-        contents.add(stepLabel);
-        stepLabel.setBounds(50, 50, 500, 500);
+        //contents.add(stepLabel, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(controlPanel, BorderLayout.WEST);
         contents.add(graphView, BorderLayout.EAST);
@@ -128,9 +117,6 @@ public class SimulatorView extends JFrame
         this.setColor(Hunter.class, new Color(76, 219, 76));
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
     }
 
     public ControlPanel getControlPanel(){

@@ -49,5 +49,4 @@ public class BirthsGraphView extends JFrame implements ExampleChart {
 
         return chart;
     }
-
 }

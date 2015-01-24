@@ -37,14 +37,6 @@ public class Main {
         // Create Simulator
         simulator = new Simulator(controller);
         controller.setSimulator(simulator);
-
-
-
-
-
-
-
-
     }
 
 }

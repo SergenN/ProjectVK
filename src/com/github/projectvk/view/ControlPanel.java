@@ -16,8 +16,8 @@ public class ControlPanel extends JPanel{
 
     private final int GRID_VIEW_SCALING_FACTOR = 6;
 
-    private JLabel sim_kop, stat_kop;
-    private JButton plusEen, plusHonderd, longSim, birthsStat, deathsStat,stepsStat, start, stop;
+    private JLabel sim_kop;
+    private JButton plusEen, plusHonderd, longSim, start, stop;
     private int height;
     private Controller controller;
 
@@ -62,21 +62,14 @@ public class ControlPanel extends JPanel{
         // HEADERS
         sim_kop = new JLabel("Simulate");
         headerStyle(sim_kop);
-        stat_kop = new JLabel("Statistics");
-        headerStyle(stat_kop);
-
-
-
 
         /*
          *  Buttons
          */
 
-
         // + 1 button
         plusEen = new JButton("+1");
         buttonStyle(plusEen, "plusEen");
-
 
         // + 100 button
         plusHonderd = new JButton("+100");
@@ -94,24 +87,7 @@ public class ControlPanel extends JPanel{
         longSim = new JButton("+1000");
         buttonStyle(longSim, "longSim");
 
-        // Births button
-        birthsStat = new JButton("Births");
-        buttonStyle(birthsStat, "birthsStat");
-        birthsStat.setEnabled(false);
-
-
-        // Deaths button
-        deathsStat = new JButton("Deaths");
-        buttonStyle(deathsStat, "deathsStat");
-        deathsStat.setEnabled(false);
-
-        // Steps button
-        stepsStat = new JButton("Quantity");
-        buttonStyle(stepsStat, "stepsStat");
-        stepsStat.setEnabled(false);
-
-
-        //Positie en groote zetten
+       //Positie en groote zetten
         fox.setBounds(13, 205, 500, 500);
 
         sim_kop.setBounds(10, 20, 80, 30);
@@ -120,11 +96,6 @@ public class ControlPanel extends JPanel{
         longSim.setBounds(10, 140, 80, 30);
         start.setBounds(10, 180, 35, 30);
         stop.setBounds(55, 180, 35, 30);
-
-        stat_kop.setBounds(10, 220, 80, 30);
-        birthsStat.setBounds(10, 260, 80, 30);
-        deathsStat.setBounds(10, 300, 80, 30);
-        stepsStat.setBounds(10, 340, 80, 30);
     }
 
 
@@ -149,9 +120,6 @@ public class ControlPanel extends JPanel{
             start.setEnabled(false);
             stop.setEnabled(true);
             longSim.setEnabled(false);
-            birthsStat.setEnabled(true);
-            stepsStat.setEnabled(true);
-            deathsStat.setEnabled(true);
         } else {
             plusEen.setEnabled(true);
             plusHonderd.setEnabled(true);
