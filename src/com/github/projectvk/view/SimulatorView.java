@@ -1,6 +1,8 @@
 package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
+
+//TODO make sure this goes through the controller and not through the model directly
 import com.github.projectvk.model.*;
 
 import javax.swing.*;
@@ -60,7 +62,7 @@ public class SimulatorView extends JFrame
      * @param width
      * @param //simulator
      */
-    public SimulatorView(int height, int width/*, Simulator simulator*/, Controller controller)
+    public SimulatorView(int height, int width, Controller controller)
     {
         //JTabbedPane tabbedPane = new JTabbedPane();
         this.controller = controller;
@@ -81,7 +83,11 @@ public class SimulatorView extends JFrame
        // controlPanel = new ControlPanel(height, simulator);
         graphView = new GraphView(height, controller);
         controlPanel = new ControlPanel(height, controller);
-        stats = new FieldStats();
+
+
+        stats = controller.getFieldStats();
+
+
         colors = new LinkedHashMap<Class, Color>();
 
         setTitle("Vossen en konijnen simulatie");
@@ -111,10 +117,14 @@ public class SimulatorView extends JFrame
         setVisible(true);
         setResizable(false);
 
-        this.setColor(Rabbit.class, new Color(76, 114, 255));
-        this.setColor(Fox.class, new Color(255, 196, 76));
-        this.setColor(Dodo.class, new Color(166, 76, 255));
-        this.setColor(Hunter.class, new Color(76, 219, 76));
+
+        Class[] cD = controller.fetchClassDefinitions();
+
+
+        this.setColor(cD[0], new Color(76, 114, 255)); //Rabbit
+        this.setColor(cD[1], new Color(255, 196, 76)); //Fox
+        this.setColor(cD[2], new Color(166, 76, 255)); //Dodo
+        this.setColor(cD[3], new Color(76, 219, 76)); //Hunter
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -155,12 +165,16 @@ public class SimulatorView extends JFrame
      */
     public void showStatus(int step, Field field)
     {
+
         if(!isVisible()) {
             setVisible(true);
         }
 
+
         stepLabel.setText(STEP_PREFIX + step);
+
         stats.reset();
+
 
         fieldView.preparePaint();
 

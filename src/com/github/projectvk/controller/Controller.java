@@ -32,7 +32,8 @@ public class Controller {
     }
 
     protected void controllerDo(String doThis) {
-
+        //todo MAKE THIS EQUALS
+        //todo MAKE THIS SWITCH ?
         System.out.println(doThis);
         if (doThis == "plusEen") simulator.start(1);
         if (doThis == "plusHonderd") simulator.start(100);
