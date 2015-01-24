@@ -1,15 +1,9 @@
 package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
-import com.github.projectvk.model.Simulator;
-import com.github.projectvk.view.BirthsGraphView;
-import com.github.projectvk.view.DeathsGraphView;
-import com.github.projectvk.view.StepsGraphView;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 @SuppressWarnings("serial")
 public class ControlPanel extends JPanel{

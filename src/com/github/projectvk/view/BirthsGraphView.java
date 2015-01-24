@@ -5,6 +5,7 @@ package com.github.projectvk.view;
  * Created by Thijs on 18-1-2015.
  */
 
+// Todo make sure this goes through the controller instead of the model
 import com.github.projectvk.model.Statistics;
 import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.ChartBuilder;
