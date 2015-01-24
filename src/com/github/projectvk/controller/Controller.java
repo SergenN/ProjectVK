@@ -1,5 +1,6 @@
 package com.github.projectvk.controller;
 
+import com.github.projectvk.Main;
 import com.github.projectvk.model.*;
 import com.github.projectvk.view.*;
 
@@ -15,13 +16,14 @@ public class Controller {
     private ButtonHandler buttonHandler;
     private JStyle jStyle = new JStyle();
     private GraphView graphView;
-
+    private Field field;
     private FieldStats fieldStats;
     //private boolean simulatorRunning = false;
 
     public Controller(){
 
         fieldStats = new FieldStats();
+        field = new Field(Main.getSize()[0], Main.getSize()[1]);
         // Make new ButtonHandler to catch ButtonEvents
         this.buttonHandler = new ButtonHandler(this);
 
@@ -40,16 +42,39 @@ public class Controller {
     protected void controllerDo(String doThis) {
 
         System.out.println(doThis);
-        if (doThis.equals("plusEen")) simulator.start(1);
-        if (doThis.equals("plusHonderd")) simulator.start(100);
-        if (doThis.equals("stop")) simulator.stop();
-        if (doThis.equals("start")) simulator.start();
-        if (doThis.equals("longSim")) simulator.start(1000);
-        if (doThis.equals("birthsStat")) {simulatorView.getGraphView().drawChart("births") ;System.out.println("click!"); simulator.start(0);}
-        if (doThis.equals("deathsStat")) {simulatorView.getGraphView().drawChart("deaths"); simulator.start(0);}
-        if (doThis.equals("stepsStat")) {simulatorView.getGraphView().drawChart("steps"); simulator.start(0);}
+        switch (doThis) {
 
-        //if (doThis == "")
+            case "plusEen":
+                simulator.start(1);
+                break;
+            case "plusHonderd":
+                simulator.start(100);
+                break;
+            case "start":
+                simulator.start();
+                break;
+            case "stop":
+                simulator.stop();
+                break;
+            case "longSim":
+                simulator.start(1000);
+                break;
+
+            case "birthsStat":
+                simulatorView.getGraphView().drawChart("births");
+                break;
+            case "deathsStat":
+                simulatorView.getGraphView().drawChart("deaths");
+                break;
+            case "stepsStat":
+                simulatorView.getGraphView().drawChart("steps");
+                break;
+        }
+
+
+
+
+
     }
 
     /**
@@ -58,9 +83,9 @@ public class Controller {
      * @param step
      * @param field
      */
-    public void showStatus(int step, Field field){
+    public void showStatus(int step) {
 
-        simulatorView.showStatus(step, field);
+        simulatorView.showStatus(step);
 
     }
 
@@ -94,19 +119,19 @@ public class Controller {
     /**
      * Returns Field Height
      *
-     * @return
+     * @return int FieldHeight
      */
     public int getFieldHeight() {
-        return simulatorView.getFieldHeight();
+        return Main.getSize()[0];
     }
 
     /**
      * Returns Field Width
      *
-     * @return
+     * @return int getFieldWidth
      */
     public int getFieldWidth() {
-        return simulatorView.getFieldWidth();
+        return Main.getSize()[1];
     }
 
     /*public void setView(int step, Field field){
@@ -134,8 +159,22 @@ public class Controller {
 
     }
 
+    /**
+     * Returns FieldStats
+     *
+     * @return FieldStats
+     */
     public FieldStats getFieldStats() {
         return fieldStats;
     }
+
+    /**
+     * Returns Field Object
+     *
+     * @return Field field
+     */
+    public Field getField() {
+        return field;}
+
 
 }

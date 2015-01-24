@@ -1,6 +1,7 @@
 package com.github.projectvk;
 
 import com.github.projectvk.controller.Controller;
+import com.github.projectvk.model.Field;
 import com.github.projectvk.model.Simulator;
 import com.github.projectvk.view.SimulatorView;
 
@@ -11,11 +12,17 @@ public class Main {
     private static Controller controller;
     private static SimulatorView simulatorView;
     private static Simulator simulator;
+    private static final int HEIGHT = 80;
+    private static final int WIDTH = 100;
 
     //private static final
 
     public static Simulator getSimulator() {
         return simulator;
+    }
+
+    public static int[] getSize() {
+        return new int[]{HEIGHT, WIDTH};
     }
 
     /**
@@ -31,6 +38,7 @@ public class Main {
         controller = new Controller();
 
         // Create View
+
         simulatorView = new SimulatorView(80, 100, controller);
         controller.setSimulatorView(simulatorView);
 
