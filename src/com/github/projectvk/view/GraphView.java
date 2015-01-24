@@ -1,10 +1,7 @@
 package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
-import com.github.projectvk.model.Dodo;
-import com.github.projectvk.model.Fox;
-import com.github.projectvk.model.Rabbit;
-import com.github.projectvk.model.Statistics;
+import com.github.projectvk.model.*;
 import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.ChartBuilder;
 import com.xeiam.xchart.StyleManager;
@@ -92,6 +89,7 @@ public class GraphView extends JPanel{
             chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.stepsHistory.get(Rabbit.class)));
             chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.stepsHistory.get(Fox.class)));
             chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.stepsHistory.get(Dodo.class)));
+            chart.addSeries("Hunter", turns, Statistics.convertToGraphData(Statistics.stepsHistory.get(Hunter.class)));
         }
 
         if(charType.equals("births")) {
