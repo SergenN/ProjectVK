@@ -1,7 +1,5 @@
 package com.github.projectvk.model;
 
-import java.util.List;
-
 /**
  * Created by Sergen on 19-1-2015.
  */
@@ -108,19 +106,13 @@ public class Dodo extends NaturalEntity{
     }
 
     /**
-     * Make this animal act - that is: make it do
-     * whatever it wants/needs to do.
+     * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
+     * Todo betere oplossing voor dit
      *
-     * @param newActors A list to receive newly born animals.
+     * @return klasse van het dier
      */
     @Override
-    public void act(List<Actor> newActors) {
-        super.act(newActors, this.getClass());
+    protected Class getEntityClass() {
+        return getClass();
     }
-
-    public void setDead(){
-        super.setDead();
-        Statistics.addData(Statistics.dodo_death, 1);
-    }
-
 }

@@ -25,11 +25,6 @@ public abstract class NaturalEntity implements Actor
     // Random nummer generator
     private static final Random rand = Randomizer.getRandom();
 
-
-    // Stats
-    private int deaths;
-    private int births;
-
     /**
      * Create a new animal at location in field.
      * 
@@ -91,6 +86,13 @@ public abstract class NaturalEntity implements Actor
      * @return int minimal needed food lvl
      */
     protected abstract int getMinimalBreedFood();
+
+    /**
+     * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
+     * Todo betere oplossing voor dit
+     * @return klasse van het dier
+     */
+    protected abstract Class getEntityClass();
 
     /**
      * Return the animal's location.
@@ -157,6 +159,7 @@ public abstract class NaturalEntity implements Actor
         return rand;
     }
 
+
     /**
      * Indicate that the animal is no longer alive.
      * It is removed from the field.
@@ -169,6 +172,7 @@ public abstract class NaturalEntity implements Actor
             location = null;
             field = null;
         }
+        if (getClass() != Grass.class) Statistics.addData(Statistics.deaths, getEntityClass(), 1);
     }
 
     /**
@@ -202,24 +206,6 @@ public abstract class NaturalEntity implements Actor
         if(canBreed() && getRandom().nextDouble() <= getBreedingProbability()) {
             births = getRandom().nextInt(getMaxLitterSize()) + 1;
         }
-        return births;
-    }
-
-    /**
-     * Add a birth of an entity
-    */
-
-    protected void addBirth()
-    {
-        births ++;
-    }
-
-    /**
-     * Return the entity's births.
-     * @return The entity's births.
-     */
-    protected int getBirths()
-    {
         return births;
     }
 
@@ -279,9 +265,8 @@ public abstract class NaturalEntity implements Actor
      * Check whether or not this entity is to give birth at this step.
      * New births will be made into free adjacent locations.
      * @param actors A list to return newly born foxes.
-     * @param classEntity the entity's class there needs to be an instance of
      */
-    public void giveBirth(List<Actor> actors, Class classEntity)
+    public void giveBirth(List<Actor> actors)
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -297,7 +282,7 @@ public abstract class NaturalEntity implements Actor
 //            if(field.getObjectAt(3,2) instanceof Dodo) System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             if(field.getObjectAt(loc) instanceof Grass) ((Grass) field.getObjectAt(loc)).setDead();
             try {
-                actors.add((Actor)classEntity.getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc));
+                actors.add((Actor)getEntityClass().getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc));
             } catch (NoSuchMethodException e){
                 e.printStackTrace();
             } catch (InstantiationException e){
@@ -308,6 +293,7 @@ public abstract class NaturalEntity implements Actor
                 e.printStackTrace();
             }
         }
+        if (getEntityClass() != Grass.class) Statistics.addData(Statistics.births, getEntityClass(), 1);
         //Statistics.addData(Statistics.fox_birth, 1)
 
     }
@@ -318,12 +304,12 @@ public abstract class NaturalEntity implements Actor
      * or die of old age.
      * @param actors A list to return newly born actors.
      */
-    public void act(List<Actor> actors, Class classEntity)
+    public void act(List<Actor> actors)
     {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            giveBirth(actors, classEntity);
+            giveBirth(actors);
             // Move towards a source of food if found.
             Location newLocation = findPrey();
             if(newLocation == null) {
@@ -333,7 +319,7 @@ public abstract class NaturalEntity implements Actor
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
-                //TODO fox statistics removed Class classEntity
+                if (getEntityClass() != Grass.class) Statistics.addData(Statistics.steps, getEntityClass(), 1);
             }
             else {
                 // Overcrowding.

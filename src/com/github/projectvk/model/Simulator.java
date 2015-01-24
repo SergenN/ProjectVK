@@ -2,11 +2,8 @@ package com.github.projectvk.model;
 
 import com.github.projectvk.Main;
 import com.github.projectvk.controller.Controller;
-import com.github.projectvk.view.GraphView;
-import com.github.projectvk.view.SimulatorView;
 
 import java.util.*;
-import java.util.List;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -229,7 +226,7 @@ public class Simulator implements Runnable
     @Override
     public void run() {
         while (running) {
-            if(toStep < 0 || toStep != -1) {
+            if (toStep < 0 || toStep != -1) {
                 Main.getSimulator().simulateOneStep();
                 //this.simulateOneStep();
                 try {
@@ -239,7 +236,7 @@ public class Simulator implements Runnable
                 }
                 decrementStep();
             }
-            if(toStep == 0){
+            if (toStep == 0) {
                 stop();
             }
         }

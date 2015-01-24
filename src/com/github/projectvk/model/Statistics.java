@@ -1,8 +1,7 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.view.GraphView;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,78 +12,66 @@ public class Statistics {
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
     private static final double HISTORY_TURNS = 70;
 
-    // Variables containing the count of data of one turn
-    public static List<Double> fox_birth = new ArrayList<Double>();
-    public static List<Double> dodo_birth = new ArrayList<Double>();
-    public static List<Double> rabbit_birth = new ArrayList<Double>();
+    public static HashMap<Class, ArrayList<Double>> deaths = new HashMap<Class, ArrayList<Double>>();
+    public static HashMap<Class, ArrayList<Double>> births = new HashMap<Class, ArrayList<Double>>();
+    public static HashMap<Class, ArrayList<Double>> steps = new HashMap<Class, ArrayList<Double>>();
 
-    public static List<Double> fox_steps = new ArrayList<Double>();
-    public static List<Double> dodo_steps = new ArrayList<Double>();
-    public static List<Double> rabbit_steps = new ArrayList<Double>();
-    public static List<Double> hunter_steps = new ArrayList<Double>();
-
-    public static List<Double> fox_death = new ArrayList<Double>();
-    public static List<Double> dodo_death = new ArrayList<Double>();
-    public static List<Double> rabbit_death = new ArrayList<Double>();
-
-    // Contains the data history. (data of last HISTORY_TURNS turns)
-    public static List<Double> fox_birth_history = new ArrayList<Double>();
-    public static List<Double> dodo_birth_history = new ArrayList<Double>();
-    public static List<Double> rabbit_birth_history = new ArrayList<Double>();
-
-    public static List<Double> fox_steps_history = new ArrayList<Double>();
-    public static List<Double> dodo_steps_history = new ArrayList<Double>();
-    public static List<Double> rabbit_steps_history = new ArrayList<Double>();
-    public static List<Double> hunter_steps_history = new ArrayList<Double>();
-
-    public static List<Double> fox_death_history = new ArrayList<Double>();
-    public static List<Double> dodo_death_history = new ArrayList<Double>();
-    public static List<Double> rabbit_death_history = new ArrayList<Double>();
+    public static HashMap<Class, ArrayList<Double>> deathsHistory = new HashMap<Class, ArrayList<Double>>();
+    public static HashMap<Class, ArrayList<Double>> birthsHistory = new HashMap<Class, ArrayList<Double>>();
+    public static HashMap<Class, ArrayList<Double>> stepsHistory = new HashMap<Class, ArrayList<Double>>();
 
 
     // Methods to fill the data arrays
-    public static void addData(List<Double> list, double amount){
-        if(list.isEmpty()){
-            list.add(0.0);
+    public static void addData(HashMap<Class, ArrayList<Double>> list, Class animal, double amount){
+        if(list.get(animal) == null || list.get(animal).isEmpty()){
+            list.put(animal, new ArrayList<Double>());
+            list.get(animal).add(0.0);
         }
-
-        list.set(0, list.get(0) + amount);
+        list.get(animal).set(0, list.get(animal).get(0) + amount);
     }
 
-    public static void addDataToHistory(List<Double> list, List<Double> source){
+    public static void addDataToHistory(HashMap<Class, ArrayList<Double>> list, Class animal, HashMap<Class, ArrayList<Double>> source){
+        if(list.get(animal) == null){
+            list.put(animal, new ArrayList<Double>());
+            list.get(animal).add(0.0);
+        }
 
-        if(source.isEmpty()){
-            source.add(0.0);
+        if(source.get(animal) == null) {
+            source.put(animal, new ArrayList<Double>());
+            source.get(animal).add(0.0);
+        }
+
+        if (source.get(animal).isEmpty()){
+            source.get(animal).add(0.0);
         }
 
 //      Setup birth data for graph
         if(list.size() >= HISTORY_TURNS) {
-
-            list.add(source.get(0));
-            list.remove(0);
+            list.get(animal).add(source.get(animal).get(0));
+            list.get(animal).remove(0);
         } else {
-            list.add(source.get(0));
+            list.get(animal).add(source.get(animal).get(0));
         }
-        source.clear();
+        source.get(animal).clear();
     }
 
     public static void updateData(){
-        addDataToHistory(fox_birth_history, fox_birth);
-        addDataToHistory(dodo_birth_history, dodo_birth);
-        addDataToHistory(rabbit_birth_history, rabbit_birth);
+        addDataToHistory(birthsHistory, Fox.class, births);
+        addDataToHistory(birthsHistory, Dodo.class, births);
+        addDataToHistory(birthsHistory, Rabbit.class, births);
 
-        addDataToHistory(fox_death_history, fox_death);
-        addDataToHistory(dodo_death_history, dodo_death);
-        addDataToHistory(rabbit_death_history, rabbit_death);
+        addDataToHistory(deathsHistory, Fox.class, deaths);
+        addDataToHistory(deathsHistory, Dodo.class, deaths);
+        addDataToHistory(deathsHistory, Rabbit.class, deaths);
 
-        addDataToHistory(fox_steps_history, fox_steps);
-        addDataToHistory(dodo_steps_history, dodo_steps);
-        addDataToHistory(rabbit_steps_history, rabbit_steps);
-        addDataToHistory(hunter_steps_history, rabbit_steps);
+        addDataToHistory(stepsHistory, Fox.class, steps);
+        addDataToHistory(stepsHistory, Dodo.class, steps);
+        addDataToHistory(stepsHistory, Rabbit.class, steps);
+        addDataToHistory(stepsHistory, Hunter.class, steps);
     }
 
     public static double[] convertToGraphData(List<Double> list){
-        if(list.isEmpty()){
+        if(list == null || list.isEmpty()){
             return new double[]{0,0,0};
         }
 

@@ -1,8 +1,14 @@
 package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
+import com.github.projectvk.model.Dodo;
+import com.github.projectvk.model.Fox;
+import com.github.projectvk.model.Rabbit;
 import com.github.projectvk.model.Statistics;
-import com.xeiam.xchart.*;
+import com.xeiam.xchart.Chart;
+import com.xeiam.xchart.ChartBuilder;
+import com.xeiam.xchart.StyleManager;
+import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +73,7 @@ public class GraphView extends JPanel{
 
     public Chart getChart() {
         // Put the turn steps in a double array
-        double[] turns = new double[Statistics.convertToGraphData(Statistics.rabbit_death_history).length];
+        double[] turns = new double[Statistics.convertToGraphData(Statistics.deathsHistory.get(Rabbit.class)).length];
         for (int i = 0; i < turns.length; i++){
             turns[i] = i;
         }
@@ -75,25 +81,25 @@ public class GraphView extends JPanel{
         if(charType.equals("deaths")) {
             // Create Chart
             chart = new ChartBuilder().chartType(StyleManager.ChartType.Line).width(600).height(400).title("Deaths").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
-            chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.rabbit_death_history));
-            chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.fox_death_history));
-            chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.dodo_death_history));
+            chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.deathsHistory.get(Rabbit.class)));
+            chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.deathsHistory.get(Fox.class)));
+            chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.deathsHistory.get(Dodo.class)));
         }
 
         if(charType.equals("steps")) {
             // Create Chart
             chart = new ChartBuilder().chartType(StyleManager.ChartType.Bar).width(600).height(400).title("Steps").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
-            chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.rabbit_steps_history));
-            chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.fox_steps_history));
-            chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.dodo_steps_history));
+            chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.stepsHistory.get(Rabbit.class)));
+            chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.stepsHistory.get(Fox.class)));
+            chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.stepsHistory.get(Dodo.class)));
         }
 
         if(charType.equals("births")) {
             // Create Chart
             chart = new ChartBuilder().chartType(StyleManager.ChartType.Scatter).width(600).height(400).title("Births").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
-            chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.rabbit_birth_history));
-            chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.fox_birth_history));
-            chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.dodo_birth_history));
+            chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.birthsHistory.get(Rabbit.class)));
+            chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.birthsHistory.get(Fox.class)));
+            chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.birthsHistory.get(Dodo.class)));
         }
 
         return chart;

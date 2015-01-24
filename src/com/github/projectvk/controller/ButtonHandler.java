@@ -14,7 +14,6 @@ public class ButtonHandler implements ActionListener{
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -28,6 +27,5 @@ public class ButtonHandler implements ActionListener{
         if (e.getActionCommand() == "stepsStat") controller.controllerDo("stepsStat");
 
     }
-
 
 }
