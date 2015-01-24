@@ -1,6 +1,7 @@
 package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
+import com.github.projectvk.model.Statistics;
 import com.xeiam.xchart.*;
 
 import javax.swing.*;
@@ -14,43 +15,10 @@ public class GraphView extends JPanel{
     private int height;
     private Controller controller;
     private JButton birthsStat, deathsStat,stepsStat;
+    private JStyle jStyle;
+    private Chart chart;
 
-    public void buttonStyle(JButton button, String command){
-        button.setBackground(new Color(114, 114, 114));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        button.setActionCommand(command);
-
-        //button.addActionListener(controller.getButtonHandler());
-
-        add(button);
-    }
-
-    public void makeButtons(){
-        // Births button
-        birthsStat = new JButton("Births");
-        buttonStyle(birthsStat, "birthsStat");
-        birthsStat.setEnabled(false);
-
-        // Deaths button
-        deathsStat = new JButton("Deaths");
-        buttonStyle(deathsStat, "deathsStat");
-        deathsStat.setEnabled(false);
-
-        // Steps button
-        stepsStat = new JButton("Quantity");
-        buttonStyle(stepsStat, "stepsStat");
-        stepsStat.setEnabled(false);
-
-        birthsStat.setBounds(15, 440, 80, 30);
-        deathsStat.setBounds(115, 440, 80, 30);
-        stepsStat.setBounds(215, 440, 80, 30);
-
-        birthsStat.setEnabled(true);
-        deathsStat.setEnabled(true);
-        stepsStat.setEnabled(true);
-    }
+    private String charType = "births";
 
     /**
      * Constructor voor het maken van de control panel
@@ -58,16 +26,33 @@ public class GraphView extends JPanel{
      * @param height - Hoogte van de simulator
      */
     public GraphView(int height, Controller controller) {
-
-        makeButtons();
-        Chart chart = getChart();
-        this.setLayout(new BorderLayout());
-        this.add(new XChartPanel(chart), BorderLayout.NORTH);
-
         this.setBackground(new Color(210, 210, 210));
-
         this.height = height;
         this.controller = controller;
+        this.jStyle = controller.getJStyle();
+
+        makeGUI();
+        this.setLayout(new BorderLayout());
+        this.chart = getChart();
+        this.add(new XChartPanel(chart), BorderLayout.NORTH);
+    }
+
+    public String getCharType(){
+        return charType;
+    }
+
+    public void makeGUI(){
+        // Births button
+        birthsStat = new JButton("Births");
+        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 15, 440, 80, 30);
+
+        // Deaths button
+        deathsStat = new JButton("Deaths");
+        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 115, 440, 80, 30);
+
+        // Steps button
+        stepsStat = new JButton("Steps");
+        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 215, 440, 80, 30);
     }
 
     /**
@@ -81,14 +66,43 @@ public class GraphView extends JPanel{
     }
 
     public Chart getChart() {
+        // Put the turn steps in a double array
+        double[] turns = new double[Statistics.convertToGraphData(Statistics.rabbit_death_history).length];
+        for (int i = 0; i < turns.length; i++){
+            turns[i] = i;
+        }
 
-        // Create Chart
-        Chart chart = new ChartBuilder().chartType(StyleManager.ChartType.Line).width(600).height(400).title("Deaths").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
-        chart.addSeries("Rabbits", new double[]{0,1,2}, new double[]{3,6,5});
-        chart.addSeries("Foxes", new double[]{0,1,2}, new double[]{3,3,4});
-        chart.addSeries("Dodo", new double[]{0,1,2}, new double[]{7,5,3});
+        if(charType.equals("deaths")) {
+            // Create Chart
+            chart = new ChartBuilder().chartType(StyleManager.ChartType.Line).width(600).height(400).title("Deaths").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
+            chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.rabbit_death_history));
+            chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.fox_death_history));
+            chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.dodo_death_history));
+        }
+
+        if(charType.equals("steps")) {
+            // Create Chart
+            chart = new ChartBuilder().chartType(StyleManager.ChartType.Bar).width(600).height(400).title("Steps").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
+            chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.rabbit_steps_history));
+            chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.fox_steps_history));
+            chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.dodo_steps_history));
+        }
+
+        if(charType.equals("births")) {
+            // Create Chart
+            chart = new ChartBuilder().chartType(StyleManager.ChartType.Scatter).width(600).height(400).title("Births").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
+            chart.addSeries("Rabbits", turns, Statistics.convertToGraphData(Statistics.rabbit_birth_history));
+            chart.addSeries("Foxes", turns, Statistics.convertToGraphData(Statistics.fox_birth_history));
+            chart.addSeries("Dodo", turns, Statistics.convertToGraphData(Statistics.dodo_birth_history));
+        }
 
         return chart;
     }
 
+    public void drawChart(String charType){
+        this.charType = charType;
+        this.chart = getChart();
+        this.remove(3);
+        this.add(new XChartPanel(chart), BorderLayout.NORTH);
+    }
 }

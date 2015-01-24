@@ -14,26 +14,7 @@ public class ControlPanel extends JPanel{
     private JButton plusEen, plusHonderd, longSim, start, stop;
     private int height;
     private Controller controller;
-
-    public void buttonStyle(JButton button, String command){
-        button.setBackground(new Color(114, 114, 114));
-        button.setForeground(Color.WHITE);
-        button.setFocusPainted(false);
-        button.setFont(new Font("Helvetica", Font.PLAIN, 12));
-        button.setActionCommand(command);
-
-
-        button.addActionListener(controller.getButtonHandler());
-
-        add(button);
-    }
-
-    public void headerStyle(JComponent label){
-        label.setForeground(new Color(132, 132, 132));
-        label.setFont(new Font("Helvetica", Font.BOLD, 16));
-        add(label);
-    }
-
+    private JStyle jStyle;
 
     /**
      * Constructor voor het maken van de control panel
@@ -46,52 +27,44 @@ public class ControlPanel extends JPanel{
         this.setLayout(null);
         this.height = height;
         this.controller = controller;
+        this.jStyle = controller.getJStyle();
 
-        // FOX PICTURE
+        makeGUI();
+    }
+
+    public void makeGUI(){
+        ////////////////////// FOX PICTURE  ////////////////////////
         ImageIcon icon = new ImageIcon("img\\fox.png");
         JLabel fox = new JLabel();
         fox.setIcon(icon);
         add(fox);
+        fox.setBounds(13, 205, 500, 500);
 
-        // HEADERS
+        //////////////////////// HEADERS  ////////////////////////
         sim_kop = new JLabel("Simulate");
-        headerStyle(sim_kop);
+        jStyle.headerStyle(sim_kop, this, 10, 20, 80, 30);
 
-        /*
-         *  Buttons
-         */
-
+        //////////////////////// BUTTONS  ////////////////////////
         // + 1 button
         plusEen = new JButton("+1");
-        buttonStyle(plusEen, "plusEen");
+        jStyle.buttonStyle(plusEen, "plusEen", controller, this, 10, 60, 80, 30);
 
         // + 100 button
         plusHonderd = new JButton("+100");
-        buttonStyle(plusHonderd, "plusHonderd");
-
-        // Stop button
-        stop = new JButton("S");
-        buttonStyle(stop, "stop");
-
-        // Start button
-        start = new JButton("P");
-        buttonStyle(start, "start");
+        jStyle.buttonStyle(plusHonderd, "plusHonderd",controller, this, 10, 100, 80, 30);
 
         // Simuleer button
         longSim = new JButton("+1000");
-        buttonStyle(longSim, "longSim");
+        jStyle.buttonStyle(longSim, "longSim", controller, this, 10, 140, 80, 30);
 
-       //Positie en groote zetten
-        fox.setBounds(13, 205, 500, 500);
+        // Stop button
+        stop = new JButton("S");
+        jStyle.buttonStyle(stop, "stop", controller, this, 55, 180, 35, 30);
 
-        sim_kop.setBounds(10, 20, 80, 30);
-        plusEen.setBounds(10, 60, 80, 30);
-        plusHonderd.setBounds(10, 100, 80, 30);
-        longSim.setBounds(10, 140, 80, 30);
-        start.setBounds(10, 180, 35, 30);
-        stop.setBounds(55, 180, 35, 30);
+        // Start button
+        start = new JButton("P");
+        jStyle.buttonStyle(start, "start", controller, this, 10, 180, 35, 30);
     }
-
 
     /**
      * verkrijg de geprefereerde groote voor deze jPane

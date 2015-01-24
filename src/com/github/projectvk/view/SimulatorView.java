@@ -80,11 +80,9 @@ public class SimulatorView extends JFrame
         //JComponent panel2 = makeTextPanel("Panel #2");
 
         settingPanel = new SettingsView(new GridLayout(5,2));
-       // controlPanel = new ControlPanel(height, simulator);
-        graphView = new GraphView(height, controller);
         controlPanel = new ControlPanel(height, controller);
 
-
+        graphView = new GraphView(height, controller);
         stats = controller.getFieldStats();
 
 
@@ -110,7 +108,7 @@ public class SimulatorView extends JFrame
         contents.add(graphView, BorderLayout.EAST);
         contents.add(population, BorderLayout.SOUTH);
         pack();
-
+        
         //locatie in het midden v scherm
         setLocationRelativeTo(null);
         //zichtbaar maken
@@ -131,6 +129,10 @@ public class SimulatorView extends JFrame
 
     public ControlPanel getControlPanel(){
         return controlPanel;
+    }
+
+    public GraphView getGraphView(){
+        return graphView;
     }
     
     /**
@@ -165,6 +167,8 @@ public class SimulatorView extends JFrame
      */
     public void showStatus(int step, Field field)
     {
+        graphView.drawChart(graphView.getCharType());
+
 
         if(!isVisible()) {
             setVisible(true);

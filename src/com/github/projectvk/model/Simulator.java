@@ -2,6 +2,8 @@ package com.github.projectvk.model;
 
 import com.github.projectvk.Main;
 import com.github.projectvk.controller.Controller;
+import com.github.projectvk.view.GraphView;
+import com.github.projectvk.view.SimulatorView;
 
 import java.util.*;
 import java.util.List;
@@ -95,6 +97,7 @@ public class Simulator implements Runnable
     public void simulateOneStep()
     {
         step++;
+
         // Provide space for newborn animals.
         List<Actor> newActors = new ArrayList<Actor>();
         // Let all entities act.
@@ -230,7 +233,7 @@ public class Simulator implements Runnable
                 Main.getSimulator().simulateOneStep();
                 //this.simulateOneStep();
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(2);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

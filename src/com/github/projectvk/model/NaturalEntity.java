@@ -291,6 +291,10 @@ public abstract class NaturalEntity implements Actor
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
+
+//            if(field.getObjectAt(3,2) instanceof Fox) System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+//            if(field.getObjectAt(3,2) instanceof Rabbit) System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+//            if(field.getObjectAt(3,2) instanceof Dodo) System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             if(field.getObjectAt(loc) instanceof Grass) ((Grass) field.getObjectAt(loc)).setDead();
             try {
                 actors.add((Actor)classEntity.getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc));
@@ -304,7 +308,8 @@ public abstract class NaturalEntity implements Actor
                 e.printStackTrace();
             }
         }
-        //TODO Statistics.addData(Statistics.fox_birth, 1);
+        //Statistics.addData(Statistics.fox_birth, 1)
+
     }
 
     /**

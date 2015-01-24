@@ -13,6 +13,9 @@ public class Controller {
     private ControlPanel panel;
     private SimulatorView simulatorView;
     private ButtonHandler buttonHandler;
+    private JStyle jStyle = new JStyle();
+    private GraphView graphView;
+
     private FieldStats fieldStats;
     //private boolean simulatorRunning = false;
 
@@ -32,6 +35,8 @@ public class Controller {
         this.simulator = simulator;
     }
 
+    public JStyle getJStyle(){return jStyle;}
+
     protected void controllerDo(String doThis) {
 
         System.out.println(doThis);
@@ -40,13 +45,11 @@ public class Controller {
         if (doThis == "stop") simulator.stop();
         if (doThis == "start") simulator.start();
         if (doThis == "longSim") simulator.start(1000);
-        if (doThis == "birthsStat") new BirthsGraphView();
-        if (doThis == "deathsStat") new DeathsGraphView();
-        if (doThis == "stepsStat") new StepsGraphView();
+        if (doThis == "birthsStat") simulatorView.getGraphView().drawChart("births");
+        if (doThis == "deathsStat") simulatorView.getGraphView().drawChart("deaths");
+        if (doThis == "stepsStat") simulatorView.getGraphView().drawChart("steps");
 
         //if (doThis == "")
-
-
     }
 
     /**
@@ -77,7 +80,6 @@ public class Controller {
     public boolean isSimulatorRunning() {
         //System.out.println("Sim is running!");
         return simulator.isRunning();
-
     }
 
     /**

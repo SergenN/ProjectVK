@@ -1,5 +1,7 @@
 package com.github.projectvk.model;
 
+import com.github.projectvk.view.GraphView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +9,9 @@ import java.util.List;
  * Created by Thijs on 21-1-2015.
  */
 public class Statistics {
+
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
-    private static final double HISTORY_TURNS = 100;
+    private static final double HISTORY_TURNS = 70;
 
     // Variables containing the count of data of one turn
     public static List<Double> fox_birth = new ArrayList<Double>();
@@ -81,6 +84,10 @@ public class Statistics {
     }
 
     public static double[] convertToGraphData(List<Double> list){
+        if(list.isEmpty()){
+            return new double[]{0,0,0};
+        }
+
         double[] returnDouble = new double[list.size()];
 
         for (int i = 0; i < returnDouble.length; i++){
