@@ -40,14 +40,14 @@ public class Controller {
     protected void controllerDo(String doThis) {
 
         System.out.println(doThis);
-        if (doThis == "plusEen") simulator.start(1);
-        if (doThis == "plusHonderd") simulator.start(100);
-        if (doThis == "stop") simulator.stop();
-        if (doThis == "start") simulator.start();
-        if (doThis == "longSim") simulator.start(1000);
-        if (doThis == "birthsStat") simulatorView.getGraphView().drawChart("births");
-        if (doThis == "deathsStat") simulatorView.getGraphView().drawChart("deaths");
-        if (doThis == "stepsStat") simulatorView.getGraphView().drawChart("steps");
+        if (doThis.equals("plusEen")) simulator.start(1);
+        if (doThis.equals("plusHonderd")) simulator.start(100);
+        if (doThis.equals("stop")) simulator.stop();
+        if (doThis.equals("start")) simulator.start();
+        if (doThis.equals("longSim")) simulator.start(1000);
+        if (doThis.equals("birthsStat")) {simulatorView.getGraphView().drawChart("births") ;System.out.println("click!");}
+        if (doThis.equals("deathsStat")) simulatorView.getGraphView().drawChart("deaths");
+        if (doThis.equals("stepsStat")) simulatorView.getGraphView().drawChart("steps");
 
         //if (doThis == "")
     }
