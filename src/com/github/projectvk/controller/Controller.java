@@ -45,9 +45,9 @@ public class Controller {
         if (doThis.equals("stop")) simulator.stop();
         if (doThis.equals("start")) simulator.start();
         if (doThis.equals("longSim")) simulator.start(1000);
-        if (doThis.equals("birthsStat")) {simulatorView.getGraphView().drawChart("births") ;System.out.println("click!");}
-        if (doThis.equals("deathsStat")) simulatorView.getGraphView().drawChart("deaths");
-        if (doThis.equals("stepsStat")) simulatorView.getGraphView().drawChart("steps");
+        if (doThis.equals("birthsStat")) {simulatorView.getGraphView().drawChart("births") ;System.out.println("click!"); simulator.start(0);}
+        if (doThis.equals("deathsStat")) {simulatorView.getGraphView().drawChart("deaths"); simulator.start(0);}
+        if (doThis.equals("stepsStat")) {simulatorView.getGraphView().drawChart("steps"); simulator.start(0);}
 
         //if (doThis == "")
     }

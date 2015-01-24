@@ -71,14 +71,30 @@ public class Statistics {
     }
 
     public static double[] convertToGraphData(List<Double> list){
+
+        // Limitedlist contains the last HISTORY_TURNS (100 standard) values of the history list.
+        List<Double> limitedList = new ArrayList<Double>();;
+
+        // If the history list is empty, then fill it with data to prevent errors.
         if(list == null || list.isEmpty()){
-            return new double[]{0,0,0};
+            return new double[]{0};
         }
 
-        double[] returnDouble = new double[list.size()];
+        // If the history list contains more than 100 values, then add the last 100 values to the limitedlist
+        if(list.size() > HISTORY_TURNS) {
+            for (int i = (int)HISTORY_TURNS; i > 0; i--) {
+                limitedList.add(list.get(list.size() - i));
+            }
+
+        } else {
+            limitedList = list;
+        }
+
+        // Convert limitedlist into a double array. This is needed to create an graph
+        double[] returnDouble = new double[limitedList.size()];
 
         for (int i = 0; i < returnDouble.length; i++){
-            returnDouble[i] = list.get(i);
+            returnDouble[i] = limitedList.get(i);
         }
 
         return returnDouble;
