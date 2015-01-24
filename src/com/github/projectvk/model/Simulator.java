@@ -1,11 +1,8 @@
 package com.github.projectvk.model;
 
 import com.github.projectvk.Main;
-import com.github.projectvk.controller.ButtonHandler;
 import com.github.projectvk.controller.Controller;
-import com.github.projectvk.view.SimulatorView;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -37,10 +34,6 @@ public class Simulator implements Runnable
     private Field field;
     // The current step of the simulation.
     private int step;
-    // A graphical view of the simulation. ----> Simulatorview --> Init
-    private SimulatorView view;
-    //Init the thread runner needed for ControlPanel class
-    //private ThreadRunner runner;
 
     //
     private boolean running = false;
