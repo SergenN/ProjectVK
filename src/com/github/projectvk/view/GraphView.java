@@ -27,12 +27,7 @@ public class GraphView extends JPanel{
         add(button);
     }
 
-    /**
-     * Constructor voor het maken van de control panel
-     *
-     * @param height - Hoogte van de simulator
-     */
-    public GraphView(int height, Controller controller) {
+    public void makeButtons(){
         // Births button
         birthsStat = new JButton("Births");
         buttonStyle(birthsStat, "birthsStat");
@@ -52,6 +47,19 @@ public class GraphView extends JPanel{
         deathsStat.setBounds(115, 440, 80, 30);
         stepsStat.setBounds(215, 440, 80, 30);
 
+        birthsStat.setEnabled(true);
+        deathsStat.setEnabled(true);
+        stepsStat.setEnabled(true);
+    }
+
+    /**
+     * Constructor voor het maken van de control panel
+     *
+     * @param height - Hoogte van de simulator
+     */
+    public GraphView(int height, Controller controller) {
+
+        makeButtons();
         Chart chart = getChart();
         this.setLayout(new BorderLayout());
         this.add(new XChartPanel(chart), BorderLayout.NORTH);
