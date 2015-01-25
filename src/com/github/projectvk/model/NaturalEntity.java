@@ -1,5 +1,6 @@
 package com.github.projectvk.model;
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -24,6 +25,8 @@ public abstract class NaturalEntity implements Actor
     private int foodLevel;
     // Random nummer generator
     private static final Random rand = Randomizer.getRandom();
+
+    private Statistics statistics;
 
     /**
      * Create a new animal at location in field.
@@ -172,7 +175,7 @@ public abstract class NaturalEntity implements Actor
             location = null;
             field = null;
         }
-        if (getClass() != Grass.class) controller.addData(controller.getHistory("deaths"), getEntityClass(), 1);
+        if (getClass() != Grass.class) statistics.addData(statistics.deaths, getEntityClass(), 1);
     }
 
     /**
@@ -290,7 +293,7 @@ public abstract class NaturalEntity implements Actor
                 e.printStackTrace();
             }
         }
-        if (getEntityClass() != Grass.class) controller.addData(controller.getHistory("births"), getEntityClass(), 1);
+        if (getEntityClass() != Grass.class) statistics.addData(statistics.births, getEntityClass(), 1);
     }
 
     /**
@@ -314,7 +317,7 @@ public abstract class NaturalEntity implements Actor
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
-                if (getEntityClass() != Grass.class) controller.addData(controller.getHistory("steps"), getEntityClass(), 1);
+                if (getEntityClass() != Grass.class) statistics.addData(statistics.steps, getEntityClass(), 1);;
             }
             else {
                 // Overcrowding.

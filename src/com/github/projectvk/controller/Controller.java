@@ -149,15 +149,10 @@ public class Controller {
         statistics.updateData();
     }
 
-    public HashMap<Class, ArrayList<Double>> getHistory(String type){
-        return statistics.getHistory(type);
-    }
+    public HashMap<Class, ArrayList<Double>> getHistory(String type){ return statistics.getHistory(type);}
 
     public double[] convertToGraphData(List<Double> list){
         return statistics.convertToGraphData(list);
     }
 
-    public void addData(HashMap<Class, ArrayList<Double>> list, Class animal, double amount){
-        statistics.addData(list, animal, amount);
-    }
 }

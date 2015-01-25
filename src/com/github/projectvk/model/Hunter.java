@@ -15,6 +15,8 @@ public class Hunter implements Actor {
     private Location location;
     private boolean isHome;
 
+    private Statistics statistics;
+
     /**
      * Create a Hunter.
      *
@@ -72,7 +74,7 @@ public class Hunter implements Actor {
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
-                //controller.addData(controller.getHistory("steps"), this.getClass(), 1);
+                statistics.addData(statistics.steps, this.getClass(), 1);
             }
             else {
                 goHome();

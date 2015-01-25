@@ -9,6 +9,7 @@ import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 @SuppressWarnings("serial")
 public class GraphView extends JPanel{
@@ -70,7 +71,7 @@ public class GraphView extends JPanel{
 
     public Chart getChart() {
         // Put the turn steps in a double array
-        double[] turns = new double[ controller.convertToGraphData(controller.getHistory("steps").get(Rabbit.class)).length];
+        double[] turns = new double[ controller.convertToGraphData(controller.getHistory("birthsHistory").get(Rabbit.class)).length];
 //        if(Statistics.deathsHistory.size() > 70) {
 //            for (int i = Statistics.deathsHistory.size(); i > Statistics.stepsHistory.get(Rabbit.class).size() - Statistics.HISTORY_TURNS; i--) {
 //                turns[i] = i;
@@ -82,10 +83,10 @@ public class GraphView extends JPanel{
 //
 //            }
 //        }
+        System.out.println(controller.getHistory("births").get(Rabbit.class));
 
         for (int i = 0; i < turns.length; i++){
             turns[i] = i;
-
         }
 
         if(charType.equals("deaths")) {
@@ -98,7 +99,7 @@ public class GraphView extends JPanel{
 
         if(charType.equals("steps")) {
             // Create Chart
-            chart = new ChartBuilder().chartType(StyleManager.ChartType.Line).width(600).height(400).title("Steps").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
+            chart = new ChartBuilder().chartType(StyleManager.ChartType.Bar).width(600).height(400).title("Steps").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
             chart.addSeries("Rabbits", turns, controller.convertToGraphData(controller.getHistory("stepsHistory").get(Rabbit.class)));
             chart.addSeries("Foxes", turns, controller.convertToGraphData(controller.getHistory("stepsHistory").get(Fox.class)));
             chart.addSeries("Dodo", turns, controller.convertToGraphData(controller.getHistory("stepsHistory").get(Dodo.class)));
@@ -107,7 +108,7 @@ public class GraphView extends JPanel{
 
         if(charType.equals("births")) {
             // Create Chart
-            chart = new ChartBuilder().chartType(StyleManager.ChartType.Line).width(600).height(400).title("Births").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
+            chart = new ChartBuilder().chartType(StyleManager.ChartType.Scatter).width(600).height(400).title("Births").xAxisTitle("Stap").yAxisTitle("Aantallen").build();
             chart.addSeries("Rabbits", turns, controller.convertToGraphData(controller.getHistory("birthsHistory").get(Rabbit.class)));
             chart.addSeries("Foxes", turns, controller.convertToGraphData(controller.getHistory("birthsHistory").get(Fox.class)));
             chart.addSeries("Dodo", turns, controller.convertToGraphData(controller.getHistory("birthsHistory").get(Dodo.class)));

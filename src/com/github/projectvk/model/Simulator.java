@@ -93,6 +93,7 @@ public class Simulator implements Runnable
      */
     public void simulateOneStep()
     {
+        Statistics.resetData();
         step++;
 
         // Provide space for newborn animals.
