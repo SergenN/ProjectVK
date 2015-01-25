@@ -25,7 +25,5 @@ public class ButtonHandler implements ActionListener{
         if (e.getActionCommand().equals("birthsStat")) controller.controllerDo("birthsStat") ;
         if (e.getActionCommand().equals("deathsStat")) controller.controllerDo("deathsStat");
         if (e.getActionCommand().equals("stepsStat")) controller.controllerDo("stepsStat");
-
     }
-
 }

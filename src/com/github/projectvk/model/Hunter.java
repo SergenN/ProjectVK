@@ -72,7 +72,7 @@ public class Hunter implements Actor {
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
-                Statistics.addData(Statistics.steps , this.getClass(), 1);
+                //controller.addData(controller.getHistory("steps"), this.getClass(), 1);
             }
             else {
                 goHome();

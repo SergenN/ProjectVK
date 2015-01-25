@@ -3,6 +3,10 @@ package com.github.projectvk.controller;
 import com.github.projectvk.model.*;
 import com.github.projectvk.view.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 
 /**
  * Created by kevin on 22-1-15.
@@ -15,7 +19,7 @@ public class Controller {
     private ButtonHandler buttonHandler;
     private JStyle jStyle = new JStyle();
     private GraphView graphView;
-
+    private Statistics statistics;
     private FieldStats fieldStats;
     //private boolean simulatorRunning = false;
 
@@ -34,6 +38,8 @@ public class Controller {
     public void setSimulator(Simulator simulator) {
         this.simulator = simulator;
     }
+
+    public void setStatistics(Statistics statistics) { this.statistics = statistics; }
 
     public JStyle getJStyle(){return jStyle;}
 
@@ -138,4 +144,20 @@ public class Controller {
         return fieldStats;
     }
 
+    // These are all methods related to statistics.java
+    public void updateData(){
+        statistics.updateData();
+    }
+
+    public HashMap<Class, ArrayList<Double>> getHistory(String type){
+        return statistics.getHistory(type);
+    }
+
+    public double[] convertToGraphData(List<Double> list){
+        return statistics.convertToGraphData(list);
+    }
+
+    public void addData(HashMap<Class, ArrayList<Double>> list, Class animal, double amount){
+        statistics.addData(list, animal, amount);
+    }
 }

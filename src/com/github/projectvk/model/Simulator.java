@@ -32,7 +32,7 @@ public class Simulator implements Runnable
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
-    private int step;
+    public int step = 0;
 
     //
     private boolean running = false;
@@ -125,7 +125,7 @@ public class Simulator implements Runnable
                 simulateOneStep();
         }
         actors.addAll(newActors);
-        Statistics.updateData();
+        controller.updateData();
 
         //TODO check if area is full of rabbits and make the hunters return.
         // Add the newly born foxes and rabbits to the main lists.
