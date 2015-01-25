@@ -40,8 +40,7 @@ public class Controller {
     public JStyle getJStyle(){return jStyle;}
 
     protected void controllerDo(String doThis) {
-        //todo MAKE THIS EQUALS
-        //todo MAKE THIS SWITCH ?
+
         System.out.println(doThis);
         switch (doThis) {
 
