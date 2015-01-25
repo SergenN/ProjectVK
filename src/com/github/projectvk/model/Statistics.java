@@ -44,11 +44,9 @@ public class Statistics {
             return deaths;
         }
         if(type.equals("births")) {
-            System.out.println("Inhoud: " + births);
             return births;
         }
         if(type.equals("steps")) {
-            System.out.println("Inhoud: " + steps);
             return steps;
         }
         return null;

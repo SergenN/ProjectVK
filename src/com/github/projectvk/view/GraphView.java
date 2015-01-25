@@ -83,7 +83,6 @@ public class GraphView extends JPanel{
 //
 //            }
 //        }
-        System.out.println(controller.getHistory("births").get(Rabbit.class));
 
         for (int i = 0; i < turns.length; i++){
             turns[i] = i;
