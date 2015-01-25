@@ -155,4 +155,10 @@ public class Controller {
         return statistics.convertToGraphData(list);
     }
 
+    public double getMaxTurns(){return Statistics.HISTORY_TURNS;}
+
+    public int getCurrentSteps(){ return statistics.getCurrentStep();}
+
+    public void resetData(){ statistics.resetData();}
+
 }

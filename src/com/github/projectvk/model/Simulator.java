@@ -93,7 +93,7 @@ public class Simulator implements Runnable
      */
     public void simulateOneStep()
     {
-        Statistics.resetData();
+        controller.resetData();
         step++;
 
         // Provide space for newborn animals.

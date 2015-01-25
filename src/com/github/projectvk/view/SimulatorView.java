@@ -70,8 +70,10 @@ public class SimulatorView extends JFrame
         if(width <= 0 || height <= 0) {
             System.out.println("The dimensions must be greater than zero.");
             System.out.println("Using default values.");
-
         }
+
+        ImageIcon img = new ImageIcon("img\\fox.png");
+        this.setIconImage(img.getImage());
 
         this.height = height;
         this.width = width;

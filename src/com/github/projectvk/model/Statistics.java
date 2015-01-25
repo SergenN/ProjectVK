@@ -14,7 +14,7 @@ public class Statistics {
     private Controller controller;
 
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
-    private static final double HISTORY_TURNS = 70;
+    public static final double HISTORY_TURNS = 20;
 
     public static HashMap<Class, ArrayList<Double>> deaths = new HashMap<Class, ArrayList<Double>>();
     public static HashMap<Class, ArrayList<Double>> births = new HashMap<Class, ArrayList<Double>>();
@@ -27,6 +27,7 @@ public class Statistics {
     public Statistics(Controller controller) {
         this.controller = controller;
     }
+    private int currentStep = 0;
 
     // Get methods
     public HashMap<Class, ArrayList<Double>> getHistory(String type){
@@ -61,10 +62,15 @@ public class Statistics {
         list.get(animal).set(0, list.get(animal).get(0) + amount);
     }
 
-    public static void resetData(){
+    public void resetData(){
+        currentStep++;
         births.clear();
         steps.clear();
         deaths.clear();
+    }
+
+    public int getCurrentStep(){
+        return currentStep;
     }
 
     // Add newly gained data to the history Arraylist
@@ -85,7 +91,7 @@ public class Statistics {
             source.get(animal).add(0.0);
         }
 
-//      Setup birth data for graph
+      //Setup birth data for graph
 //        if(list.size() >= HISTORY_TURNS) {
 //            list.get(animal).add(source.get(animal).get(0));
 //            list.get(animal).remove(0);

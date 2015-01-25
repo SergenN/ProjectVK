@@ -45,7 +45,7 @@ public class ControlPanel extends JPanel{
 
         //////////////////////// HEADERS  ////////////////////////
         sim_kop = new JLabel("Simulate");
-        jStyle.headerStyle(sim_kop, this, 10, 20, 80, 30);
+        jStyle.headerStyle(sim_kop, this, 10, 20, 80, 30, new Color(132, 132, 132), 16);
 
         //////////////////////// BUTTONS  ////////////////////////
         // + 1 button
