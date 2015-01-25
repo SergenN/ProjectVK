@@ -11,7 +11,7 @@ public class ControlPanel extends JPanel{
     private final int GRID_VIEW_SCALING_FACTOR = 6;
 
     private JLabel sim_kop;
-    private JButton plusEen, plusHonderd, longSim, start, stop;
+    private JButton plusEen, plusHonderd, longSim, start, stop, settings;
     private int height;
     private Controller controller;
     private JStyle jStyle;
@@ -33,7 +33,10 @@ public class ControlPanel extends JPanel{
     }
 
     public void makeGUI(){
-        ////////////////////// FOX PICTURE  ////////////////////////
+        ////////////////////// IMAGES  ////////////////////////
+        ImageIcon pauseIcon = new ImageIcon("img\\pause.png");
+        ImageIcon playIcon = new ImageIcon("img\\play.png");
+
         ImageIcon icon = new ImageIcon("img\\fox.png");
         JLabel fox = new JLabel();
         fox.setIcon(icon);
@@ -42,7 +45,7 @@ public class ControlPanel extends JPanel{
 
         //////////////////////// HEADERS  ////////////////////////
         sim_kop = new JLabel("Simulate");
-        jStyle.headerStyle(sim_kop, this, 10, 20, 80, 30);
+        jStyle.headerStyle(sim_kop, this, 10, 20, 80, 30, new Color(132, 132, 132), 16);
 
         //////////////////////// BUTTONS  ////////////////////////
         // + 1 button
@@ -58,12 +61,18 @@ public class ControlPanel extends JPanel{
         jStyle.buttonStyle(longSim, "longSim", controller, this, 10, 140, 80, 30);
 
         // Stop button
-        stop = new JButton("S");
+        stop = new JButton();
         jStyle.buttonStyle(stop, "stop", controller, this, 55, 180, 35, 30);
+        stop.setIcon(pauseIcon);
 
         // Start button
-        start = new JButton("P");
+        start = new JButton();
         jStyle.buttonStyle(start, "start", controller, this, 10, 180, 35, 30);
+        start.setIcon(playIcon);
+
+        // Simuleer button
+        settings = new JButton("Settings");
+        jStyle.buttonStyle(settings, "settings", controller, this, 10, 220, 80, 30);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.github.projectvk.model;
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -25,9 +26,11 @@ public abstract class NaturalEntity implements Actor
     // Random nummer generator
     private static final Random rand = Randomizer.getRandom();
 
+    private Statistics statistics;
+
     /**
      * Create a new animal at location in field.
-     * 
+     * f
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
@@ -172,7 +175,7 @@ public abstract class NaturalEntity implements Actor
             location = null;
             field = null;
         }
-        if (getClass() != Grass.class) Statistics.addData(Statistics.deaths, getEntityClass(), 1);
+        if (getClass() != Grass.class) statistics.addData(statistics.deaths, getEntityClass(), 1);
     }
 
     /**
@@ -277,9 +280,6 @@ public abstract class NaturalEntity implements Actor
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
 
-//            if(field.getObjectAt(3,2) instanceof Fox) System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//            if(field.getObjectAt(3,2) instanceof Rabbit) System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//            if(field.getObjectAt(3,2) instanceof Dodo) System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             if(field.getObjectAt(loc) instanceof Grass) ((Grass) field.getObjectAt(loc)).setDead();
             try {
                 actors.add((Actor)getEntityClass().getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc));
@@ -293,9 +293,7 @@ public abstract class NaturalEntity implements Actor
                 e.printStackTrace();
             }
         }
-        if (getEntityClass() != Grass.class) Statistics.addData(Statistics.births, getEntityClass(), 1);
-        //Statistics.addData(Statistics.fox_birth, 1)
-
+        if (getEntityClass() != Grass.class) statistics.addData(statistics.births, getEntityClass(), 1);
     }
 
     /**
@@ -319,7 +317,7 @@ public abstract class NaturalEntity implements Actor
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
-                if (getEntityClass() != Grass.class) Statistics.addData(Statistics.steps, getEntityClass(), 1);
+                if (getEntityClass() != Grass.class) statistics.addData(statistics.steps, getEntityClass(), 1);;
             }
             else {
                 // Overcrowding.

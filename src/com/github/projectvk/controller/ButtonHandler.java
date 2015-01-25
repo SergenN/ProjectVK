@@ -19,5 +19,4 @@ public class ButtonHandler implements ActionListener{
 
         controller.controllerDo(e.getActionCommand());
     }
-
 }

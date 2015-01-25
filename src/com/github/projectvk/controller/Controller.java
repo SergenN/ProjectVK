@@ -4,6 +4,10 @@ import com.github.projectvk.Main;
 import com.github.projectvk.model.*;
 import com.github.projectvk.view.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 
 /**
  * Created by kevin on 22-1-15.
@@ -16,6 +20,7 @@ public class Controller {
     private ButtonHandler buttonHandler;
     private JStyle jStyle = new JStyle();
     private GraphView graphView;
+    private Statistics statistics;
     private Field field;
     private FieldStats fieldStats;
     //private boolean simulatorRunning = false;
@@ -36,6 +41,8 @@ public class Controller {
     public void setSimulator(Simulator simulator) {
         this.simulator = simulator;
     }
+
+    public void setStatistics(Statistics statistics) { this.statistics = statistics; }
 
     public JStyle getJStyle(){return jStyle;}
 
@@ -62,6 +69,7 @@ public class Controller {
 
             case "birthsStat":
                 simulatorView.getGraphView().drawChart("births");
+                //simulator.start(0);
                 break;
             case "deathsStat":
                 simulatorView.getGraphView().drawChart("deaths");
@@ -176,5 +184,22 @@ public class Controller {
     public Field getField() {
         return field;}
 
+
+    // These are all methods related to statistics.java
+    public void updateData(){
+        statistics.updateData();
+    }
+
+    public HashMap<Class, ArrayList<Double>> getHistory(String type){ return statistics.getHistory(type);}
+
+    public double[] convertToGraphData(List<Double> list){
+        return statistics.convertToGraphData(list);
+    }
+
+    public double getMaxTurns(){return Statistics.HISTORY_TURNS;}
+
+    public int getCurrentSteps(){ return statistics.getCurrentStep();}
+
+    public void resetData(){ statistics.resetData();}
 
 }
