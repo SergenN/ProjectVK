@@ -3,7 +3,7 @@ package com.github.projectvk.view;
 import com.github.projectvk.controller.Controller;
 
 //TODO make sure this goes through the controller and not through the model directly
-import com.github.projectvk.model.*;
+//import com.github.projectvk.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +38,7 @@ public class SimulatorView extends JFrame
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
-    private FieldStats stats;
+    //private FieldStats stats;
 
     private ControlPanel controlPanel;
     private GraphView graphView;
@@ -80,12 +80,10 @@ public class SimulatorView extends JFrame
         //JComponent panel2 = makeTextPanel("Panel #2");
 
         settingPanel = new SettingsView(new GridLayout(5,2));
-       // controlPanel = new ControlPanel(height, simulator);
-        graphView = new GraphView(height, controller);
         controlPanel = new ControlPanel(height, controller);
 
-
-        stats = controller.getFieldStats();
+        graphView = new GraphView(height, controller);
+        //stats = controller.getFieldStats();
 
 
         colors = new LinkedHashMap<Class, Color>();
@@ -110,7 +108,7 @@ public class SimulatorView extends JFrame
         contents.add(graphView, BorderLayout.EAST);
         contents.add(population, BorderLayout.SOUTH);
         pack();
-
+        
         //locatie in het midden v scherm
         setLocationRelativeTo(null);
         //zichtbaar maken
@@ -118,19 +116,23 @@ public class SimulatorView extends JFrame
         setResizable(false);
 
 
-        Class[] cD = controller.fetchClassDefinitions();
+        Class[] animals = controller.fetchClassDefinitions();
 
 
-        this.setColor(cD[0], new Color(76, 114, 255)); //Rabbit
-        this.setColor(cD[1], new Color(255, 196, 76)); //Fox
-        this.setColor(cD[2], new Color(166, 76, 255)); //Dodo
-        this.setColor(cD[3], new Color(76, 219, 76)); //Hunter
+        this.setColor(animals[0], new Color(76, 114, 255)); //Rabbit
+        this.setColor(animals[1], new Color(255, 196, 76)); //Fox
+        this.setColor(animals[2], new Color(166, 76, 255)); //Dodo
+        this.setColor(animals[3], new Color(76, 219, 76)); //Hunter
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public ControlPanel getControlPanel(){
         return controlPanel;
+    }
+
+    public GraphView getGraphView(){
+        return graphView;
     }
     
     /**
@@ -161,10 +163,12 @@ public class SimulatorView extends JFrame
     /**
      * Show the current status of the field.
      * @param step Which iteration step it is.
-     * @param field The field whose status is to be displayed.
+     * @param //field The field whose status is to be displayed.
      */
-    public void showStatus(int step, Field field)
+    public void showStatus(int step)
     {
+        graphView.drawChart(graphView.getCharType());
+
 
         if(!isVisible()) {
             setVisible(true);
@@ -173,16 +177,15 @@ public class SimulatorView extends JFrame
 
         stepLabel.setText(STEP_PREFIX + step);
 
-        stats.reset();
-
+        controller.getFieldStats().reset();
 
         fieldView.preparePaint();
 
-        for(int row = 0; row < field.getHeight(); row++) {
-            for(int col = 0; col < field.getWidth(); col++) {
-                Object animal = field.getObjectAt(row, col);
+        for (int row = 0; row < controller.getField().getHeight(); row++) {
+            for (int col = 0; col < controller.getField().getWidth(); col++) {
+                Object animal = controller.getField().getObjectAt(row, col);
                 if(animal != null) {
-                    stats.incrementCount(animal.getClass());
+                    controller.getFieldStats().incrementCount(animal.getClass());
                     fieldView.drawMark(col, row, getColor(animal.getClass()));
                 }
                 else {
@@ -190,9 +193,9 @@ public class SimulatorView extends JFrame
                 }
             }
         }
-        stats.countFinished();
+        controller.getFieldStats().countFinished();
 
-        population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
+        population.setText(POPULATION_PREFIX + controller.getFieldStats().getPopulationDetails(controller.getField()));
         fieldView.repaint();
     }
 
@@ -207,9 +210,9 @@ public class SimulatorView extends JFrame
     /**
      * Determine whether the simulation should continue to run.
      * @return true If there is more than one species alive.
-     */
+     *//*
     public boolean isViable(Field field)
     {
-        return stats.isViable(field);
-    }
+        return controller.getFieldStats().isViable(field);
+    }*/
 }

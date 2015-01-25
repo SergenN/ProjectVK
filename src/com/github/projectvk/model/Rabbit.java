@@ -1,7 +1,5 @@
 package com.github.projectvk.model;
 
-import java.util.List;
-
 /**
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
@@ -116,19 +114,13 @@ public class Rabbit extends NaturalEntity
     }
 
     /**
-     * This is what the rabbit does most of the time - it runs 
-     * around. Sometimes it will breed or die of old age.
-     * @param newActors A list to return newly born rabbits.
+     * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
+     * Todo betere oplossing voor dit
+     *
+     * @return klasse van het dier
      */
-    public void act(List<Actor> newActors)
-    {
-        super.act(newActors, this.getClass());
-    }
-
     @Override
-    public void setDead(){
-        super.setDead();
-        Statistics.addData(Statistics.rabbit_death, 1);
+    protected Class getEntityClass() {
+        return getClass();
     }
-
 }

@@ -1,13 +1,10 @@
 package com.github.projectvk.model;
 
-import java.util.List;
-
 /**
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.
  */
-public class Fox extends NaturalEntity
-{
+public class Fox extends NaturalEntity {
     // The age at which a fox can start to breed.
     private static final int BREEDING_AGE = 15;
     // The age to which a fox can live.
@@ -30,16 +27,15 @@ public class Fox extends NaturalEntity
     /**
      * Create a fox. A fox can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
-     * 
+     *
      * @param randomAge If true, the fox will have random age and hunger level.
-     * @param field The field currently occupied.
-     * @param location The location within the field.
+     * @param field     The field currently occupied.
+     * @param location  The location within the field.
      */
-    public Fox(Boolean randomAge, Field field, Location location)
-    {
+    public Fox(Boolean randomAge, Field field, Location location) {
         super(field, location, 0);
         setFoodLevel(FOOD_LEVEL);
-        if(randomAge) {
+        if (randomAge) {
             setAge(getRandom().nextInt(MAX_AGE));
             setFoodLevel(getRandom().nextInt(FOOD_LEVEL));
         }
@@ -47,6 +43,7 @@ public class Fox extends NaturalEntity
 
     /**
      * verkrijg de maximum leeftijd van een dier
+     *
      * @return int maximum age
      */
     @Override
@@ -56,6 +53,7 @@ public class Fox extends NaturalEntity
 
     /**
      * verkrijg de minimum leeftijd om te broeden
+     *
      * @return breeding age
      */
     @Override
@@ -65,6 +63,7 @@ public class Fox extends NaturalEntity
 
     /**
      * Verkrijg de maximale litter grootte
+     *
      * @return max litter grootte
      */
     @Override
@@ -74,6 +73,7 @@ public class Fox extends NaturalEntity
 
     /**
      * verkrijg de minimum leeftijd om te broeden
+     *
      * @return breeding age
      */
     @Override
@@ -93,6 +93,7 @@ public class Fox extends NaturalEntity
 
     /**
      * verkrijg de foodDecayLevel
+     *
      * @return
      */
     @Override
@@ -121,21 +122,13 @@ public class Fox extends NaturalEntity
     }
 
     /**
+     * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
+     * Todo betere oplossing voor dit
      *
+     * @return klasse van het dier
      */
     @Override
-    public void setDead(){
-        super.setDead();
-        Statistics.addData(Statistics.fox_death, 1);
-    }
-
-    /**
-     * acteer
-     *
-     * @param actors
-     */
-    @Override
-    public void act(List<Actor> actors) {
-        super.act(actors, getClass());
+    protected Class getEntityClass() {
+        return this.getClass();
     }
 }

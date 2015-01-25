@@ -15,6 +15,18 @@ public class Grass extends NaturalEntity {
     private static final int SEEDLING_PROBABILITY = 5;
     // The entity it's natural prey
     private static final Class[] PREY = {};
+
+    /**
+     * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
+     * Todo betere oplossing voor dit
+     *
+     * @return klasse van het dier
+     */
+    @Override
+    protected Class getEntityClass() {
+        return getClass();
+    }
+
     // Can the animal walk/breed on grass (will remove grass
     private static final boolean IGNORE_GRASS = false;
     // the minimum foodlevel an entity needs to breed
@@ -142,7 +154,7 @@ public class Grass extends NaturalEntity {
     public void act(List<Actor> actors) {
         incrementAge();
         if(isAlive()) {
-            giveBirth(actors, this.getClass());
+            super.giveBirth(actors);
             // Move towards a source of food if found.
             Location newLocation = findPrey();
             if(newLocation == null) {
@@ -152,7 +164,6 @@ public class Grass extends NaturalEntity {
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
-                //TODO fox statistics removed Class classEntity
             }
         }
     }

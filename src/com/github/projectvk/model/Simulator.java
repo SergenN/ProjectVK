@@ -4,7 +4,6 @@ import com.github.projectvk.Main;
 import com.github.projectvk.controller.Controller;
 
 import java.util.*;
-import java.util.List;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -68,10 +67,10 @@ public class Simulator implements Runnable
         //this.field = field;
 
         // Creates new Field, Fetches new Field sizes from controller
-        field = new Field(controller.getFieldHeight(), controller.getFieldWidth());
+        //field = new Field(controller.getFieldHeight(), controller.getFieldWidth());
         System.out.println(controller.getFieldHeight()+" , "+ controller.getFieldWidth());
-        //field = new Field(120, 80);
-       // controller.disableButtons();
+        field = controller.getField();
+        // controller.disableButtons();
 
         //System.out.println(buttonHandler.toString());
 
@@ -95,6 +94,7 @@ public class Simulator implements Runnable
     public void simulateOneStep()
     {
         step++;
+
         // Provide space for newborn animals.
         List<Actor> newActors = new ArrayList<Actor>();
         // Let all entities act.
@@ -130,7 +130,7 @@ public class Simulator implements Runnable
         //TODO check if area is full of rabbits and make the hunters return.
         // Add the newly born foxes and rabbits to the main lists.
         //
-        controller.showStatus(step, field);
+        controller.showStatus(step);
 
         //view.showStatus(step, field);
     }
@@ -145,7 +145,7 @@ public class Simulator implements Runnable
         populate();
         
         // Show the starting state in the view.
-        controller.showStatus(step, field);
+        controller.showStatus(step);
     }
     
     /**
@@ -226,19 +226,23 @@ public class Simulator implements Runnable
     @Override
     public void run() {
         while (running) {
-            if(toStep < 0 || toStep != -1) {
+            if (toStep < 0 || toStep != -1) {
                 Main.getSimulator().simulateOneStep();
                 //this.simulateOneStep();
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 decrementStep();
             }
-            if(toStep == 0){
+            if (toStep == 0) {
                 stop();
             }
         }
+    }
+
+    public Field getField() {
+        return field;
     }
 }
