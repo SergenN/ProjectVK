@@ -50,7 +50,6 @@ public class Controller {
 
         System.out.println(doThis);
         switch (doThis) {
-
             case "plusEen":
                 simulator.start(1);
                 break;
