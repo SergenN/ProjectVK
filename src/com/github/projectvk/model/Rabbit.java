@@ -4,8 +4,7 @@ package com.github.projectvk.model;
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
  */
-public class Rabbit extends NaturalEntity
-{
+public class Rabbit extends NaturalEntity implements Sickness {
     // The age at which a rabbit can start to breed.
     private static final int BREEDING_AGE = 5;
     // The age to which a rabbit can live.
@@ -22,7 +21,10 @@ public class Rabbit extends NaturalEntity
     private static final boolean IGNORE_GRASS = true;
     // the minimum foodlevel an entity needs to breed
     private static final int BREED_FOODLEVEL = 2;
+    // chance other rabbits can get infected
+    private static final double SICKNESS_CATCH_PROBABILITY = 0.90;
 
+    private boolean isSick;
 
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -36,7 +38,9 @@ public class Rabbit extends NaturalEntity
     {
         super(field, location, 0);
         setFoodLevel(FOOD_LEVEL);
+        isSick = false;
         if(randomAge) {
+            if(getRandom().nextDouble() <= SICKNESS_CATCH_PROBABILITY)setSick();
             setAge(getRandom().nextInt(getMaxAge()));
             setFoodLevel(getRandom().nextInt(FOOD_LEVEL));
         }
@@ -123,4 +127,27 @@ public class Rabbit extends NaturalEntity
     protected Class getEntityClass() {
         return getClass();
     }
+
+    /**
+     * Check if the entity is sick
+     *
+     * @return true if the entity is sick
+     */
+    @Override
+    public boolean isSick() {
+        return isSick;
+    }
+
+    /**
+     * Set the entity to sick
+     * There is no cure for this sickness.
+     */
+    @Override
+    public void setSick() {
+        if(getRandom().nextDouble() <= SICKNESS_CATCH_PROBABILITY)isSick = true;
+        if(isSick() && getAge() > getMaxAge()-5){
+            setAge(getMaxAge()-5);
+        }
+    }
+
 }

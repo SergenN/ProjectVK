@@ -2,10 +2,7 @@ package com.github.projectvk.model;
 
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * A class representing shared characteristics of animals.
@@ -257,6 +254,7 @@ public abstract class NaturalEntity implements Actor
                 if (Arrays.asList(getPrey()).contains(object.getClass())){//replacing instanceof
                     NaturalEntity prey = (NaturalEntity)object;
                     if(prey.isAlive()){
+                        spreadSickness(prey);
                         prey.setDead();
                         setFoodLevel(getFoodDecayLevel());
                         return where;
@@ -282,10 +280,11 @@ public abstract class NaturalEntity implements Actor
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-
             if(field.getObjectAt(loc) instanceof Grass) ((Grass) field.getObjectAt(loc)).setDead();
             try {
-                actors.add((Actor)getEntityClass().getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc));
+                Actor newActor = (Actor)getEntityClass().getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc);
+                spreadSickness(newActor);
+                actors.add(newActor);
             } catch (NoSuchMethodException e){
                 e.printStackTrace();
             } catch (InstantiationException e){
@@ -313,6 +312,7 @@ public abstract class NaturalEntity implements Actor
         incrementAge();
         incrementHunger();
         if(isAlive()) {
+            spreadSickness(getField().getOccupiedAdjacentLocations(getLocation(), true));
             giveBirth(actors);
             // Move towards a source of food if found.
             Location newLocation = findPrey();
@@ -328,6 +328,36 @@ public abstract class NaturalEntity implements Actor
             else {
                 // Overcrowding.
                 setDead();
+            }
+            if(this instanceof Sickness){
+                System.out.println(((Sickness) this).isSick());
+            }
+        }
+    }
+
+    /**
+     * spread te sickness to given locations
+     * @param locations locations to spread sickness to
+     */
+    private void spreadSickness(List<Location> locations)
+    {
+        for(Location location : locations){
+            Object object = getField().getObjectAt(location);
+            if(object instanceof Actor){
+                Actor actor = (Actor)object;
+                spreadSickness(actor);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param actor
+     */
+    private void spreadSickness(Actor actor){
+        if (this instanceof Sickness){
+            if(actor instanceof Sickness){
+                ((Sickness) actor).setSick();
             }
         }
     }

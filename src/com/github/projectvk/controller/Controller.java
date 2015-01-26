@@ -67,7 +67,13 @@ public class Controller {
                 simulator.start(1000);
                 break;
 
-
+            case "reset":
+                simulator.reset();
+                statistics.resetStats();
+                simulator.start(0);
+                break;
+            case "settings":
+                new SettingsFrame();
             case "birthsStat":
                // simulatorView.getGraphView().drawChart("births");
                 simulatorView.getGraphView().setHeaderTitle("Births");

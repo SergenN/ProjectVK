@@ -22,7 +22,4 @@ public class SettingsView extends JPanel {
             add(button);
         }
     }
-
-
-
 }

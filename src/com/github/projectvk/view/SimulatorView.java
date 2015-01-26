@@ -28,8 +28,7 @@ public class SimulatorView extends JFrame
     private static final Color EMPTY_COLOR = new Color(229, 229, 229, 255);
 
     // Color used for objects that have no defined color.
-    //private static final Color UNKNOWN_COLOR = Color.gray;
-    private static final Color UNKNOWN_COLOR = new Color(143, 218, 18);
+    private static final Color UNKNOWN_COLOR = Color.gray;
 
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
@@ -44,7 +43,6 @@ public class SimulatorView extends JFrame
 
     private ControlPanel controlPanel;
     private GraphView graphView;
-    private SettingsView settingPanel;
 
     private int height, width;
 
@@ -82,24 +80,11 @@ public class SimulatorView extends JFrame
 
         //controller.setSimulatorView(this);
         //JComponent panel2 = makeTextPanel("Panel #2");
-
-        settingPanel = new SettingsView(new GridLayout(5,2));
         controlPanel = new ControlPanel(height, controller);
 
-        colors = new LinkedHashMap<Class, Color>();
-        HashMap<String, Class> animals = controller.fetchClassDefinitions();
-
-        this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
-        this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
-        this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
-        this.setColor(animals.get("Hunter"), new Color(219, 0, 37)); //Hunter
-
-
-        graphView = new GraphView(height, controller, colors);
+        graphView = new GraphView(height, controller);
         //stats = controller.getFieldStats();
-
-
-
+        colors = new LinkedHashMap<Class, Color>();
 
         setTitle("Vossen en konijnen simulatie");
         stepLabel = new JLabel();
@@ -129,12 +114,15 @@ public class SimulatorView extends JFrame
         setResizable(false);
 
 
+        HashMap<String, Class> animals = controller.fetchClassDefinitions();
 
+// TODO change into hashmap
+        this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
+        this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
+        this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
+        this.setColor(animals.get("Hunter"), new Color(76, 219, 76)); //Hunter
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-     //   HashMap<Class, Color> colorHashMap = new HashMap<Class, Color>();
-     //   colors.put(animals.get("Rabbit"), new Color(76,114,255));
     }
 
     public ControlPanel getControlPanel(){
@@ -158,7 +146,7 @@ public class SimulatorView extends JFrame
     /**
      * @return The color to be used for a given class of animal.
      */
-    protected Color getColor(Class animalClass)
+    private Color getColor(Class animalClass)
     {
         Color col = colors.get(animalClass);
         if(col == null) {

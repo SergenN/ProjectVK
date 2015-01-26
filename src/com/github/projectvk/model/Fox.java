@@ -4,7 +4,7 @@ package com.github.projectvk.model;
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.
  */
-public class Fox extends NaturalEntity {
+public class Fox extends NaturalEntity implements Sickness{
     // The age at which a fox can start to breed.
     private static final int BREEDING_AGE = 15;
     // The age to which a fox can live.
@@ -23,6 +23,9 @@ public class Fox extends NaturalEntity {
     // the minimum foodlevel an entity needs to breed
     private static final int BREED_FOODLEVEL = 2;
 
+    private static final double SICKNESS_CATCH_PROBABILITY = 0.5;
+
+    private boolean isSick;
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -35,6 +38,7 @@ public class Fox extends NaturalEntity {
     public Fox(Boolean randomAge, Field field, Location location) {
         super(field, location, 0);
         setFoodLevel(FOOD_LEVEL);
+        isSick = false;
         if (randomAge) {
             setAge(getRandom().nextInt(MAX_AGE));
             setFoodLevel(getRandom().nextInt(FOOD_LEVEL));
@@ -79,6 +83,28 @@ public class Fox extends NaturalEntity {
     @Override
     protected double getBreedingProbability() {
         return BREEDING_PROBABILITY;
+    }
+
+    /**
+     * Check if the entity is sick
+     *
+     * @return true if the entity is sick
+     */
+    @Override
+    public boolean isSick() {
+        return isSick;
+    }
+
+    /**
+     * Set the entity to sick
+     * There is no cure for this sickness.
+     */
+    @Override
+    public void setSick() {
+        if(getRandom().nextDouble() <= SICKNESS_CATCH_PROBABILITY)isSick = true;
+        if(isSick() && getAge() > getMaxAge()-5){
+            setAge(getMaxAge()-5);
+        }
     }
 
     /**

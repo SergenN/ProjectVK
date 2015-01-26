@@ -1,21 +1,18 @@
 package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
-import com.github.projectvk.model.*;
 import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.ChartBuilder;
 import com.xeiam.xchart.StyleManager;
 import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
-import javax.swing.text.Style;
 import java.awt.*;
-import java.util.*;
+import java.util.Iterator;
 
 @SuppressWarnings("serial")
 public class GraphView extends JPanel{
-
-    private final int GRID_VIEW_SCALING_FACTOR = 7;
+    private final int GRID_VIEW_SCALING_FACTOR = 6;
     private int height;
     private Controller controller;
     private JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton;
@@ -26,19 +23,17 @@ public class GraphView extends JPanel{
     private String dataChartType = "bar";
     private String chartType = "steps";
     private String headerTitle = "Steps";
-    private Map<Class, Color> colors;
 
     /**
      * Constructor voor het maken van de control panel
      *
      * @param height - Hoogte van de simulator
      */
-    public GraphView(int height, Controller controller, Map<Class, Color> colors) {
+    public GraphView(int height, Controller controller) {
         this.setBackground(new Color(210, 210, 210));
         this.height = height;
         this.controller = controller;
         this.jStyle = controller.getJStyle();
-        this.colors = colors;
 
         makeGUI();
         this.setLayout(new BorderLayout());
@@ -67,38 +62,42 @@ public class GraphView extends JPanel{
      * Creates the GUI
      */
     public void makeGUI(){
+        // IMAGES
+        ImageIcon lineIcon = new ImageIcon("img/line.png");
+        ImageIcon barIcon = new ImageIcon("img/bar.png");
+        ImageIcon scatterIcon = new ImageIcon("img/scatter.png");
+
         // Show current step
         currentStep = new JLabel("currentStep");
         jStyle.headerStyle(currentStep, this, 20, 455, 100, 30, new Color(161, 161, 161),14);
 
         // Births button
         birthsStat = new JButton("Births");
-        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 109, 404, 80, 30);
+        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 133, 404, 80, 30);
 
         // Deaths button
         deathsStat = new JButton("Deaths");
 
-        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 209, 404, 80, 30);
+        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 233, 404, 80, 30);
 
         // Steps button
         stepsStat = new JButton("Steps");
-        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 309, 404, 80, 30);
-
-        // Steps button
-        stepsStat = new JButton("Alive");
-        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 409, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 333, 404, 80, 30);
 
         //Line Button
-        lineStatButton = new JButton("Line");
-        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 109, 440, 80, 30);
+        lineStatButton = new JButton("");
+        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 143, 447, 60, 30);
+        lineStatButton.setIcon(lineIcon);
 
         //Scatter Button
-        scatterStatButton = new JButton("Scatter");
-        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 209, 440, 80, 30);
+        scatterStatButton = new JButton("");
+        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 243, 447, 60, 30);
+        scatterStatButton.setIcon(scatterIcon);
 
         //Bar Button
-        barStatButton = new JButton("Bar");
-        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 309, 440, 80, 30);
+        barStatButton = new JButton("");
+        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 343, 447, 60, 30);
+        barStatButton.setIcon(barIcon);
     }
 
     /**
@@ -206,7 +205,6 @@ public class GraphView extends JPanel{
         double[] turns = calculateTurns();
 
 
-
             // Create Chart
             chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step").yAxisTitle("Amount").build();
 
@@ -214,12 +212,8 @@ public class GraphView extends JPanel{
             while (it.hasNext()){
                 String key = (String)it.next();
 
-
                 if (key == "Hunter" && dataSource != "stepsStat") { } else {
-                    Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
-                    chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).
-                            setLineColor(classColor).setMarkerColor(classColor);
-
+                    chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key)))));
                 }
             }
 
