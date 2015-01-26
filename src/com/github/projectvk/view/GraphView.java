@@ -76,34 +76,34 @@ public class GraphView extends JPanel{
 
         // Births button
         birthsStat = new JButton("Births");
-        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 109, 404, 80, 30);
+        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 83, 404, 80, 30);
 
         // Deaths button
         deathsStat = new JButton("Deaths");
 
-        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 209, 404, 80, 30);
+        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 183, 404, 80, 30);
 
         // Steps button
         stepsStat = new JButton("Steps");
-        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 309, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 283, 404, 80, 30);
 
         // Alive button
         stepsStat = new JButton("Alive");
-        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 409, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 383, 404, 80, 30);
 
         //Line Button
         lineStatButton = new JButton("");
-        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 109, 440, 80, 30);
+        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 133, 445, 80, 30);
         lineStatButton.setIcon(lineIcon);
 
         //Scatter Button
         scatterStatButton = new JButton("");
-        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 209, 440, 80, 30);
+        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 233, 445, 80, 30);
         scatterStatButton.setIcon(scatterIcon);
 
         //Bar Button
         barStatButton = new JButton("");
-        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 309, 440, 80, 30);
+        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 333, 445, 80, 30);
         barStatButton.setIcon(barIcon);
     }
 
