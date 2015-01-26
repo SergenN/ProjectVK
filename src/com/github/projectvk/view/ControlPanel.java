@@ -34,10 +34,10 @@ public class ControlPanel extends JPanel{
 
     public void makeGUI(){
         ////////////////////// IMAGES  ////////////////////////
-        ImageIcon pauseIcon = new ImageIcon("img\\pause.png");
-        ImageIcon playIcon = new ImageIcon("img\\play.png");
+        ImageIcon pauseIcon = new ImageIcon("img/pause.png");
+        ImageIcon playIcon = new ImageIcon("img/play.png");
 
-        ImageIcon icon = new ImageIcon("img\\fox.png");
+        ImageIcon icon = new ImageIcon("img/fox.png");
         JLabel fox = new JLabel();
         fox.setIcon(icon);
         add(fox);
