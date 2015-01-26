@@ -92,16 +92,19 @@ public class GraphView extends JPanel{
         jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 409, 404, 80, 30);
 
         //Line Button
-        lineStatButton = new JButton("Line");
+        lineStatButton = new JButton("");
         jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 109, 440, 80, 30);
+        lineStatButton.setIcon(lineIcon);
 
         //Scatter Button
-        scatterStatButton = new JButton("Scatter");
+        scatterStatButton = new JButton("");
         jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 209, 440, 80, 30);
+        scatterStatButton.setIcon(scatterIcon);
 
         //Bar Button
-        barStatButton = new JButton("Bar");
+        barStatButton = new JButton("");
         jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 309, 440, 80, 30);
+        barStatButton.setIcon(barIcon);
     }
 
     /**
