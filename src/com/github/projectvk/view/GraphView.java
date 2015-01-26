@@ -10,9 +10,7 @@ import com.xeiam.xchart.XChartPanel;
 import javax.swing.*;
 import javax.swing.text.Style;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 @SuppressWarnings("serial")
 public class GraphView extends JPanel{
@@ -28,17 +26,19 @@ public class GraphView extends JPanel{
     private String dataChartType = "bar";
     private String chartType = "steps";
     private String headerTitle = "Steps";
+    private Map<Class, Color> colors;
 
     /**
      * Constructor voor het maken van de control panel
      *
      * @param height - Hoogte van de simulator
      */
-    public GraphView(int height, Controller controller) {
+    public GraphView(int height, Controller controller, Map<Class, Color> colors) {
         this.setBackground(new Color(210, 210, 210));
         this.height = height;
         this.controller = controller;
         this.jStyle = controller.getJStyle();
+        this.colors = colors;
 
         makeGUI();
         this.setLayout(new BorderLayout());
@@ -83,6 +83,10 @@ public class GraphView extends JPanel{
         // Steps button
         stepsStat = new JButton("Steps");
         jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 309, 404, 80, 30);
+
+        // Steps button
+        stepsStat = new JButton("Alive");
+        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 409, 404, 80, 30);
 
         //Line Button
         lineStatButton = new JButton("Line");
@@ -202,6 +206,7 @@ public class GraphView extends JPanel{
         double[] turns = calculateTurns();
 
 
+
             // Create Chart
             chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step").yAxisTitle("Amount").build();
 
@@ -209,8 +214,12 @@ public class GraphView extends JPanel{
             while (it.hasNext()){
                 String key = (String)it.next();
 
+
                 if (key == "Hunter" && dataSource != "stepsStat") { } else {
-                    chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key)))));
+                    Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
+                    chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).
+                            setLineColor(classColor).setMarkerColor(classColor);
+
                 }
             }
 
