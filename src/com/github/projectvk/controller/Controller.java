@@ -37,6 +37,8 @@ public class Controller {
         this.simulatorView = simulatorView;
     }
 
+    public SimulatorView getSimulatorView() {return simulatorView;}
+
     public void setSimulator(Simulator simulator) {
         this.simulator = simulator;
     }
@@ -85,15 +87,24 @@ public class Controller {
                 simulatorView.getGraphView().setDataSource("stepsHistory");
 
                 break;
+            case "aliveStat":
+                //simulatorView.getGraphView().drawChart("steps");
+                simulatorView.getGraphView().setHeaderTitle("Alive");
+                simulatorView.getGraphView().setDataSource("aliveHistory");
+
+                break;
 
             case "drawScatter":
                 simulatorView.getGraphView().setDataChartType("scatter");
+                setStatisticHistoryTurns(20);
                 break;
             case "drawBar":
                 simulatorView.getGraphView().setDataChartType("bar");
+                setStatisticHistoryTurns(1);
                 break;
             case "drawLine":
                 simulatorView.getGraphView().setDataChartType("line");
+                setStatisticHistoryTurns(20);
                 break;
 
         }
@@ -214,5 +225,9 @@ public class Controller {
     public int getCurrentSteps(){ return statistics.getCurrentStep();}
 
     public void resetData(){ statistics.resetData();}
+
+    public void setStatisticHistoryTurns(int historyTurns){
+        Statistics.setHistoryTurns(historyTurns);
+    }
 
 }
