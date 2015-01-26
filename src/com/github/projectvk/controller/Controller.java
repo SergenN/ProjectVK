@@ -66,16 +66,37 @@ public class Controller {
                 simulator.start(1000);
                 break;
 
+
             case "birthsStat":
-                simulatorView.getGraphView().drawChart("births");
+               // simulatorView.getGraphView().drawChart("births");
+                simulatorView.getGraphView().setHeaderTitle("Births");
+                simulatorView.getGraphView().setDataSource("birthsHistory");
+
                 //simulator.start(0);
                 break;
             case "deathsStat":
-                simulatorView.getGraphView().drawChart("deaths");
+                //simulatorView.getGraphView().drawChart("deaths");
+                simulatorView.getGraphView().setHeaderTitle("Deaths");
+                simulatorView.getGraphView().setDataSource("deathsHistory");
+
                 break;
             case "stepsStat":
-                simulatorView.getGraphView().drawChart("steps");
+                //simulatorView.getGraphView().drawChart("steps");
+                simulatorView.getGraphView().setHeaderTitle("Steps");
+                simulatorView.getGraphView().setDataSource("stepsHistory");
+
                 break;
+
+            case "drawScatter":
+                simulatorView.getGraphView().setDataChartType("scatter");
+                break;
+            case "drawBar":
+                simulatorView.getGraphView().setDataChartType("bar");
+                break;
+            case "drawLine":
+                simulatorView.getGraphView().setDataChartType("line");
+                break;
+
         }
 
 
