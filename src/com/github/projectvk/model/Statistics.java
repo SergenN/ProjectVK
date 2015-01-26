@@ -69,6 +69,17 @@ public class Statistics {
         deaths.clear();
     }
 
+    public void resetStats(){
+
+        currentStep = 0;
+        births.clear();
+        steps.clear();
+        deaths.clear();
+        deathsHistory.clear();
+        birthsHistory.clear();
+        stepsHistory.clear();
+    }
+
     public int getCurrentStep(){
         return currentStep;
     }
