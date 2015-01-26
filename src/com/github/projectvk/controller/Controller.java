@@ -99,17 +99,12 @@ public class Controller {
 
         }
 
-
-
-
-
     }
 
     /**
      * Resets Field
      *
      * @param step
-     * @param field
      */
     public void showStatus(int step) {
 
@@ -134,15 +129,6 @@ public class Controller {
         //System.out.println("Sim is running!");
         return simulator.isRunning();
     }
-
-    /**
-     * Returns Int[] with the HEIGHT on pos 0, and WIDTH on pos 1
-     * @return int[]
-     */
-    /*public int[] getFieldSize(){
-        return ( new int[]{simulatorView.getHeight(), simulatorView.getWidth()});
-    }
-    */
 
     /**
      * Returns Field Height
@@ -174,13 +160,21 @@ public class Controller {
     }
 
     /**
-     * Returns array of Class.class objects
+     * Returns hashmap of Class.class objects
      *
      * @return Class[]
-     */
-    public Class[] fetchClassDefinitions() {
+     */ // Todo make this hashmap compatible
+    public HashMap<String, Class> fetchClassDefinitions() {
 
-        Class[] classes = new Class[]{Rabbit.class, Fox.class, Dodo.class, Hunter.class};
+        //Class[] classes = new Class[]{Rabbit.class, Fox.class, Dodo.class, Hunter.class};
+
+        HashMap<String, Class> classes = new HashMap<String, Class>(){};
+        classes.put("Rabbit", Rabbit.class);
+        classes.put("Fox", Fox.class);
+        classes.put("Dodo", Dodo.class);
+        classes.put("Hunter", Hunter.class);
+
+
 
         return classes;
 

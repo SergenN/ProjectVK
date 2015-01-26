@@ -7,6 +7,7 @@ import com.github.projectvk.controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -118,13 +119,13 @@ public class SimulatorView extends JFrame
         setResizable(false);
 
 
-        Class[] animals = controller.fetchClassDefinitions();
+        HashMap<String, Class> animals = controller.fetchClassDefinitions();
 
-
-        this.setColor(animals[0], new Color(76, 114, 255)); //Rabbit
-        this.setColor(animals[1], new Color(255, 196, 76)); //Fox
-        this.setColor(animals[2], new Color(166, 76, 255)); //Dodo
-        this.setColor(animals[3], new Color(76, 219, 76)); //Hunter
+// TODO change into hashmap
+        this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
+        this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
+        this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
+        this.setColor(animals.get("Hunter"), new Color(76, 219, 76)); //Hunter
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -169,7 +170,8 @@ public class SimulatorView extends JFrame
      */
     public void showStatus(int step)
     {
-        graphView.drawChart(graphView.getCharType());
+        graphView.drawChart(graphView.getDataChartType());
+
 
 
         if(!isVisible()) {
