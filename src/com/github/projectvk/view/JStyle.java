@@ -23,9 +23,9 @@ public class JStyle {
     }
 
     // Change the appearance of a given label.
-    public void headerStyle(JComponent label, JPanel panel, int xposition, int yposition, int width, int height){
-        label.setForeground(new Color(132, 132, 132));
-        label.setFont(new Font("Helvetica", Font.BOLD, 16));
+    public void headerStyle(JComponent label, JPanel panel, int xposition, int yposition, int width, int height, Color color, int fontSize){
+        label.setForeground(color);
+        label.setFont(new Font("Helvetica", Font.BOLD, fontSize));
         panel.add(label);
         label.setBounds(xposition, yposition, width, height);
     }

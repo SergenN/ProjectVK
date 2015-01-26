@@ -32,7 +32,7 @@ public class Simulator implements Runnable
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
-    private int step;
+    public int step = 0;
 
     //
     private boolean running = false;
@@ -67,10 +67,10 @@ public class Simulator implements Runnable
         //this.field = field;
 
         // Creates new Field, Fetches new Field sizes from controller
-        field = new Field(controller.getFieldHeight(), controller.getFieldWidth());
+        //field = new Field(controller.getFieldHeight(), controller.getFieldWidth());
         System.out.println(controller.getFieldHeight()+" , "+ controller.getFieldWidth());
-        //field = new Field(120, 80);
-       // controller.disableButtons();
+        field = controller.getField();
+        // controller.disableButtons();
 
         //System.out.println(buttonHandler.toString());
 
@@ -93,6 +93,7 @@ public class Simulator implements Runnable
      */
     public void simulateOneStep()
     {
+        controller.resetData();
         step++;
 
         // Provide space for newborn animals.
@@ -125,12 +126,12 @@ public class Simulator implements Runnable
                 simulateOneStep();
         }
         actors.addAll(newActors);
-        Statistics.updateData();
+        controller.updateData();
 
         //TODO check if area is full of rabbits and make the hunters return.
         // Add the newly born foxes and rabbits to the main lists.
         //
-        controller.showStatus(step, field);
+        controller.showStatus(step);
 
         //view.showStatus(step, field);
     }
@@ -145,7 +146,7 @@ public class Simulator implements Runnable
         populate();
         
         // Show the starting state in the view.
-        controller.showStatus(step, field);
+        controller.showStatus(step);
     }
     
     /**
@@ -230,7 +231,7 @@ public class Simulator implements Runnable
                 Main.getSimulator().simulateOneStep();
                 //this.simulateOneStep();
                 try {
-                    Thread.sleep(2);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -240,5 +241,9 @@ public class Simulator implements Runnable
                 stop();
             }
         }
+    }
+
+    public Field getField() {
+        return field;
     }
 }

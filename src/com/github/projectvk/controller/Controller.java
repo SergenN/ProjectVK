@@ -1,7 +1,12 @@
 package com.github.projectvk.controller;
 
+import com.github.projectvk.Main;
 import com.github.projectvk.model.*;
 import com.github.projectvk.view.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -15,13 +20,15 @@ public class Controller {
     private ButtonHandler buttonHandler;
     private JStyle jStyle = new JStyle();
     private GraphView graphView;
-
+    private Statistics statistics;
+    private Field field;
     private FieldStats fieldStats;
     //private boolean simulatorRunning = false;
 
     public Controller(){
 
         fieldStats = new FieldStats();
+        field = new Field(Main.getSize()[0], Main.getSize()[1]);
         // Make new ButtonHandler to catch ButtonEvents
         this.buttonHandler = new ButtonHandler(this);
     }
@@ -34,19 +41,46 @@ public class Controller {
         this.simulator = simulator;
     }
 
+    public void setStatistics(Statistics statistics) { this.statistics = statistics; }
+
     public JStyle getJStyle(){return jStyle;}
 
     protected void controllerDo(String doThis) {
 
         System.out.println(doThis);
-        if (doThis.equals("plusEen")) simulator.start(1);
-        if (doThis == "plusHonderd") simulator.start(100);
-        if (doThis == "stop") simulator.stop();
-        if (doThis == "start") simulator.start();
-        if (doThis == "longSim") simulator.start(1000);
-        if (doThis == "birthsStat"){ simulatorView.getGraphView().drawChart("births");}
-        if (doThis == "deathsStat"){ simulatorView.getGraphView().drawChart("deaths");}
-        if (doThis == "stepsStat"){ simulatorView.getGraphView().drawChart("steps");}
+        switch (doThis) {
+            case "plusEen":
+                simulator.start(1);
+                break;
+            case "plusHonderd":
+                simulator.start(100);
+                break;
+            case "start":
+                simulator.start();
+                break;
+            case "stop":
+                simulator.stop();
+                break;
+            case "longSim":
+                simulator.start(1000);
+                break;
+
+            case "birthsStat":
+                simulatorView.getGraphView().drawChart("births");
+                //simulator.start(0);
+                break;
+            case "deathsStat":
+                simulatorView.getGraphView().drawChart("deaths");
+                break;
+            case "stepsStat":
+                simulatorView.getGraphView().drawChart("steps");
+                break;
+        }
+
+
+
+
+
     }
 
     /**
@@ -55,9 +89,9 @@ public class Controller {
      * @param step
      * @param field
      */
-    public void showStatus(int step, Field field){
+    public void showStatus(int step) {
 
-        simulatorView.showStatus(step, field);
+        simulatorView.showStatus(step);
 
     }
 
@@ -91,19 +125,19 @@ public class Controller {
     /**
      * Returns Field Height
      *
-     * @return
+     * @return int FieldHeight
      */
     public int getFieldHeight() {
-        return simulatorView.getFieldHeight();
+        return Main.getSize()[0];
     }
 
     /**
      * Returns Field Width
      *
-     * @return
+     * @return int getFieldWidth
      */
     public int getFieldWidth() {
-        return simulatorView.getFieldWidth();
+        return Main.getSize()[1];
     }
 
     /*public void setView(int step, Field field){
@@ -131,8 +165,39 @@ public class Controller {
 
     }
 
+    /**
+     * Returns FieldStats
+     *
+     * @return FieldStats
+     */
     public FieldStats getFieldStats() {
         return fieldStats;
     }
+
+    /**
+     * Returns Field Object
+     *
+     * @return Field field
+     */
+    public Field getField() {
+        return field;}
+
+
+    // These are all methods related to statistics.java
+    public void updateData(){
+        statistics.updateData();
+    }
+
+    public HashMap<Class, ArrayList<Double>> getHistory(String type){ return statistics.getHistory(type);}
+
+    public double[] convertToGraphData(List<Double> list){
+        return statistics.convertToGraphData(list);
+    }
+
+    public double getMaxTurns(){return Statistics.HISTORY_TURNS;}
+
+    public int getCurrentSteps(){ return statistics.getCurrentStep();}
+
+    public void resetData(){ statistics.resetData();}
 
 }
