@@ -10,18 +10,18 @@ public class Fox extends NaturalEntity {
     // The age to which a fox can live.
     private static final int MAX_AGE = 150;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.08;
+    private static final double BREEDING_PROBABILITY = 0.12;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 2;
+    private static final int MAX_LITTER_SIZE = 4;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int FOOD_LEVEL = 9;
+    private static final int FOOD_LEVEL = 15;
     // The fox it's natural prey
     private static final Class[] PREY = {Dodo.class, Rabbit.class};
     // Can the animal walk/breed on grass (will remove grass
     private static final boolean IGNORE_GRASS = true;
     // the minimum foodlevel an entity needs to breed
-    private static final int BREED_FOODLEVEL = 5;
+    private static final int BREED_FOODLEVEL = 2;
 
 
     /**

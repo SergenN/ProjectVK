@@ -24,7 +24,6 @@ public class Controller {
         fieldStats = new FieldStats();
         // Make new ButtonHandler to catch ButtonEvents
         this.buttonHandler = new ButtonHandler(this);
-
     }
 
     public void setSimulatorView(SimulatorView simulatorView) {
@@ -40,16 +39,14 @@ public class Controller {
     protected void controllerDo(String doThis) {
 
         System.out.println(doThis);
-        if (doThis == "plusEen") simulator.start(1);
+        if (doThis.equals("plusEen")) simulator.start(1);
         if (doThis == "plusHonderd") simulator.start(100);
         if (doThis == "stop") simulator.stop();
         if (doThis == "start") simulator.start();
         if (doThis == "longSim") simulator.start(1000);
-        if (doThis == "birthsStat") simulatorView.getGraphView().drawChart("births");
-        if (doThis == "deathsStat") simulatorView.getGraphView().drawChart("deaths");
-        if (doThis == "stepsStat") simulatorView.getGraphView().drawChart("steps");
-
-        //if (doThis == "")
+        if (doThis == "birthsStat"){ simulatorView.getGraphView().drawChart("births");}
+        if (doThis == "deathsStat"){ simulatorView.getGraphView().drawChart("deaths");}
+        if (doThis == "stepsStat"){ simulatorView.getGraphView().drawChart("steps");}
     }
 
     /**

@@ -16,7 +16,6 @@ public class ButtonHandler implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getActionCommand() == "plusEen") controller.controllerDo("plusEen");
         if (e.getActionCommand() == "plusHonderd") controller.controllerDo("plusHonderd");
         if (e.getActionCommand() == "stop") controller.controllerDo("stop");
@@ -25,7 +24,6 @@ public class ButtonHandler implements ActionListener{
         if (e.getActionCommand() == "birthsStat") controller.controllerDo("birthsStat") ;
         if (e.getActionCommand() == "deathsStat") controller.controllerDo("deathsStat");
         if (e.getActionCommand() == "stepsStat") controller.controllerDo("stepsStat");
-
     }
 
 }
