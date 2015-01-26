@@ -17,6 +17,8 @@ import java.util.Iterator;
 @SuppressWarnings("serial")
 public class GraphView extends JPanel{
 
+    private final int GRID_VIEW_SCALING_FACTOR = 6;
+
     private final int GRID_VIEW_SCALING_FACTOR = 7;
     private int height;
     private Controller controller;
@@ -67,34 +69,42 @@ public class GraphView extends JPanel{
      * Creates the GUI
      */
     public void makeGUI(){
+        // IMAGES
+        ImageIcon lineIcon = new ImageIcon("img/line.png");
+        ImageIcon barIcon = new ImageIcon("img/bar.png");
+        ImageIcon scatterIcon = new ImageIcon("img/scatter.png");
+
         // Show current step
         currentStep = new JLabel("currentStep");
         jStyle.headerStyle(currentStep, this, 20, 455, 100, 30, new Color(161, 161, 161),14);
 
         // Births button
         birthsStat = new JButton("Births");
-        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 109, 404, 80, 30);
+        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 133, 404, 80, 30);
 
         // Deaths button
         deathsStat = new JButton("Deaths");
 
-        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 209, 404, 80, 30);
+        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 233, 404, 80, 30);
 
         // Steps button
         stepsStat = new JButton("Steps");
-        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 309, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 333, 404, 80, 30);
 
         //Line Button
-        lineStatButton = new JButton("Line");
-        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 109, 440, 80, 30);
+        lineStatButton = new JButton("");
+        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 143, 447, 60, 30);
+        lineStatButton.setIcon(lineIcon);
 
         //Scatter Button
-        scatterStatButton = new JButton("Scatter");
-        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 209, 440, 80, 30);
+        scatterStatButton = new JButton("");
+        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 243, 447, 60, 30);
+        scatterStatButton.setIcon(scatterIcon);
 
         //Bar Button
-        barStatButton = new JButton("Bar");
-        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 309, 440, 80, 30);
+        barStatButton = new JButton("");
+        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 343, 447, 60, 30);
+        barStatButton.setIcon(barIcon);
     }
 
     /**
