@@ -8,22 +8,27 @@ import com.xeiam.xchart.StyleManager;
 import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
+import javax.swing.text.Style;
 import java.awt.*;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 
 @SuppressWarnings("serial")
 public class GraphView extends JPanel{
 
-    private final int GRID_VIEW_SCALING_FACTOR = 6;
+    private final int GRID_VIEW_SCALING_FACTOR = 7;
 
     private int height;
     private Controller controller;
-    private JButton birthsStat, deathsStat,stepsStat;
+    private JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton;
     private JLabel currentStep;
     private JStyle jStyle;
     private Chart chart;
-
-    private String charType = "births";
+    private String dataSource = "stepsHistory";
+    private String dataChartType = "bar";
+    private String chartType = "steps";
+    private String headerTitle = "Steps";
 
     /**
      * Constructor voor het maken van de control panel
@@ -38,12 +43,20 @@ public class GraphView extends JPanel{
 
         makeGUI();
         this.setLayout(new BorderLayout());
-        this.chart = getChart();
+        this.chart = getChart(dataChartType, dataSource);
         this.add(new XChartPanel(chart), BorderLayout.NORTH);
     }
 
-    public String getCharType(){
-        return charType;
+    /**
+     * Returns CharType
+      * @return
+     */
+    public String getChartType(){
+        return chartType;
+    }
+
+    public void setHeaderTitle(String headerTitle){
+        this.headerTitle = headerTitle;
     }
 
     public void makeGUI(){
@@ -53,15 +66,28 @@ public class GraphView extends JPanel{
 
         // Births button
         birthsStat = new JButton("Births");
-        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 129, 424, 80, 30);
+        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 109, 404, 80, 30);
 
         // Deaths button
         deathsStat = new JButton("Deaths");
-        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 229, 424, 80, 30);
+
+        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 209, 404, 80, 30);
 
         // Steps button
         stepsStat = new JButton("Steps");
-        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 329, 424, 80, 30);
+        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 309, 404, 80, 30);
+
+        //Line Button
+        lineStatButton = new JButton("Line");
+        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 109, 440, 80, 30);
+
+        //Scatter Button
+        scatterStatButton = new JButton("Scatter");
+        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 209, 440, 80, 30);
+
+        //Bar Button
+        barStatButton = new JButton("Bar");
+        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 309, 440, 80, 30);
     }
 
     public void updateSteps(int newStep){
@@ -106,43 +132,72 @@ public class GraphView extends JPanel{
         }
     }
 
-    public Chart getChart() {
+    /**
+     * Returns a DataChartType ( eg Line ) based on given string
+     * @param dataChartType String -> line, bar, scatter
+     * @return StyleManager.ChartType
+     */
+    public StyleManager.ChartType getGraphChartType(String dataChartType){
+        switch (dataChartType){
+
+            case "line":
+                return StyleManager.ChartType.Line;
+            case "bar":
+                return StyleManager.ChartType.Bar;
+            case "scatter":
+                return StyleManager.ChartType.Scatter;
+            default:
+                return StyleManager.ChartType.Bar;
+
+        }
+    }
+
+     /**
+     * Sets DataSource
+     * @param source - deathsHistory, birthsHistory, stepsHistory
+     */
+    public void setDataSource(String source){
+        this.dataSource = source;
+    }
+
+    public void setDataChartType(String type){
+        this.dataChartType = type;
+    }
+
+    public String getDataChartType(){
+        return dataChartType;
+    }
+
+    /**
+     * Returns a Chart
+     * @param dataChartType
+     * @return
+     */
+    public Chart getChart(String dataChartType, String dataSource) {
 
         // Put the turn steps in a double array
         double[] turns = calculateTurns();
 
-        if(charType.equals("deaths")) {
+        //if(charType.equals()) {
             // Create Chart
-            chart = new ChartBuilder().chartType(StyleManager.ChartType.Line).width(600).height(400).title("Deaths").xAxisTitle("Step").yAxisTitle("Amount").build();
-            chart.addSeries("Rabbits", turns, controller.convertToGraphData(controller.getHistory("deathsHistory").get(Rabbit.class)));
-            chart.addSeries("Foxes", turns, controller.convertToGraphData(controller.getHistory("deathsHistory").get(Fox.class)));
-            chart.addSeries("Dodo", turns, controller.convertToGraphData(controller.getHistory("deathsHistory").get(Dodo.class)));
-        }
+            chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step").yAxisTitle("Amount").build();
 
-        if(charType.equals("steps")) {
-            // Create Chart
-            chart = new ChartBuilder().chartType(StyleManager.ChartType.Bar).width(600).height(400).title("Steps").xAxisTitle("Step").yAxisTitle("Amount").build();
-            chart.addSeries("Rabbits", turns, controller.convertToGraphData(controller.getHistory("stepsHistory").get(Rabbit.class)));
-            chart.addSeries("Foxes", turns, controller.convertToGraphData(controller.getHistory("stepsHistory").get(Fox.class)));
-            chart.addSeries("Dodo", turns, controller.convertToGraphData(controller.getHistory("stepsHistory").get(Dodo.class)));
-            chart.addSeries("Hunter", turns, controller.convertToGraphData(controller.getHistory("stepsHistory").get(Hunter.class)));
-        }
-
-        if(charType.equals("births")) {
-            // Create Chart
-            chart = new ChartBuilder().chartType(StyleManager.ChartType.Scatter).width(600).height(400).title("Births").xAxisTitle("Step").yAxisTitle("Amount").build();
-            chart.addSeries("Rabbits", turns, controller.convertToGraphData(controller.getHistory("birthsHistory").get(Rabbit.class)));
-            chart.addSeries("Foxes", turns, controller.convertToGraphData(controller.getHistory("birthsHistory").get(Fox.class)));
-            chart.addSeries("Dodo", turns, controller.convertToGraphData(controller.getHistory("birthsHistory").get(Dodo.class)));
-        }
+            Iterator it = controller.fetchClassDefinitions().keySet().iterator();
+            while (it.hasNext()){
+                String key = (String)it.next();
+                //System.out.println(key);
+                if (key == "Hunter" && dataSource != "stepsStat") { } else {
+                    chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key)))));
+                }
+            }
 
         return chart;
     }
 
-    public void drawChart(String charType){
-        this.charType = charType;
-        this.chart = getChart();
-        this.remove(4);
+    public void drawChart(String chartType){
+        this.chartType = chartType;
+        this.chart = getChart(dataChartType, dataSource);
+        //this.remove(4);
         this.add(new XChartPanel(chart), BorderLayout.NORTH);
         updateSteps(controller.getCurrentSteps());
     }

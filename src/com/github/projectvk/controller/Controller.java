@@ -65,21 +65,38 @@ public class Controller {
                 simulator.start(1000);
                 break;
 
+
             case "birthsStat":
-                simulatorView.getGraphView().drawChart("births");
+               // simulatorView.getGraphView().drawChart("births");
+                simulatorView.getGraphView().setHeaderTitle("Births");
+                simulatorView.getGraphView().setDataSource("birthsHistory");
+
                 //simulator.start(0);
                 break;
             case "deathsStat":
-                simulatorView.getGraphView().drawChart("deaths");
+                //simulatorView.getGraphView().drawChart("deaths");
+                simulatorView.getGraphView().setHeaderTitle("Deaths");
+                simulatorView.getGraphView().setDataSource("deathsHistory");
+
                 break;
             case "stepsStat":
-                simulatorView.getGraphView().drawChart("steps");
+                //simulatorView.getGraphView().drawChart("steps");
+                simulatorView.getGraphView().setHeaderTitle("Steps");
+                simulatorView.getGraphView().setDataSource("stepsHistory");
+
                 break;
+
+            case "drawScatter":
+                simulatorView.getGraphView().setDataChartType("scatter");
+                break;
+            case "drawBar":
+                simulatorView.getGraphView().setDataChartType("bar");
+                break;
+            case "drawLine":
+                simulatorView.getGraphView().setDataChartType("line");
+                break;
+
         }
-
-
-
-
 
     }
 
@@ -87,7 +104,6 @@ public class Controller {
      * Resets Field
      *
      * @param step
-     * @param field
      */
     public void showStatus(int step) {
 
@@ -112,15 +128,6 @@ public class Controller {
         //System.out.println("Sim is running!");
         return simulator.isRunning();
     }
-
-    /**
-     * Returns Int[] with the HEIGHT on pos 0, and WIDTH on pos 1
-     * @return int[]
-     */
-    /*public int[] getFieldSize(){
-        return ( new int[]{simulatorView.getHeight(), simulatorView.getWidth()});
-    }
-    */
 
     /**
      * Returns Field Height
@@ -152,13 +159,21 @@ public class Controller {
     }
 
     /**
-     * Returns array of Class.class objects
+     * Returns hashmap of Class.class objects
      *
      * @return Class[]
-     */
-    public Class[] fetchClassDefinitions() {
+     */ // Todo make this hashmap compatible
+    public HashMap<String, Class> fetchClassDefinitions() {
 
-        Class[] classes = new Class[]{Rabbit.class, Fox.class, Dodo.class, Hunter.class};
+        //Class[] classes = new Class[]{Rabbit.class, Fox.class, Dodo.class, Hunter.class};
+
+        HashMap<String, Class> classes = new HashMap<String, Class>(){};
+        classes.put("Rabbit", Rabbit.class);
+        classes.put("Fox", Fox.class);
+        classes.put("Dodo", Dodo.class);
+        classes.put("Hunter", Hunter.class);
+
+
 
         return classes;
 
