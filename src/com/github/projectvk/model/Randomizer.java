@@ -15,13 +15,6 @@ public class Randomizer
     private static final boolean useShared = true;
 
     /**
-     * Constructor for objects of class com.github.projectvk.model.Randomizer
-     */
-    public Randomizer()
-    {
-    }
-
-    /**
      * Provide a random generator.
      * @return A random object.
      */
