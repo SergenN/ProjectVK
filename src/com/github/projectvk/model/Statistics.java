@@ -14,7 +14,7 @@ public class Statistics {
     private Controller controller;
 
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
-    public static double HISTORY_TURNS = 1;
+    public static double HISTORY_TURNS = 20;
 
     public static HashMap<Class, ArrayList<Double>> deaths = new HashMap<Class, ArrayList<Double>>();
     public static HashMap<Class, ArrayList<Double>> births = new HashMap<Class, ArrayList<Double>>();
@@ -92,9 +92,11 @@ public class Statistics {
         births.clear();
         steps.clear();
         deaths.clear();
+        alive.clear();
         deathsHistory.clear();
         birthsHistory.clear();
         stepsHistory.clear();
+        aliveHistory.clear();
     }
 
     public int getCurrentStep(){
