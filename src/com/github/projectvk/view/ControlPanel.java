@@ -11,7 +11,7 @@ public class ControlPanel extends JPanel{
     private final int GRID_VIEW_SCALING_FACTOR = 6;
 
     private JLabel sim_kop;
-    private JButton plusEen, plusHonderd, longSim, start, stop, settings;
+    private JButton plusEen, plusHonderd, longSim, start, stop, settings, reset;
     private int height;
     private Controller controller;
     private JStyle jStyle;
@@ -34,10 +34,10 @@ public class ControlPanel extends JPanel{
 
     public void makeGUI(){
         ////////////////////// IMAGES  ////////////////////////
-        ImageIcon pauseIcon = new ImageIcon("img\\pause.png");
-        ImageIcon playIcon = new ImageIcon("img\\play.png");
+        ImageIcon pauseIcon = new ImageIcon("img/pause.png");
+        ImageIcon playIcon = new ImageIcon("img/play.png");
 
-        ImageIcon icon = new ImageIcon("img\\fox.png");
+        ImageIcon icon = new ImageIcon("img/fox.png");
         JLabel fox = new JLabel();
         fox.setIcon(icon);
         add(fox);
@@ -70,9 +70,13 @@ public class ControlPanel extends JPanel{
         jStyle.buttonStyle(start, "start", controller, this, 10, 180, 35, 30);
         start.setIcon(playIcon);
 
-        // Simuleer button
+        // Reset button
+        reset = new JButton("Reset");
+        jStyle.buttonStyle(reset, "reset", controller, this, 10, 220, 80, 30);
+
+        // Settings button
         settings = new JButton("Settings");
-        jStyle.buttonStyle(settings, "settings", controller, this, 10, 220, 80, 30);
+        jStyle.buttonStyle(settings, "settings", controller, this, 10, 260, 80, 30);
     }
 
     /**
