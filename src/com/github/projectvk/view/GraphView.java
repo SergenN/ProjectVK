@@ -1,25 +1,18 @@
 package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
-import com.github.projectvk.model.*;
 import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.ChartBuilder;
 import com.xeiam.xchart.StyleManager;
 import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
-import javax.swing.text.Style;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 
 @SuppressWarnings("serial")
 public class GraphView extends JPanel{
-
     private final int GRID_VIEW_SCALING_FACTOR = 6;
-
-    private final int GRID_VIEW_SCALING_FACTOR = 7;
     private int height;
     private Controller controller;
     private JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton;

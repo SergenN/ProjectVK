@@ -43,7 +43,6 @@ public class SimulatorView extends JFrame
 
     private ControlPanel controlPanel;
     private GraphView graphView;
-    private SettingsView settingPanel;
 
     private int height, width;
 
@@ -81,14 +80,10 @@ public class SimulatorView extends JFrame
 
         //controller.setSimulatorView(this);
         //JComponent panel2 = makeTextPanel("Panel #2");
-
-        settingPanel = new SettingsView(new GridLayout(5,2));
         controlPanel = new ControlPanel(height, controller);
 
         graphView = new GraphView(height, controller);
         //stats = controller.getFieldStats();
-
-
         colors = new LinkedHashMap<Class, Color>();
 
         setTitle("Vossen en konijnen simulatie");

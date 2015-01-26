@@ -70,7 +70,8 @@ public class Controller {
                 statistics.resetStats();
                 simulator.start(0);
                 break;
-
+            case "settings":
+                new SettingsFrame();
             case "birthsStat":
                // simulatorView.getGraphView().drawChart("births");
                 simulatorView.getGraphView().setHeaderTitle("Births");
