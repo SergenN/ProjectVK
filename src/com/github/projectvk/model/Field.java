@@ -116,14 +116,7 @@ public class Field
      */
     public List<Location> getFreeAdjacentLocations(Location location)
     {
-        List<Location> free = new LinkedList<Location>();
-        List<Location> adjacent = adjacentLocations(location);
-        for(Location next : adjacent) {
-            if(getObjectAt(next) == null) {
-                free.add(next);
-            }
-        }
-        return free;
+        return getFreeAdjacentLocations(location, false);
     }
 
     /**
@@ -137,7 +130,7 @@ public class Field
         List<Location> free = new LinkedList<Location>();
         List<Location> adjacent = adjacentLocations(location);
         for(Location next : adjacent) {
-            if(getObjectAt(next) == null || getObjectAt(next) instanceof Grass) {
+            if(getObjectAt(next) == null || (ignoreGrass && (getObjectAt(next) instanceof Grass))) {
                 free.add(next);
             }
         }
@@ -155,14 +148,7 @@ public class Field
      */
     public Location freeAdjacentLocation(Location location)
     {
-        // The available free ones.
-        List<Location> free = getFreeAdjacentLocations(location);
-        if(free.size() > 0) {
-            return free.get(0);
-        }
-        else {
-            return null;
-        }
+        return freeAdjacentLocation(location, false);
     }
 
     /**
@@ -176,13 +162,24 @@ public class Field
     public Location freeAdjacentLocation(Location location, boolean ignoreGrass)
     {
         // The available free ones.
-        List<Location> free = getFreeAdjacentLocations(location, true);
+        List<Location> free = getFreeAdjacentLocations(location, ignoreGrass);
         if(free.size() > 0) {
             return free.get(0);
         }
         else {
             return null;
         }
+    }
+
+    public List<Location> getOccupiedAdjacentLocations(Location location, boolean ignoreGrass){
+        List<Location> free = new LinkedList<Location>();
+        List<Location> adjacent = adjacentLocations(location);
+        for(Location next : adjacent) {
+            if(getObjectAt(next) != null || (ignoreGrass && !(getObjectAt(next) instanceof Grass))) {
+                free.add(next);
+            }
+        }
+        return free;
     }
 
     /**

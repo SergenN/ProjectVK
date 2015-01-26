@@ -129,22 +129,6 @@ public class Grass extends NaturalEntity {
         return getAge();
     }
 
-    /*@Override
-    protected Location findPrey()
-    {
-        Field field = getField();
-        List<Location> adjacent = field.adjacentLocations(getLocation());
-        Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
-            Location where = it.next();
-            Object object = field.getObjectAt(where);
-            if(object == null){
-                return where;
-            }
-        }
-        return null;
-    }*/
-
     /**
      * acteer
      *

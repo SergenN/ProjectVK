@@ -14,13 +14,13 @@ public class Dodo extends NaturalEntity{
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 5;
     // the maximum number a rabbit can move without food before dying
-    private static final int FOOD_LEVEL = 14;
+    private static final int FOOD_LEVEL = 12;
     // The rabbits it's natural prey
     private static final Class[] PREY = {Grass.class};
     // Can the animal walk/breed on grass (will remove grass
     private static final boolean IGNORE_GRASS = true;
     // the minimum foodlevel an entity needs to breed
-    private static final int BREED_FOODLEVEL = 4;
+    private static final int BREED_FOODLEVEL = 7;
 
 
     public Dodo(Boolean randomAge, Field field, Location location){
