@@ -172,7 +172,10 @@ public abstract class NaturalEntity implements Actor
             location = null;
             field = null;
         }
-        if (getClass() != Grass.class) statistics.addData(statistics.deaths, getEntityClass(), 1);
+        if (getClass() != Grass.class) {
+            statistics.addData(statistics.deaths, getEntityClass(), 1);
+            statistics.addData(statistics.alive, getEntityClass(), 1);
+        }
     }
 
     /**
@@ -294,7 +297,10 @@ public abstract class NaturalEntity implements Actor
                 e.printStackTrace();
             }
         }
-        if (getEntityClass() != Grass.class) statistics.addData(statistics.births, getEntityClass(), 1);
+        if (getEntityClass() != Grass.class){
+            statistics.addData(statistics.births, getEntityClass(), 1);
+            statistics.addData(statistics.alive, getEntityClass(), 1);}
+
     }
 
     /**
@@ -320,7 +326,7 @@ public abstract class NaturalEntity implements Actor
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
-                if (getEntityClass() != Grass.class) statistics.addData(statistics.steps, getEntityClass(), 1);;
+                if (getEntityClass() != Grass.class) statistics.addData(statistics.steps, getEntityClass() ,1);;
             }
             else {
                 // Overcrowding.

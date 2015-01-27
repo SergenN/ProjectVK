@@ -174,7 +174,8 @@ public class Simulator implements Runnable
             if (toStep < 0 || toStep != -1) {
                 Main.getSimulator().simulateOneStep();
                 try {
-                    Thread.sleep(propertiesFile.getInt("general-STEP_SPEED"));
+                    //TODO merge fail moet ff goed zetten naar goede methode!
+                    Thread.sleep(propertiesFile.getFixedInt("general-STEP_SPEED"));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -188,9 +189,5 @@ public class Simulator implements Runnable
 
     public Field getField() {
         return field;
-    }
-
-    private double intToDouble(int toConvert){
-        return (toConvert / 100.0);
     }
 }

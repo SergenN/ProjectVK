@@ -13,15 +13,17 @@ public class Statistics {
     private Controller controller;
 
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
-    public static final double HISTORY_TURNS = 20;
+    public static double HISTORY_TURNS = 1;
 
     public static HashMap<Class, ArrayList<Double>> deaths = new HashMap<Class, ArrayList<Double>>();
     public static HashMap<Class, ArrayList<Double>> births = new HashMap<Class, ArrayList<Double>>();
     public static HashMap<Class, ArrayList<Double>> steps = new HashMap<Class, ArrayList<Double>>();
+    public static HashMap<Class, ArrayList<Double>> alive = new HashMap<Class, ArrayList<Double>>();
 
     private HashMap<Class, ArrayList<Double>> deathsHistory = new HashMap<Class, ArrayList<Double>>();
     private HashMap<Class, ArrayList<Double>> birthsHistory = new HashMap<Class, ArrayList<Double>>();
     private HashMap<Class, ArrayList<Double>> stepsHistory = new HashMap<Class, ArrayList<Double>>();
+    private HashMap<Class, ArrayList<Double>> aliveHistory = new HashMap<Class, ArrayList<Double>>();
 
     public Statistics(Controller controller) {
         this.controller = controller;
@@ -40,6 +42,9 @@ public class Statistics {
         if(type.equals("stepsHistory")) {
             return stepsHistory;
         }
+        if(type.equals("aliveHistory")) {
+            return aliveHistory;
+        }
         if(type.equals("deaths")) {
             return deaths;
         }
@@ -49,7 +54,18 @@ public class Statistics {
         if(type.equals("steps")) {
             return steps;
         }
+        if(type.equals("alive")) {
+            return alive;
+        }
         return null;
+    }
+
+    /**
+     * Sets Historyturns , which stands for the max x value on the graph
+     * @param historyTurns
+     */
+    public static void setHistoryTurns(int historyTurns){
+        HISTORY_TURNS = historyTurns;
     }
 
     // Methods to fill the data arrays
@@ -66,6 +82,7 @@ public class Statistics {
         births.clear();
         steps.clear();
         deaths.clear();
+        alive.clear();
     }
 
     public void resetStats(){
@@ -74,9 +91,11 @@ public class Statistics {
         births.clear();
         steps.clear();
         deaths.clear();
+        alive.clear();
         deathsHistory.clear();
         birthsHistory.clear();
         stepsHistory.clear();
+        aliveHistory.clear();
     }
 
     public int getCurrentStep(){
@@ -128,6 +147,12 @@ public class Statistics {
         addDataToHistory(stepsHistory, Dodo.class, steps);
         addDataToHistory(stepsHistory, Rabbit.class, steps);
         addDataToHistory(stepsHistory, Hunter.class, steps);
+
+        addDataToHistory(aliveHistory, Fox.class, alive);
+        addDataToHistory(aliveHistory, Dodo.class, alive);
+        addDataToHistory(aliveHistory, Rabbit.class, alive);
+        addDataToHistory(aliveHistory, Hunter.class, alive);
+
     }
 
     // Convert all data to data that can be used for XCharts
