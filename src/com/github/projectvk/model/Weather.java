@@ -8,7 +8,7 @@ import java.util.Random;
  * Created by Thijs on 26-1-2015.
  */
 public class Weather {
-    private String weatherType;
+    public static String weatherType;
     private Controller controller;
     private int changeWeatherStep;
     private Random rand = new Random();
@@ -48,6 +48,8 @@ public class Weather {
         switch (weatherType) {
             case "sunny":
                 System.out.println("sunny");
+
+
                 break;
             case "snowstorm":
 

@@ -65,7 +65,19 @@ public class Grass extends NaturalEntity {
      */
     @Override
     protected int getMaxLitterSize() {
-        return propertiesFile.getInt("grass-SEEDLING_PROBABILITY");
+        int multiplier = 0;
+        if(Weather.weatherType.equals("Sunny")) {
+            multiplier = propertiesFile.getInt("weather-SUNNY_GRASS_SEED_MULTIPLIER");
+        }
+        else if(Weather.weatherType.equals("Snow")) {
+            multiplier = propertiesFile.getInt("weather-SNOW_GRASS_SEED_MULTIPLIER");
+        }
+        else if(Weather.weatherType.equals("Rain")) {
+            multiplier = propertiesFile.getInt("weather-RAIN_GRASS_SEED_MULTIPLIER");
+        }
+
+        System.out.println("Seed: " + multiplier);
+        return propertiesFile.getInt("grass-SEEDLING_PROBABILITY") + multiplier;
     }
 
     /**
@@ -75,7 +87,19 @@ public class Grass extends NaturalEntity {
      */
     @Override
     protected double getBreedingProbability() {
-        return (propertiesFile.getIntTransformed("grass-SPREAD_PROBABILITY"));
+        int multiplier = 0;
+        if(Weather.weatherType.equals("Sunny")) {
+            multiplier = propertiesFile.getInt("weather-SUNNY_GRASS_SPREAD_MULTIPLIER");
+        }
+        else if(Weather.weatherType.equals("Snow")) {
+            multiplier = propertiesFile.getInt("weather-SNOW_GRASS_SPREAD_MULTIPLIER");
+        }
+        else if(Weather.weatherType.equals("Rain")) {
+            multiplier = propertiesFile.getInt("weather-RAIN_GRASS_SPREAD_MULTIPLIER");
+        }
+
+        System.out.println("Spread: " + multiplier);
+        return propertiesFile.getIntTransformed("grass-SPREAD_PROBABILITY") + multiplier;
     }
 
     /**

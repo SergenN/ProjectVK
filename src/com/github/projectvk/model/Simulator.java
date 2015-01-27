@@ -48,8 +48,7 @@ public class Simulator implements Runnable {
      * fox and rabbit.
      */
     public void simulateOneStep() {
-    public void simulateOneStep()
-    {
+
         if(controller.getCurrentSteps() >= nextWeatherEvent){
             controller.randomWeather();
             System.out.println("Changing Weather..");

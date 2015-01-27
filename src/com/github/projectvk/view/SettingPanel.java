@@ -76,7 +76,7 @@ public class SettingPanel extends JPanel {
             }
             else if(key.contains("MULTIPLIER")){
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
-                panel.add(createSlider(-10, 10, dataMap.get(key), 5, 1, categorie+"-"+key), createGridBagConstraint(2, i));
+                panel.add(createSlider(-10, 10, dataMap.get(key), 5, 1, categorie+"-"+key, true, false), createGridBagConstraint(2, i));
             }
             else {
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
