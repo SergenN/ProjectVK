@@ -87,6 +87,10 @@ public class Grass extends NaturalEntity {
         return PREY;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected int getFoodDecayLevel() {
         return 0;

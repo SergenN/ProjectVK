@@ -151,7 +151,6 @@ public class Simulator implements Runnable
         controller.disableButtons();
     }
 
-
     public void stop(){
         running = false;
         controller.disableButtons();
@@ -173,7 +172,6 @@ public class Simulator implements Runnable
             if (toStep < 0 || toStep != -1) {
                 Main.getSimulator().simulateOneStep();
                 try {
-                    //TODO merge fail moet ff goed zetten naar goede methode!
                     Thread.sleep(propertiesFile.getInt("general-STEP_SPEED"));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -184,9 +182,5 @@ public class Simulator implements Runnable
                 stop();
             }
         }
-    }
-
-    public Field getField() {
-        return field;
     }
 }
