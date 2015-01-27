@@ -85,7 +85,7 @@ public class Statistics {
      */
     public static void addData(HashMap<Class, ArrayList<Double>> list, Class animal, double amount){
         if(list.get(animal) == null || list.get(animal).isEmpty()){
-            list.put(animal, new ArrayList<>());
+            list.put(animal, new ArrayList<Double>());
             list.get(animal).add(0.0);
         }
         list.get(animal).set(0, list.get(animal).get(0) + amount);
@@ -136,12 +136,12 @@ public class Statistics {
 
         // Catch error codes
         if(list.get(animal) == null){
-            list.put(animal, new ArrayList<>());
+            list.put(animal, new ArrayList<Double>());
             list.get(animal).add(0.0);
         }
 
         if(source.get(animal) == null) {
-            source.put(animal, new ArrayList<>());
+            source.put(animal, new ArrayList<Double>());
             source.get(animal).add(0.0);
         }
 
