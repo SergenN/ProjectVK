@@ -51,14 +51,14 @@ public class PropertiesHandler extends PropertiesFile{
         getInt("general-SEED", 111);
         getInt("general-STEP_SPEED",100);
 
-        getInt("weather-SUNNY_GRASS_SPREAD_MULTIPLIER", 5);
-        getInt("weather-SUNNY_GRASS_SEED_MULTIPLIER", 5);
+        getInt("weather-SUNNY_GRASS_SPREAD_MULTIPLIER", 0);
+        getInt("weather-SUNNY_GRASS_SEED_MULTIPLIER", 0);
 
-        getInt("weather-RAIN_GRASS_SPREAD_MULTIPLIER", 4);
-        getInt("weather-RAIN_GRASS_SEED_MULTIPLIER", 3);
+        getInt("weather-RAIN_GRASS_SPREAD_MULTIPLIER", 0);
+        getInt("weather-RAIN_GRASS_SEED_MULTIPLIER", 0);
 
-        getInt("weather-SNOW_GRASS_SPREAD_MULTIPLIER", -6);
-        getInt("weather-SNOW_GRASS_SEED_MULTIPLIER", -2);
+        getInt("weather-SNOW_GRASS_SPREAD_MULTIPLIER", 0);
+        getInt("weather-SNOW_GRASS_SEED_MULTIPLIER", 0);
     }
 
     /**

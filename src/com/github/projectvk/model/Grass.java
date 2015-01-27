@@ -75,8 +75,6 @@ public class Grass extends NaturalEntity {
         else if(Weather.weatherType.equals("Rain")) {
             multiplier = propertiesFile.getInt("weather-RAIN_GRASS_SEED_MULTIPLIER");
         }
-
-        System.out.println("Seed: " + multiplier);
         return propertiesFile.getInt("grass-SEEDLING_PROBABILITY") + multiplier;
     }
 
@@ -97,8 +95,6 @@ public class Grass extends NaturalEntity {
         else if(Weather.weatherType.equals("Rain")) {
             multiplier = propertiesFile.getInt("weather-RAIN_GRASS_SPREAD_MULTIPLIER");
         }
-
-        System.out.println("Spread: " + multiplier);
         return propertiesFile.getIntTransformed("grass-SPREAD_PROBABILITY") + multiplier;
     }
 
