@@ -17,8 +17,7 @@ public class Counter
      * Provide a name for one of the simulation types.
      * @param name  A name, e.g. "com.github.projectvk.model.Fox".
      */
-    public Counter(String name)
-    {
+    public Counter(String name) {
         this.name = name;
         count = 0;
     }

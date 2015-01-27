@@ -10,7 +10,6 @@ public class Field
 {
     // A random number generator for providing random locations.
     private static final Random rand = Randomizer.getRandom();
-
     // The height and width of the field.
     private int height, width;
     // Storage for the animals.

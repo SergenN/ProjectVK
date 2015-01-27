@@ -88,8 +88,9 @@ public class Grass extends NaturalEntity {
     }
 
     /**
+     * verkrijg de foodDecayLevel (aantal beurten dat het dier kan overleven zonder voedsel)
      *
-     * @return
+     * @return de food decay level
      */
     @Override
     protected int getFoodDecayLevel() {

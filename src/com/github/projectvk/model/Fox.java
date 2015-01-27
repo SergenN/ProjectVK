@@ -106,7 +106,7 @@ public class Fox extends NaturalEntity implements Sickness {
     }
 
     /**
-     * verkrijg de foodDecayLevel
+     * aantal beurten dat het dier kan overleven zonder voedsel
      *
      * @return de food decay level
      */

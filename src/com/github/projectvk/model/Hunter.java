@@ -1,7 +1,6 @@
 package com.github.projectvk.model;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class Hunter implements Actor {
@@ -10,16 +9,14 @@ public class Hunter implements Actor {
     private Location location;
     private static final Class[] prey = {Dodo.class, Rabbit.class, Fox.class};
     private static final boolean overrideGrass = true;
-    private Statistics statistics;
 
     /**
      * Create a Hunter.
      *
-     * @param randomMood If true, the fox will have random mood level.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Hunter(boolean randomMood, Field field, Location location) {
+    public Hunter(Field field, Location location) {
         this.field = field;
         this.location = location;
     }
@@ -57,7 +54,7 @@ public class Hunter implements Actor {
 
     /**
      * set the field of the hunter
-     * @param field
+     * @param field the new field of the hunter
      */
     @Override
     public void setField(Field field) {
@@ -91,20 +88,18 @@ public class Hunter implements Actor {
     protected Location findPrey() {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
-        Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
-            Location where = it.next();
+        for (Location where : adjacent) {
             Object object = field.getObjectAt(where);
-            if (Arrays.asList(getPrey()).isEmpty()){
-                if(object == null) {
+            if (Arrays.asList(getPrey()).isEmpty()) {
+                if (object == null) {
                     return where;
                 }
                 return null;
             }
-            if(object != null){
-                if (Arrays.asList(getPrey()).contains(object.getClass())){//replacing instanceof
-                    NaturalEntity prey = (NaturalEntity)object;
-                    if(prey.isAlive()){
+            if (object != null) {
+                if (Arrays.asList(getPrey()).contains(object.getClass())) {//replacing instanceof
+                    NaturalEntity prey = (NaturalEntity) object;
+                    if (prey.isAlive()) {
                         prey.setDead();
                         return where;
                     }
