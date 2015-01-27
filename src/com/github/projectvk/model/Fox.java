@@ -69,7 +69,7 @@ public class Fox extends NaturalEntity implements Sickness {
      */
     @Override
     protected double getBreedingProbability() {
-        return (propertiesFile.getIntTransformed("BREEDING_PROBABILITY"));
+        return (propertiesFile.getIntTransformed("fox-BREEDING_PROBABILITY"));
     }
 
     /**

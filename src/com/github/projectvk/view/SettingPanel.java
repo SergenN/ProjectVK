@@ -65,9 +65,18 @@ public class SettingPanel extends JPanel {
             } else if (key.equalsIgnoreCase("STEP_SPEED")){
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
                 panel.add(createSlider(0, 1000, dataMap.get(key), 1000, 100, categorie+"-"+key), createGridBagConstraint(2, i));
-            } else {
+            }
+            else if (key.equalsIgnoreCase("MAX_AGE")){
+                panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
+                panel.add(createSlider(0, 1000, dataMap.get(key), 1000, 100, categorie+"-"+key), createGridBagConstraint(2, i));
+            }
+            else if(key.contains("PROBABILITY")){
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
                 panel.add(createSlider(0, 100, dataMap.get(key), 10, 5, categorie+"-"+key), createGridBagConstraint(2, i));
+            }
+            else {
+                panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
+                panel.add(createSlider(0, 30, dataMap.get(key), 10, 5, categorie+"-"+key), createGridBagConstraint(2, i));
             }
             i++;
         }
@@ -182,7 +191,7 @@ public class SettingPanel extends JPanel {
 
         JPanel titleContainer = new JPanel();
         titleContainer.setLayout(new GridBagLayout());
-        titleContainer.add(new JLabel(name + "Instellingen"),createGridBagConstraint(0,0));
+        titleContainer.add(new JLabel(name + "Instellingen"), createGridBagConstraint(0, 0));
         panel.add(titleContainer, createGridBagConstraint(0,0,3,GridBagConstraints.BOTH));
 
         return panel;

@@ -15,7 +15,7 @@ public class PropertiesHandler extends PropertiesFile{
 
     private void initializeProperties(){
         getInt("fox-BREEDING_AGE",15);
-        getInt("fox-MAX_AGE",100);
+        getInt("fox-MAX_AGE",150);
         getInt("fox-BREEDING_PROBABILITY",12);
         getInt("fox-MAX_LITTER_SIZE",4);
         getInt("fox-FOOD_LEVEL",15);
@@ -23,7 +23,7 @@ public class PropertiesHandler extends PropertiesFile{
         getInt("fox-SICKNESS_CATCH_PROBABILITY",50);
 
         getInt("rabbit-BREEDING_AGE",5);
-        getInt("rabbit-MAX_AGE", 50);
+        getInt("rabbit-MAX_AGE", 40);
         getInt("rabbit-BREEDING_PROBABILITY",12);
         getInt("rabbit-MAX_LITTER_SIZE",4);
         getInt("rabbit-FOOD_LEVEL",8);
@@ -48,7 +48,7 @@ public class PropertiesHandler extends PropertiesFile{
         getInt("general-DODO_CREATION_PROBABILITY",15);
         getInt("general-HUNTER_CREATION_PROBABILITY",5);
         getInt("general-GRASS_CREATION_PROBABILITY",50);
-        getInt("general-SEED", 11111);
+        getInt("general-SEED", 111);
         getInt("general-STEP_SPEED",100);
     }
 
@@ -90,6 +90,6 @@ public class PropertiesHandler extends PropertiesFile{
      * @return 0.01 als de property 0 is anders property / 100
      */
     public double getIntTransformed(String property){
-        return getInt(property) == 0 ? 0.01 : (getInt(property) / 100.0);
+        return getInt(property) == 0 ? 0 : (getInt(property) / 100.0);
     }
 }

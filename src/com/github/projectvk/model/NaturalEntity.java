@@ -191,7 +191,7 @@ public abstract class NaturalEntity implements Actor {
      * A fox can breed if it has reached the breeding age.
      */
     protected boolean canBreed() {
-        return (getAge() >= getBreedingAge()) && getFoodLevel() >= getMinimalBreedFood();
+        return ((getAge() >= getBreedingAge()) && (getFoodLevel() >= getMinimalBreedFood()));
     }
 
     /**
@@ -204,6 +204,9 @@ public abstract class NaturalEntity implements Actor {
         if(canBreed() && getRandom().nextDouble() <= getBreedingProbability()) {
             births = getRandom().nextInt(getMaxLitterSize()) + 1;
         }
+        //boolean testProb = getAge() >= getBreedingAge();
+        //boolean testProb2 = getFoodLevel() >= getMinimalBreedFood();
+        //if(this instanceof Fox) System.out.println("CUBS: " + births + "  CANBREED: " + canBreed() + "   VARS::" + getAge() + " >= " + getBreedingAge() + " = "+ testProb  +"    "+ getFoodLevel()+ " >= "+ getMinimalBreedFood() + " = " + testProb2);
         return births;
     }
 
@@ -250,6 +253,7 @@ public abstract class NaturalEntity implements Actor {
                 }
                 return null;
             }
+
             if(object != null){
                 if (Arrays.asList(getPrey()).contains(object.getClass())){//replacing instanceof
                     NaturalEntity prey = (NaturalEntity)object;
@@ -261,6 +265,7 @@ public abstract class NaturalEntity implements Actor {
                     }
                 }
             }
+
         }
         return null;
     }
@@ -272,7 +277,6 @@ public abstract class NaturalEntity implements Actor {
      */
     public void giveBirth(List<Actor> actors) {
         Field field = getField();
-
         List<Location> free = field.getFreeAdjacentLocations(getLocation(), canOverrideGras());
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
@@ -286,6 +290,7 @@ public abstract class NaturalEntity implements Actor {
                 e.printStackTrace();
             }
         }
+
         if (getEntityClass() != Grass.class){
             addData(Statistics.births, getEntityClass(), 1);
             addData(Statistics.alive, getEntityClass(), 1);}
@@ -299,7 +304,6 @@ public abstract class NaturalEntity implements Actor {
      * @param actors A list to return newly born actors.
      */
     public void act(List<Actor> actors) {
-        System.out.println(getBreedingAge() +", "+ getFoodDecayLevel() + ", "+ getMaxAge() + ", "+ getMaxLitterSize() + ", " + getBreedingProbability() + ", "+ getMinimalBreedFood());
         incrementAge();
         incrementHunger();
         if(isAlive()) {
@@ -307,6 +311,7 @@ public abstract class NaturalEntity implements Actor {
             giveBirth(actors);
             // Move towards a source of food if found.
             Location newLocation = findPrey();
+
             if(newLocation == null) {
                 // No food found - try to move to a free location.
                 newLocation = getField().freeAdjacentLocation(getLocation(), canOverrideGras());
@@ -317,11 +322,7 @@ public abstract class NaturalEntity implements Actor {
                 if (getEntityClass() != Grass.class) addData(steps, getEntityClass(), 1);
             }
             else {
-                // Overcrowding.
                 setDead();
-            }
-            if(this instanceof Sickness){
-                System.out.println(((Sickness) this).isSick());
             }
         }
     }
