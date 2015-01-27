@@ -34,7 +34,8 @@ public class Grass extends NaturalEntity {
     public Grass(Boolean randomAge, Field field, Location location) {
         super(field, location, 0);
         if(randomAge) {
-            setAge(getRandom().nextInt(getMaxAge()));
+            int newAge = getMaxAge() <= 0 ? 0 : getRandom().nextInt(getMaxAge());
+            setAge(newAge);
         }
     }
 
