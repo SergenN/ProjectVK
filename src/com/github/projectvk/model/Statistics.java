@@ -136,12 +136,12 @@ public class Statistics {
 
         // Catch error codes
         if(list.get(animal) == null){
-            list.put(animal, new ArrayList<Double>());
+            list.put(animal, new ArrayList<>());
             list.get(animal).add(0.0);
         }
 
         if(source.get(animal) == null) {
-            source.put(animal, new ArrayList<Double>());
+            source.put(animal, new ArrayList<>());
             source.get(animal).add(0.0);
         }
 

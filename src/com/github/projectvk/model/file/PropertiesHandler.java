@@ -81,7 +81,7 @@ public class PropertiesHandler extends PropertiesFile{
             int value = saveParseInt(map.get(key));
             String[] keys = key.split("-");
             if(!categorizedMap.containsKey(keys[0])){
-                categorizedMap.put(keys[0], new HashMap<String, Integer>());
+                categorizedMap.put(keys[0], new HashMap<>());
             }
             categorizedMap.get(keys[0]).put(keys[1],value);
         }
