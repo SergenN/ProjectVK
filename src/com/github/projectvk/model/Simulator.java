@@ -34,6 +34,8 @@ public class Simulator implements Runnable
     // The current step of the simulation.
     public int step = 0;
 
+    public int nextWeatherEvent;
+
     //
     private boolean running = false;
     private boolean infinite = false;
@@ -60,6 +62,8 @@ public class Simulator implements Runnable
     {
 
         this.controller = controller;
+        this.nextWeatherEvent = controller.getWeatherStep();
+
         //controller.setSimulator(this);
 
         actors = new ArrayList<Actor>();
@@ -68,7 +72,7 @@ public class Simulator implements Runnable
 
         // Creates new Field, Fetches new Field sizes from controller
         //field = new Field(controller.getFieldHeight(), controller.getFieldWidth());
-        System.out.println(controller.getFieldHeight()+" , "+ controller.getFieldWidth());
+        //System.out.println(controller.getFieldHeight()+" , "+ controller.getFieldWidth());
         field = controller.getField();
         // controller.disableButtons();
 
@@ -93,6 +97,12 @@ public class Simulator implements Runnable
      */
     public void simulateOneStep()
     {
+        if(controller.getCurrentSteps() >= nextWeatherEvent){
+            controller.randomWeather();
+            System.out.println("Changing Weather..");
+            nextWeatherEvent = controller.getWeatherStep();
+        }
+
         controller.resetData();
         step++;
 
@@ -245,5 +255,9 @@ public class Simulator implements Runnable
 
     public Field getField() {
         return field;
+    }
+
+    public void setNextWeatherEvent(int step){
+        nextWeatherEvent = step;
     }
 }

@@ -65,6 +65,7 @@ public class SimulatorView extends JFrame
      */
     public SimulatorView(int height, int width, Controller controller)
     {
+
         //JTabbedPane tabbedPane = new JTabbedPane();
         this.controller = controller;
         // Making sure the simulator has a height and width set. If not, set it to default.
@@ -82,6 +83,7 @@ public class SimulatorView extends JFrame
         //controller.setSimulatorView(this);
         //JComponent panel2 = makeTextPanel("Panel #2");
         controlPanel = new ControlPanel(height, controller);
+
 
         colors = new LinkedHashMap<Class, Color>();
         HashMap<String, Class> animals = controller.fetchClassDefinitions();
@@ -116,14 +118,15 @@ public class SimulatorView extends JFrame
         contents.add(controlPanel, BorderLayout.WEST);
         contents.add(graphView, BorderLayout.EAST);
         contents.add(population, BorderLayout.SOUTH);
+
         pack();
-        
+
         //locatie in het midden v scherm
         setLocationRelativeTo(null);
         //zichtbaar maken
         setVisible(true);
-        setResizable(false);
 
+        setResizable(false);
 
         animals = controller.fetchClassDefinitions();
 

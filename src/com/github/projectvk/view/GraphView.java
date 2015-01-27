@@ -131,8 +131,6 @@ public class GraphView extends JPanel{
      * @return double[] turns
      */
     public double[] calculateTurns(){
-        System.out.println("Current: " + controller.getCurrentSteps() + " | Max: " + (int)controller.getMaxTurns());
-
         // When there has been more than HISTORY_TURNS steps, only show the last HISTORYTURNS entries
         if(controller.getCurrentSteps() >= (int)controller.getMaxTurns()) {
             double[] turns_temp = new double[(int)controller.getMaxTurns()];

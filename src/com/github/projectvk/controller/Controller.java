@@ -23,6 +23,9 @@ public class Controller {
     private Statistics statistics;
     private Field field;
     private FieldStats fieldStats;
+    private Weather weather;
+    private Audio audio;
+
     //private boolean simulatorRunning = false;
 
     public Controller(){
@@ -44,6 +47,10 @@ public class Controller {
     }
 
     public void setStatistics(Statistics statistics) { this.statistics = statistics; }
+
+    public void setWeather(Weather weather) { this.weather = weather; }
+
+    public void setAudio(Audio audio) { this.audio = audio; }
 
     public JStyle getJStyle(){return jStyle;}
 
@@ -235,5 +242,12 @@ public class Controller {
     public void setStatisticHistoryTurns(int historyTurns){
         Statistics.setHistoryTurns(historyTurns);
     }
+
+    // These are all methods related to weather
+    public void changeWeatherText(String weatherType){ simulatorView.getControlPanel().changeWeatherText(weatherType); }
+
+    public void randomWeather(){ weather.randomWeather(); }
+
+    public int getWeatherStep(){ return weather.getChangeWeatherStep(); }
 
 }

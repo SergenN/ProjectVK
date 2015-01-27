@@ -122,16 +122,16 @@ public class Statistics {
         }
 
       //Setup birth data for graph
-//        if(list.size() >= HISTORY_TURNS) {
-//            list.get(animal).add(source.get(animal).get(0));
-//            list.get(animal).remove(0);
-//        } else {
-//            list.get(animal).add(source.get(animal).get(0));
-//        }
+        if(list.size() >= HISTORY_TURNS) {
+            list.get(animal).add(source.get(animal).get(0));
+            list.get(animal).remove(0);
+        } else {
+            list.get(animal).add(source.get(animal).get(0));
+        }
 
         // Add data to the arraylist and remove data from the source
-        list.get(animal).add(source.get(animal).get(0));
-//        source.get(animal).clear();
+        //list.get(animal).add(source.get(animal).get(0));
+        source.get(animal).clear();
     }
 
     // This will run at the end of each step. It is responsible for adding the gained data to the history arraylist
