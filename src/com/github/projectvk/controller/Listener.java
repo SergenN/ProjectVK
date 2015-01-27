@@ -15,13 +15,18 @@ import static com.github.projectvk.Main.propertiesFile;
 public class Listener implements ActionListener, ChangeListener{
     private Controller controller;
 
+    /**
+     * Constructor with the controller
+     * @param controller controller for the actions preformed
+     */
     public Listener(Controller controller){
         this.controller = controller;
     }
 
-    public Listener(){
-
-    }
+    /**
+     * Empty constructor
+     */
+    public Listener(){}
 
     /**
      * called when an action is preformed (on button press)

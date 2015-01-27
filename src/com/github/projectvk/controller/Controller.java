@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  * Created by kevin on 22-1-15.
+ * Class: Controller
  */
 public class Controller {
-
     private Simulator simulator;
     private ControlPanel panel;
     private SimulatorView simulatorView;
@@ -24,27 +24,54 @@ public class Controller {
     private Field field;
     private FieldStats fieldStats;
 
+    /**
+     * the constructor of the controller
+     */
     public Controller(){
         fieldStats = new FieldStats();
         field = new Field(Main.getSize()[0], Main.getSize()[1]);
-        // Make new ButtonHandler to catch ButtonEvents
         this.listener = new Listener(this);
     }
 
+    /**
+     * set the simulatorView of this controller
+     * @param simulatorView the simulator view to be set
+     */
     public void setSimulatorView(SimulatorView simulatorView) {
         this.simulatorView = simulatorView;
     }
 
-    public SimulatorView getSimulatorView() {return simulatorView;}
+    /**
+     * get the simulatorview of the controller
+     * @return the simulator view of this controller
+     */
+    //TODO unused
+    /*public SimulatorView getSimulatorView() {return simulatorView;}*/
 
+    /**
+     * set the simulator of the controller
+     * @param simulator the simulator which has to be set
+     */
     public void setSimulator(Simulator simulator) {
         this.simulator = simulator;
     }
 
+    /**
+     * get the statistics of this controller
+     * @param statistics the statistics
+     */
     public void setStatistics(Statistics statistics) { this.statistics = statistics; }
 
+    /**
+     * get the JStyle of this controller
+     * @return the jstyle
+     */
     public JStyle getJStyle(){return jStyle;}
 
+    /**
+     * preform an action
+     * @param doThis the action you want to be preformed
+     */
     protected void controllerDo(String doThis) {
         switch (doThis) {
             case "plusEen":
@@ -83,12 +110,9 @@ public class Controller {
                 simulatorView.getGraphView().setDataSource("stepsHistory");
                 break;
             case "aliveStat":
-                //simulatorView.getGraphView().drawChart("steps");
                 simulatorView.getGraphView().setHeaderTitle("Alive");
                 simulatorView.getGraphView().setDataSource("aliveHistory");
-
                 break;
-
             case "drawScatter":
                 simulatorView.getGraphView().setDataChartType("scatter");
                 setStatisticHistoryTurns(20);
@@ -107,7 +131,7 @@ public class Controller {
     /**
      * Resets Field
      *
-     * @param step
+     * @param step the step
      */
     public void showStatus(int step) {
 
@@ -118,7 +142,7 @@ public class Controller {
     /**
      * Returns ButtonListener
      *
-     * @return
+     * @return the listener of this controller
      */
     public Listener getListener() {
         return listener;
@@ -126,7 +150,7 @@ public class Controller {
 
     /**
      * Returns true or false depending on a running simulator
-     * @return
+     * @return if the simulator is running
      */
     public boolean isSimulatorRunning() {
         //System.out.println("Sim is running!");
@@ -151,15 +175,11 @@ public class Controller {
         return Main.getSize()[1];
     }
 
-    /*public void setView(int step, Field field){
-        simulatorView.showStatus(step, field);
-    }*/
-
     /**
      * Calls method which disables buttons on ControlPanel
      */
     public void disableButtons() {
-        simulatorView.getControlPanel().disableButton();
+        simulatorView.getControlPanel().changeButtons();
     }
 
     /**
@@ -191,26 +211,53 @@ public class Controller {
      * @return Field field
      */
     public Field getField() {
-        return field;}
+        return field;
+    }
 
-
-    // These are all methods related to statistics.java
+    /**
+     * These are all methods related to statistics.java
+     */
     public void updateData(){
         statistics.updateData();
     }
 
+    /**
+     * TODO not
+     * @param type
+     * @return
+     */
     public HashMap<Class, ArrayList<Double>> getHistory(String type){ return statistics.getHistory(type);}
 
-    public double[] convertToGraphData(List<Double> list){
+    /**
+     * TODO not
+     * @param list
+     * @return
+     */
+    public double[] convertToGraphData(List<Double> list) {
         return statistics.convertToGraphData(list);
     }
 
+    /**
+     * TODO not
+     * @return
+     */
     public double getMaxTurns(){return Statistics.HISTORY_TURNS;}
 
+    /**
+     * TODO not
+     * @return
+     */
     public int getCurrentSteps(){ return statistics.getCurrentStep();}
 
+    /**
+     * reset the data of the statistics
+     */
     public void resetData(){ statistics.resetData();}
 
+    /**
+     * TODO not
+     * @param historyTurns
+     */
     public void setStatisticHistoryTurns(int historyTurns){
         Statistics.setHistoryTurns(historyTurns);
     }

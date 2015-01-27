@@ -7,9 +7,9 @@ import com.xeiam.xchart.StyleManager;
 import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
-import javax.swing.text.Style;
 import java.awt.*;
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 public class GraphView extends JPanel{
@@ -47,7 +47,7 @@ public class GraphView extends JPanel{
 
     /**
      * Returns CharType
-      * @return
+     * @return
      */
     public String getChartType(){
         return chartType;
@@ -177,7 +177,7 @@ public class GraphView extends JPanel{
         }
     }
 
-     /**
+    /**
      * Sets DataSource
      * @param source - deathsHistory, birthsHistory, stepsHistory
      */
@@ -213,21 +213,21 @@ public class GraphView extends JPanel{
 
 
 
-            // Create Chart
-            chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step").yAxisTitle("Amount").build();
+        // Create Chart
+        chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step").yAxisTitle("Amount").build();
 
-            Iterator it = controller.fetchClassDefinitions().keySet().iterator();
-            while (it.hasNext()){
-                String key = (String)it.next();
+        Iterator it = controller.fetchClassDefinitions().keySet().iterator();
+        while (it.hasNext()){
+            String key = (String)it.next();
 
 
-                if (key == "Hunter" && dataSource != "stepsStat") { } else {
-                    Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
-                    chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).
-                            setLineColor(classColor).setMarkerColor(classColor);
+            if (key == "Hunter" && dataSource != "stepsStat") { } else {
+                Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
+                chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).
+                        setLineColor(classColor).setMarkerColor(classColor);
 
-                }
             }
+        }
 
         return chart;
     }
@@ -235,7 +235,6 @@ public class GraphView extends JPanel{
     public void drawChart(String chartType){
         this.chartType = chartType;
         this.chart = getChart(dataChartType, dataSource);
-
         this.add(new XChartPanel(chart), BorderLayout.NORTH);
         updateSteps(controller.getCurrentSteps());
     }

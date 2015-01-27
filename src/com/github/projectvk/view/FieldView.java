@@ -11,10 +11,8 @@ import java.awt.*;
  * This is rather advanced GUI stuff - you can ignore this
  * for your project if you like.
  */
-public class FieldView extends JPanel
-{
+public class FieldView extends JPanel {
     private final int GRID_VIEW_SCALING_FACTOR = 6;
-
     private int gridWidth, gridHeight;
     private int xScale, yScale;
     Dimension size;
@@ -24,8 +22,7 @@ public class FieldView extends JPanel
     /**
      * Create a new FieldView component.
      */
-    public FieldView(int height, int width)
-    {
+    public FieldView(int height, int width) {
         gridHeight = height;
         gridWidth = width;
         size = new Dimension(0, 0);
@@ -34,8 +31,7 @@ public class FieldView extends JPanel
     /**
      * Tell the GUI manager how big we would like to be.
      */
-    public Dimension getPreferredSize()
-    {
+    public Dimension getPreferredSize() {
         return new Dimension(gridWidth * GRID_VIEW_SCALING_FACTOR, gridHeight * GRID_VIEW_SCALING_FACTOR);
     }
 
@@ -43,8 +39,7 @@ public class FieldView extends JPanel
      * Prepare for a new round of painting. Since the component
      * may be resized, compute the scaling factor again.
      */
-    public void preparePaint()
-    {
+    public void preparePaint() {
         if(! size.equals(getSize())) {  // if the size has changed...
             size = getSize();
             fieldImage = createImage(size.width, size.height);
@@ -64,8 +59,7 @@ public class FieldView extends JPanel
     /**
      * Paint on grid location on this field in a given color.
      */
-    public void drawMark(int x, int y, Color color)
-    {
+    public void drawMark(int x, int y, Color color) {
         g.setColor(color);
         g.fillRect(x * xScale, y * yScale, xScale-1, yScale-1);
     }
@@ -74,14 +68,12 @@ public class FieldView extends JPanel
      * The field view component needs to be redisplayed. Copy the
      * internal image to screen.
      */
-    public void paintComponent(Graphics g)
-    {
+    public void paintComponent(Graphics g) {
         if(fieldImage != null) {
             Dimension currentSize = getSize();
             if(size.equals(currentSize)) {
                 g.drawImage(fieldImage, 0, 0, null);
             } else {
-                // Rescale the previous image.
                 g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
             }
         }

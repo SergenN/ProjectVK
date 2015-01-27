@@ -11,6 +11,7 @@ import static com.github.projectvk.Main.propertiesFile;
 
 /**
  * Created by Sergen on 22-1-2015.
+ * Class SettingsPanel
  */
 public class SettingPanel extends JPanel {
 
@@ -22,6 +23,9 @@ public class SettingPanel extends JPanel {
         buildPane();
     }
 
+    /**
+     * Build a new panel from the properties which are available
+     */
     public void buildPane(){
         setLayout(new GridBagLayout());
 
@@ -42,6 +46,8 @@ public class SettingPanel extends JPanel {
     /**
      * This will generate a tab from the given Hashmap with keys(labels) and values (slides)
      * Some of the content had to be checked by hand.
+     * @param categorie the title of the tab
+     * @param dataMap the settings hashmap in key -> value order
      */
     private void generateTab(String categorie, HashMap<String, Integer> dataMap){
         JPanel panel = createTab(categorie.toLowerCase());
@@ -91,16 +97,17 @@ public class SettingPanel extends JPanel {
     }
 
     /**
+     * create a new slider but this one is with extra properties
      *
-     * @param min
-     * @param max
-     * @param init
-     * @param tickSpacingMajor
-     * @param tickSpacingMinor
-     * @param name
-     * @param lock
-     * @param invert
-     * @return
+     * @param min minimal of the slider
+     * @param max maximal of the slider
+     * @param init initialized setting of the slider
+     * @param tickSpacingMajor major ticks of the slider
+     * @param tickSpacingMinor minor ticks of the slider
+     * @param name name of the slider
+     * @param lock lock to the ticks when changing the slider
+     * @param invert invert the slider
+     * @return JSlide the adjusted slider
      */
     private JSlider createSlider(int min, int max, int init, int tickSpacingMajor, int tickSpacingMinor, String name, boolean lock, boolean invert){
         JSlider slider = createSlider(min, max, init, tickSpacingMajor, tickSpacingMinor, name);
@@ -111,14 +118,15 @@ public class SettingPanel extends JPanel {
     }
 
     /**
+     * create a new slider with adjusted properties
      *
-     * @param min
-     * @param max
-     * @param init
-     * @param tickSpacingMajor
-     * @param tickSpacingMinor
-     * @param name
-     * @return
+     * @param min minimum of the slider
+     * @param max maximum of the slider
+     * @param init the setting the slider should be initialized on
+     * @param tickSpacingMajor major tick space
+     * @param tickSpacingMinor minor tick space
+     * @param name name of the slider
+     * @return new configured jSlider
      */
     private JSlider createSlider(int min, int max, int init, int tickSpacingMajor, int tickSpacingMinor, String name){
         JSlider slider = new JSlider(JSlider.HORIZONTAL, min, max, init);
@@ -132,10 +140,10 @@ public class SettingPanel extends JPanel {
     }
 
     /**
-     *
-     * @param column
-     * @param row
-     * @return
+     * create a new GBC
+     * @param column columnn the GBC has to be created on
+     * @param row row the GBC has to be created on
+     * @return a new Gridbagconstraint
      */
     private GridBagConstraints createGridBagConstraint(int column, int row) {
         GridBagConstraints gbc = new GridBagConstraints();
@@ -147,12 +155,13 @@ public class SettingPanel extends JPanel {
     }
 
     /**
+     *create a gridbag constraint but with width and filling
      *
-     * @param column
-     * @param row
-     * @param width
-     * @param fill
-     * @return
+     * @param column the column the gbc has to be on
+     * @param row the row the gbc has to be on
+     * @param width the width of the gbc
+     * @param fill the fill of the gbc
+     * @return new Gridbagconstraint
      */
     private GridBagConstraints createGridBagConstraint(int column, int row, int width, int fill) {
         GridBagConstraints gbc = createGridBagConstraint(column, row);
@@ -162,9 +171,9 @@ public class SettingPanel extends JPanel {
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * create a new tab with a title above all settings
+     * @param name the name of the tba
+     * @return the created tab
      */
     private JPanel createTab(String name){
         JPanel panel = new JPanel();
@@ -173,14 +182,9 @@ public class SettingPanel extends JPanel {
 
         JPanel titleContainer = new JPanel();
         titleContainer.setLayout(new GridBagLayout());
-        titleContainer.add(new JLabel(name),createGridBagConstraint(0,0));
+        titleContainer.add(new JLabel(name + "Instellingen"),createGridBagConstraint(0,0));
         panel.add(titleContainer, createGridBagConstraint(0,0,3,GridBagConstraints.BOTH));
 
         return panel;
     }
 }
-
-//TODO BUGS
-//ALS PROBABILITIES OP 0 WORDEN GEZET = CRASH
-//JE KAN MEERDERE SETTINGS SCHERMEN HEBBEN
-//SETTINGS VERKRIJGEN HUN LISTENER OP EEN ILLEGALE MANIER?

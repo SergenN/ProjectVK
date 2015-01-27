@@ -7,9 +7,7 @@ import java.awt.*;
 
 @SuppressWarnings("serial")
 public class ControlPanel extends JPanel{
-
     private final int GRID_VIEW_SCALING_FACTOR = 6;
-
     private JLabel sim_kop;
     private JButton plusEen, plusHonderd, longSim, start, stop, settings, reset;
     private int height;
@@ -32,6 +30,9 @@ public class ControlPanel extends JPanel{
         makeGUI();
     }
 
+    /**
+     * Add buttons to the GUI
+     */
     public void makeGUI(){
         ////////////////////// IMAGES  ////////////////////////
         ImageIcon pauseIcon = new ImageIcon("img/pause.png");
@@ -47,6 +48,7 @@ public class ControlPanel extends JPanel{
         jStyle.headerStyle(sim_kop, this, 10, 20, 80, 30, new Color(132, 132, 132), 16);
 
         //////////////////////// BUTTONS  ////////////////////////
+
         // + 1 button
         plusEen = new JButton("+1");
         jStyle.buttonStyle(plusEen, "plusEen", controller, this, 10, 60, 80, 30);
@@ -88,11 +90,11 @@ public class ControlPanel extends JPanel{
         return new Dimension(100, height * GRID_VIEW_SCALING_FACTOR);
     }
 
-
     /**
-     * Disables buttons while running
+     * Disables buttons while the simulation is running running
+     * Enables the buttons when the simulation is finished.
      */
-    public void disableButton (){
+    public void changeButtons() {
         if(controller.isSimulatorRunning()) {
             plusEen.setEnabled(false);
             plusHonderd.setEnabled(false);

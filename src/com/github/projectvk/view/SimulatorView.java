@@ -18,34 +18,19 @@ import java.util.Map;
  * Colors for each type of species can be defined using the
  * setColor method.
  */
-public class SimulatorView extends JFrame
-{
-    // Default height and width
+public class SimulatorView extends JFrame  {
     private static final int DEFAULT_HEIGHT = 100;
     private static final int DEFAULT_WIDTH = 100;
-
-    // Colors used for empty locations.
     private static final Color EMPTY_COLOR = new Color(229, 229, 229, 255);
-
-    // Color used for objects that have no defined color.
-    //private static final Color UNKNOWN_COLOR = Color.gray;
     private static final Color UNKNOWN_COLOR = new Color(143, 218, 18);
-
-    private final String STEP_PREFIX = "Step: ";
-    private final String POPULATION_PREFIX = "Population: ";
+    private static final String STEP_PREFIX = "Step: ";
+    private static final String POPULATION_PREFIX = "Population: ";
     private JLabel stepLabel, population;
     private FieldView fieldView;
     private Controller controller;
-    
-    // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
-    // A statistics object computing and storing simulation information
-    //private FieldStats stats;
-
     private ControlPanel controlPanel;
     private GraphView graphView;
-
-    private int height, width;
 
     /**
      * Contstructor to use default window settings
@@ -58,13 +43,12 @@ public class SimulatorView extends JFrame
     }
 
     /**
-     *
-     * @param height
-     * @param width
-     * @param //simulator
+     * create the view of the simulator
+     * @param height minimal height
+     * @param width minimal width
+     * @param controller the control panel
      */
-    public SimulatorView(int height, int width, Controller controller)
-    {
+    public SimulatorView(int height, int width, Controller controller) {
         //JTabbedPane tabbedPane = new JTabbedPane();
         this.controller = controller;
         // Making sure the simulator has a height and width set. If not, set it to default.
@@ -72,77 +56,58 @@ public class SimulatorView extends JFrame
             System.out.println("The dimensions must be greater than zero.");
             System.out.println("Using default values.");
         }
-
         ImageIcon img = new ImageIcon("img\\fox.png");
         this.setIconImage(img.getImage());
-
-        this.height = height;
-        this.width = width;
-
-        //controller.setSimulatorView(this);
-        //JComponent panel2 = makeTextPanel("Panel #2");
         controlPanel = new ControlPanel(height, controller);
-
-        colors = new LinkedHashMap<Class, Color>();
+        colors = new LinkedHashMap<>();
         HashMap<String, Class> animals = controller.fetchClassDefinitions();
 
         this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
         this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
         this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
         this.setColor(animals.get("Hunter"), new Color(219, 0, 37)); //Hunter
-
-
         graphView = new GraphView(height, controller, colors);
-        //stats = controller.getFieldStats();
-        colors = new LinkedHashMap<Class, Color>();
-
-
+        colors = new LinkedHashMap<>();
         setTitle("Vossen en konijnen simulatie");
         stepLabel = new JLabel();
         stepLabel.setForeground(Color.WHITE);
         stepLabel.setFont(new Font("Helvetica", Font.PLAIN, 10));
-
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         population.setForeground(Color.WHITE);
         population.setFont(new Font("Helvetica", Font.PLAIN, 10));
-
         fieldView = new FieldView(height, width);
-
         Container contents = getContentPane();
         contents.setBackground(new Color(211, 47, 47));
-
-        //contents.add(stepLabel, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(controlPanel, BorderLayout.WEST);
         contents.add(graphView, BorderLayout.EAST);
         contents.add(population, BorderLayout.SOUTH);
         pack();
-        
-        //locatie in het midden v scherm
         setLocationRelativeTo(null);
-        //zichtbaar maken
         setVisible(true);
         setResizable(false);
-
-
         animals = controller.fetchClassDefinitions();
 
-// TODO change into hashmap
+        // TODO change into hashmap
         this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
         this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
         this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
         this.setColor(animals.get("Hunter"), new Color(76, 219, 76)); //Hunter
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-     //   HashMap<Class, Color> colorHashMap = new HashMap<Class, Color>();
-     //   colors.put(animals.get("Rabbit"), new Color(76,114,255));
     }
 
+    /**
+     * get the control panel of this frame
+     * @return the control panel
+     */
     public ControlPanel getControlPanel(){
         return controlPanel;
     }
 
+    /**
+     * get the graph view of this frame
+     * @return the graph view
+     */
     public GraphView getGraphView(){
         return graphView;
     }
@@ -158,13 +123,13 @@ public class SimulatorView extends JFrame
     }
 
     /**
+     * get the color of the given animal
+     * @param animalClass the animal class
      * @return The color to be used for a given class of animal.
      */
-    protected Color getColor(Class animalClass)
-    {
+    protected Color getColor(Class animalClass) {
         Color col = colors.get(animalClass);
         if(col == null) {
-            // no color defined for this class
             return UNKNOWN_COLOR;
         }
         else {
@@ -177,21 +142,14 @@ public class SimulatorView extends JFrame
      * @param step Which iteration step it is.
      * @param //field The field whose status is to be displayed.
      */
-    public void showStatus(int step)
-    {
+    public void showStatus(int step) {
         graphView.drawChart(graphView.getDataChartType());
-
-
-
         if(!isVisible()) {
             setVisible(true);
         }
 
-
         stepLabel.setText(STEP_PREFIX + step);
-
         controller.getFieldStats().reset();
-
         fieldView.preparePaint();
 
         for (int row = 0; row < controller.getField().getHeight(); row++) {
@@ -207,25 +165,7 @@ public class SimulatorView extends JFrame
             }
         }
         controller.getFieldStats().countFinished();
-
         population.setText(POPULATION_PREFIX + controller.getFieldStats().getPopulationDetails(controller.getField()));
         fieldView.repaint();
     }
-
-    public int getFieldHeight(){
-        return height;
-    }
-
-    public int getFieldWidth(){
-        return width;
-    }
-
-    /**
-     * Determine whether the simulation should continue to run.
-     * @return true If there is more than one species alive.
-     *//*
-    public boolean isViable(Field field)
-    {
-        return controller.getFieldStats().isViable(field);
-    }*/
 }
