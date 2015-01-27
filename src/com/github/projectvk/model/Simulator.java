@@ -182,7 +182,6 @@ public class Simulator implements Runnable {
         return running;
     }
 
-    //TODO call FieldStats isViable and stop if that returns false!!!
     /**
      * Start the simulation by creating a new Thread.
      */
@@ -204,11 +203,12 @@ public class Simulator implements Runnable {
         }
     }
 
+    /**
+     * Get the current field processor
+     * @return field
+     */
     public Field getField() {
         return field;
     }
 
-    public void setNextWeatherEvent(int step){
-        nextWeatherEvent = step;
-    }
 }

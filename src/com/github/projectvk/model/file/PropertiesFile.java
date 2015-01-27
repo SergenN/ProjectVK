@@ -155,36 +155,4 @@ public class PropertiesFile {
         return 0;
     }
 
-    public long getLong(String key, long value) {
-        if (containsKey(key)) {
-            return Long.parseLong(getProperty(key));
-        }
-        setLong(key, value);
-        return value;
-    }
-
-    public void setLong(String key, long value) {
-        props.put(key, String.valueOf(value));
-        save();
-    }
-
-    public boolean getBoolean(String key) {
-        if (containsKey(key)) {
-            return Boolean.parseBoolean(getProperty(key));
-        }
-        return false;
-    }
-
-    public boolean getBoolean(String key, boolean value) {
-        if (containsKey(key)) {
-            return Boolean.parseBoolean(getProperty(key));
-        }
-        setBoolean(key, value);
-        return value;
-    }
-
-    public void setBoolean(String key, boolean value) {
-        props.put(key, String.valueOf(value));
-        save();
-    }
 }

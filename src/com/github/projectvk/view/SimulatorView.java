@@ -87,12 +87,11 @@ public class SimulatorView extends JFrame  {
         setVisible(true);
         setResizable(false);
         animals = controller.fetchClassDefinitions();
-
         // TODO change into hashmap
         this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
         this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
         this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
-        this.setColor(animals.get("Hunter"), new Color(76, 219, 76)); //Hunter
+        this.setColor(animals.get("Hunter"), new Color(219, 0, 37)); //Hunter
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
