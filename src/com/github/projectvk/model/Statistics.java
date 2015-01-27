@@ -8,29 +8,38 @@ import java.util.List;
 
 /**
  * Created by Thijs on 21-1-2015.
+ * Class: Statistics
  */
 public class Statistics {
     private Controller controller;
-
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
     public static double HISTORY_TURNS = 1;
 
-    public static HashMap<Class, ArrayList<Double>> deaths = new HashMap<Class, ArrayList<Double>>();
-    public static HashMap<Class, ArrayList<Double>> births = new HashMap<Class, ArrayList<Double>>();
-    public static HashMap<Class, ArrayList<Double>> steps = new HashMap<Class, ArrayList<Double>>();
-    public static HashMap<Class, ArrayList<Double>> alive = new HashMap<Class, ArrayList<Double>>();
+    public static HashMap<Class, ArrayList<Double>> deaths = new HashMap<>();
+    public static HashMap<Class, ArrayList<Double>> births = new HashMap<>();
+    public static HashMap<Class, ArrayList<Double>> steps = new HashMap<>();
+    public static HashMap<Class, ArrayList<Double>> alive = new HashMap<>();
 
-    private HashMap<Class, ArrayList<Double>> deathsHistory = new HashMap<Class, ArrayList<Double>>();
-    private HashMap<Class, ArrayList<Double>> birthsHistory = new HashMap<Class, ArrayList<Double>>();
-    private HashMap<Class, ArrayList<Double>> stepsHistory = new HashMap<Class, ArrayList<Double>>();
-    private HashMap<Class, ArrayList<Double>> aliveHistory = new HashMap<Class, ArrayList<Double>>();
+    private HashMap<Class, ArrayList<Double>> deathsHistory = new HashMap<>();
+    private HashMap<Class, ArrayList<Double>> birthsHistory = new HashMap<>();
+    private HashMap<Class, ArrayList<Double>> stepsHistory = new HashMap<>();
+    private HashMap<Class, ArrayList<Double>> aliveHistory = new HashMap<>();
 
+    private int currentStep = 0;
+
+    /**
+     * Constructor
+     * @param controller
+     */
     public Statistics(Controller controller) {
         this.controller = controller;
     }
-    private int currentStep = 0;
 
-    // Get methods
+    /**
+     *
+     * @param type
+     * @return
+     */
     public HashMap<Class, ArrayList<Double>> getHistory(String type){
 
         if(type.equals("deathsHistory")) {
@@ -62,13 +71,18 @@ public class Statistics {
 
     /**
      * Sets Historyturns , which stands for the max x value on the graph
-     * @param historyTurns
+     * @param historyTurns the history turn
      */
     public static void setHistoryTurns(int historyTurns){
         HISTORY_TURNS = historyTurns;
     }
 
-    // Methods to fill the data arrays
+    /**
+     * Methods to fill the data arrays
+     * @param list
+     * @param animal
+     * @param amount
+     */
     public static void addData(HashMap<Class, ArrayList<Double>> list, Class animal, double amount){
         if(list.get(animal) == null || list.get(animal).isEmpty()){
             list.put(animal, new ArrayList<>());
@@ -77,6 +91,9 @@ public class Statistics {
         list.get(animal).set(0, list.get(animal).get(0) + amount);
     }
 
+    /**
+     * TODO
+     */
     public void resetData(){
         currentStep++;
         births.clear();
@@ -85,6 +102,9 @@ public class Statistics {
         alive.clear();
     }
 
+    /**
+     * TODO
+     */
     public void resetStats(){
 
         currentStep = 0;
@@ -98,11 +118,20 @@ public class Statistics {
         aliveHistory.clear();
     }
 
+    /**
+     * get the step the simulator is at
+     * @return the current step
+     */
     public int getCurrentStep(){
         return currentStep;
     }
 
-    // Add newly gained data to the history Arraylist
+    /**
+     * TODO
+     * @param list
+     * @param animal
+     * @param source
+     */
     public void addDataToHistory(HashMap<Class, ArrayList<Double>> list, Class animal, HashMap<Class, ArrayList<Double>> source){
 
         // Catch error codes
@@ -133,7 +162,9 @@ public class Statistics {
 //        source.get(animal).clear();
     }
 
-    // This will run at the end of each step. It is responsible for adding the gained data to the history arraylist
+    /**
+     * This will run at the end of each step. It is responsible for adding the gained data to the history arraylist
+     */
     public void updateData(){
         addDataToHistory(birthsHistory, Fox.class, births);
         addDataToHistory(birthsHistory, Dodo.class, births);
@@ -155,16 +186,18 @@ public class Statistics {
 
     }
 
-    // Convert all data to data that can be used for XCharts
+    /**
+     * Convert all data to data that can be used for XCharts
+     * @param list
+     * @return
+     */
     public double[] convertToGraphData(List<Double> list){
         // Limitedlist contains the last HISTORY_TURNS (100 standard) values of the history list.
         List<Double> limitedList = new ArrayList<>();
-
         // If the history list is empty, then fill it with data to prevent errors.
         if(list == null || list.isEmpty()){
             return new double[]{0};
         }
-
         // If the history list contains more than 100 values, then add the last 100 values to the limitedlist
         if(list.size() > HISTORY_TURNS) {
             for (int i = (int)HISTORY_TURNS; i > 0; i--) {
@@ -173,14 +206,12 @@ public class Statistics {
         } else {
             limitedList = list;
         }
-
         // Convert limitedlist into a double array. This is needed to create an graph
         double[] returnDouble = new double[limitedList.size()];
 
         for (int i = 0; i < returnDouble.length; i++){
             returnDouble[i] = limitedList.get(i);
         }
-
         return returnDouble;
     }
 }

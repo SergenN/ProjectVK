@@ -4,12 +4,13 @@ package com.github.projectvk.model;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+import static com.github.projectvk.model.Statistics.*;
+
 /**
  * A class representing shared characteristics of animals.
  *
  */
-public abstract class NaturalEntity implements Actor
-{
+public abstract class NaturalEntity implements Actor {
     // Whether the entity is alive or not.
     private boolean alive;
     // The entity's field.
@@ -23,16 +24,13 @@ public abstract class NaturalEntity implements Actor
     // Random nummer generator
     private static final Random rand = Randomizer.getRandom();
 
-    private Statistics statistics;
-
     /**
      * Create a new animal at location in field.
      * f
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public NaturalEntity(Field field, Location location, int age)
-    {
+    public NaturalEntity(Field field, Location location, int age) {
         alive = true;
         setField(field);
         setAge(age);
@@ -89,7 +87,6 @@ public abstract class NaturalEntity implements Actor
 
     /**
      * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
-     * Todo betere oplossing voor dit
      * @return klasse van het dier
      */
     protected abstract Class getEntityClass();
@@ -106,8 +103,7 @@ public abstract class NaturalEntity implements Actor
      * Place the animal at the new location in the given field.
      * @param newLocation The animal's new location.
      */
-    public void setLocation(Location newLocation)
-    {
+    public void setLocation(Location newLocation) {
         if(location != null) {
             field.clear(location);
         }
@@ -147,6 +143,10 @@ public abstract class NaturalEntity implements Actor
         return field;
     }
 
+    /**
+     * set the field of this entity
+     * @param field new field of the entity
+     */
     public void setField(Field field){
         this.field = field;
     }
@@ -159,13 +159,11 @@ public abstract class NaturalEntity implements Actor
         return rand;
     }
 
-
     /**
      * Indicate that the animal is no longer alive.
      * It is removed from the field.
      */
-    protected void setDead()
-    {
+    protected void setDead() {
         alive = false;
         if(location != null) {
             field.clear(location);
@@ -173,16 +171,15 @@ public abstract class NaturalEntity implements Actor
             field = null;
         }
         if (getClass() != Grass.class) {
-            statistics.addData(statistics.deaths, getEntityClass(), 1);
-            statistics.addData(statistics.alive, getEntityClass(), 1);
+            addData(deaths, getEntityClass(), 1);
+            addData(Statistics.alive, getEntityClass(), 1);
         }
     }
 
     /**
      * Increase the age. This could result in the entity's death.
      */
-    protected int incrementAge()
-    {
+    protected int incrementAge() {
         setAge(getAge() + 1);
         if(getAge() > getMaxAge()) {
             setDead();
@@ -193,8 +190,7 @@ public abstract class NaturalEntity implements Actor
     /**
      * A fox can breed if it has reached the breeding age.
      */
-    protected boolean canBreed()
-    {
+    protected boolean canBreed() {
         return (getAge() >= getBreedingAge()) && getFoodLevel() >= getMinimalBreedFood();
     }
 
@@ -203,8 +199,7 @@ public abstract class NaturalEntity implements Actor
      * if it can breed.
      * @return The number of entities (may be zero).
      */
-    protected int breed()
-    {
+    protected int breed() {
         int births = 0;
         if(canBreed() && getRandom().nextDouble() <= getBreedingProbability()) {
             births = getRandom().nextInt(getMaxLitterSize()) + 1;
@@ -215,8 +210,7 @@ public abstract class NaturalEntity implements Actor
     /**
      * Make this entity more hungry. This could result in the entity's death.
      */
-    protected void incrementHunger()
-    {
+    protected void incrementHunger() {
         foodLevel--;
         if(foodLevel <= 0) {
             setDead();
@@ -224,16 +218,17 @@ public abstract class NaturalEntity implements Actor
     }
 
     /**
-     *
-     * @param foodLevel
+     * set the foodlevel of this entity
+     * @param foodLevel new food level
      */
     protected void setFoodLevel(int foodLevel){
         this.foodLevel = foodLevel;
     }
 
     /**
+     * get the food level of this entity
      *
-     * @return
+     * @return de food level of the entity
      */
     protected int getFoodLevel(){
         return foodLevel;
@@ -244,13 +239,10 @@ public abstract class NaturalEntity implements Actor
      * Only the first live rabbit is eaten.
      * @return Where food was found, or null if it wasn't.
      */
-    protected Location findPrey()
-    {
+    protected Location findPrey() {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
-        Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
-            Location where = it.next();
+        for(Location where : adjacent) {
             Object object = field.getObjectAt(where);
             if (Arrays.asList(getPrey()).isEmpty()){
                 if(object == null) {
@@ -278,10 +270,7 @@ public abstract class NaturalEntity implements Actor
      * New births will be made into free adjacent locations.
      * @param actors A list to return newly born foxes.
      */
-    public void giveBirth(List<Actor> actors)
-    {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
+    public void giveBirth(List<Actor> actors) {
         Field field = getField();
 
         List<Location> free = field.getFreeAdjacentLocations(getLocation(), canOverrideGras());
@@ -290,7 +279,7 @@ public abstract class NaturalEntity implements Actor
             Location loc = free.remove(0);
             if (field.getObjectAt(loc) instanceof Grass) ((Grass) field.getObjectAt(loc)).setDead();
             try {
-                Actor newActor = (Actor) getEntityClass().getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc);
+                @SuppressWarnings("unchecked") Actor newActor = (Actor) getEntityClass().getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc);
                 spreadSickness(newActor);
                 actors.add(newActor);
             } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
@@ -298,8 +287,8 @@ public abstract class NaturalEntity implements Actor
             }
         }
         if (getEntityClass() != Grass.class){
-            statistics.addData(statistics.births, getEntityClass(), 1);
-            statistics.addData(statistics.alive, getEntityClass(), 1);}
+            addData(Statistics.births, getEntityClass(), 1);
+            addData(Statistics.alive, getEntityClass(), 1);}
 
     }
 
@@ -309,8 +298,7 @@ public abstract class NaturalEntity implements Actor
      * or die of old age.
      * @param actors A list to return newly born actors.
      */
-    public void act(List<Actor> actors)
-    {
+    public void act(List<Actor> actors) {
         System.out.println(getBreedingAge() +", "+ getFoodDecayLevel() + ", "+ getMaxAge() + ", "+ getMaxLitterSize() + ", " + getBreedingProbability() + ", "+ getMinimalBreedFood());
         incrementAge();
         incrementHunger();
@@ -326,7 +314,7 @@ public abstract class NaturalEntity implements Actor
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
-                if (getEntityClass() != Grass.class) statistics.addData(statistics.steps, getEntityClass() ,1);;
+                if (getEntityClass() != Grass.class) addData(steps, getEntityClass(), 1);
             }
             else {
                 // Overcrowding.
@@ -342,8 +330,7 @@ public abstract class NaturalEntity implements Actor
      * spread te sickness to given locations
      * @param locations locations to spread sickness to
      */
-    private void spreadSickness(List<Location> locations)
-    {
+    private void spreadSickness(List<Location> locations) {
         for(Location location : locations){
             Object object = getField().getObjectAt(location);
             if(object instanceof Actor){
@@ -354,8 +341,9 @@ public abstract class NaturalEntity implements Actor
     }
 
     /**
-     *
-     * @param actor
+     * spread the sickness to the actor
+     * this function will check if the actor can get sick and set the actor to sick if so.
+     * @param actor the actor which has to become sick
      */
     private void spreadSickness(Actor actor){
         if (this instanceof Sickness){

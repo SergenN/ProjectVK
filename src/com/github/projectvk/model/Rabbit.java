@@ -140,7 +140,7 @@ public class Rabbit extends NaturalEntity implements Sickness {
      * Get the chance the animal might become sick
      * @return double chance of sickness between 0 to 1
      */
-    public double getSicknessCatchProbability(){
+    public double getSicknessCatchProbability() {
         return (propertiesFile.getInt("rabbit-SICKNESS_CATCH_PROBABILITY") / 100.0);
     }
 

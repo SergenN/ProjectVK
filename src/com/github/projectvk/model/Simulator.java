@@ -11,14 +11,7 @@ import static com.github.projectvk.Main.propertiesFile;
  * A simple predator-prey simulator, based on a rectangular field
  * containing rabbits and foxes.
  */
-public class Simulator implements Runnable
-{
-    // Constants representing configuration information for the simulation.
-    // The default width for the grid.
-    //private static final int DEFAULT_WIDTH = 100;
-    // The default depth of the grid.
-    //private static final int DEFAULT_DEPTH = 80;
-
+public class Simulator implements Runnable {
     //List of actors in the field.
     private List<Actor> actors;
     // The current state of the field.
@@ -29,8 +22,9 @@ public class Simulator implements Runnable
     private boolean running = false;
     // The steps the simulator has to run to stop
     private int toStep = 0;
-
+    // The controller
     private Controller controller;
+
     /**
      * Creates a Simulator Object with a Controller Connection
      * @param controller the control panel
@@ -124,7 +118,7 @@ public class Simulator implements Runnable
                 }
                 else if(rand.nextDouble() <= propertiesFile.getIntTransformed("general-HUNTER_CREATION_PROBABILITY")) {
                     Location location = new Location(row, col);
-                    Hunter hunter = new Hunter(true, field, location);
+                    Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
                 }
             }
@@ -151,24 +145,38 @@ public class Simulator implements Runnable
         controller.disableButtons();
     }
 
+    /**
+     * Stop the simulation
+     */
     public void stop(){
         running = false;
         controller.disableButtons();
     }
 
+    /**
+     * decerement the simulation steps till 0
+     */
     public void decrementStep(){
         if (toStep > 0){
             toStep--;
         }
     }
 
+    /**
+     * check if the simulation is running
+     * @return true if the simulation is running
+     */
     public boolean isRunning(){
         return running;
     }
 
+    //TODO call FieldStats isViable and stop if that returns false!!!
+    /**
+     * Start the simulation by creating a new Thread.
+     */
     @Override
     public void run() {
-        while (running) {
+        while (running && controller.getFieldStats().isViable(new Field(0, 0))) {
             if (toStep < 0 || toStep != -1) {
                 Main.getSimulator().simulateOneStep();
                 try {

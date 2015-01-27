@@ -5,9 +5,9 @@ import static com.github.projectvk.Main.propertiesFile;
 
 /**
  * Created by Sergen on 22-1-2015.
+ * Class: NaturalEntity
  */
 public class Grass extends NaturalEntity {
-
     // The entity it's natural prey
     private static final Class[] PREY = {};
     // Can the animal walk/breed on grass (will remove grass

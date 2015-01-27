@@ -7,7 +7,6 @@ import static com.github.projectvk.Main.propertiesFile;
  * Foxes age, move, eat rabbits, and die.
  */
 public class Fox extends NaturalEntity implements Sickness {
-
     // The fox it's natural prey
     private static Class[] PREY = {Dodo.class, Rabbit.class};
     // Can the animal walk/breed on grass (will remove grass

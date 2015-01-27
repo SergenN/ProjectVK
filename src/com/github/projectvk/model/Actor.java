@@ -24,13 +24,13 @@ public interface Actor {
 
     /**
      * zet het field van deze actor
-     * @param field
+     * @param field new field
      */
     public void setField(Field field);
 
     /**
      * acteer
-     * @param newActors
+     * @param newActors list of new actors
      */
     public void act(List<Actor> newActors);
 

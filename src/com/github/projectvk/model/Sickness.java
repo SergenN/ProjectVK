@@ -2,6 +2,7 @@ package com.github.projectvk.model;
 
 /**
  * Created by Sergen on 26-1-2015.
+ * Class: Sickness
  */
 public interface Sickness {
     /**

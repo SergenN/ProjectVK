@@ -19,7 +19,7 @@ public class FieldStats {
     public FieldStats() {
         // Set up a collection for counters for each type of animal that
         // we might find
-        counters = new HashMap<Class, Counter>();
+        counters = new HashMap<>();
         countsValid = true;
     }
 
@@ -28,7 +28,7 @@ public class FieldStats {
      * @return A string describing what is in the field.
      */
     public String getPopulationDetails(Field field) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         if(!countsValid) {
             generateCounts(field);
         }

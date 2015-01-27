@@ -1,10 +1,13 @@
 package com.github.projectvk.controller;
 
+import com.github.projectvk.model.Randomizer;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import static com.github.projectvk.Main.propertiesFile;
 /**
  * Created by kevin on 22-1-15.
@@ -48,6 +51,7 @@ public class Listener implements ActionListener, ChangeListener{
             int value = (Integer)spinner.getValue();
             String property = spinner.getName();
             propertiesFile.setInt(property, value);
+            Randomizer.reset(); //Reset the seed :o
         }
     }
 }

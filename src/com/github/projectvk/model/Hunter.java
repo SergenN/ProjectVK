@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Hunter implements Actor {
-
     private Field field;
     private Location location;
     private static final Class[] prey = {Dodo.class, Rabbit.class, Fox.class};

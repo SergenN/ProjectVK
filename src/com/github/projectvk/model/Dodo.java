@@ -4,6 +4,7 @@ import static com.github.projectvk.Main.propertiesFile;
 
 /**
  * Created by Sergen on 19-1-2015.
+ * Class: Dodo
  */
 public class Dodo extends NaturalEntity{
 
