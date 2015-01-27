@@ -6,6 +6,7 @@ import java.util.Random;
 
 /**
  * Created by Thijs on 26-1-2015.
+ * Class: Weather
  */
 public class Weather {
     public static String weatherType;
@@ -13,8 +14,8 @@ public class Weather {
     private int changeWeatherStep;
     private Random rand = new Random();
 
-    private static int MIN_WEATHER_STEP = 20;
-    private static int MAX_WEATHER_STEP = 50;
+    private static final int MIN_WEATHER_STEP = 20;
+    private static final int MAX_WEATHER_STEP = 50;
 
     public Weather(Controller controller){
         this.controller = controller;

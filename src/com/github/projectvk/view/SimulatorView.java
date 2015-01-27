@@ -2,9 +2,6 @@ package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
 
-//TODO make sure this goes through the controller and not through the model directly
-//import com.github.projectvk.model.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -36,6 +33,7 @@ public class SimulatorView extends JFrame  {
      * Contstructor to use default window settings
      * @param controller
      */
+    @SuppressWarnings("UnusedDeclaration")
     public SimulatorView(Controller controller){
         this(DEFAULT_HEIGHT, DEFAULT_WIDTH, controller);
         System.out.println("The dimensions must be greater than zero.");
@@ -61,7 +59,6 @@ public class SimulatorView extends JFrame  {
         controlPanel = new ControlPanel(height, controller);
         colors = new LinkedHashMap<>();
         HashMap<String, Class> animals = controller.fetchClassDefinitions();
-
         this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
         this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
         this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
@@ -87,11 +84,11 @@ public class SimulatorView extends JFrame  {
         setVisible(true);
         setResizable(false);
         animals = controller.fetchClassDefinitions();
-        // TODO change into hashmap
         this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
         this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
         this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
         this.setColor(animals.get("Hunter"), new Color(219, 0, 37)); //Hunter
+        //noinspection MagicConstant
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

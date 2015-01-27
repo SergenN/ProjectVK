@@ -11,7 +11,7 @@ import java.util.List;
  * Class: Statistics
  */
 public class Statistics {
-    private Controller controller;
+    protected Controller controller;
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
     public static double HISTORY_TURNS = 1;
 

@@ -8,15 +8,15 @@ import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 @SuppressWarnings("serial")
 public class GraphView extends JPanel{
-    private final int GRID_VIEW_SCALING_FACTOR = 6;
+    private static final int GRID_VIEW_SCALING_FACTOR = 6;
     private int height;
     private Controller controller;
-    private JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton;
+    protected JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton;
     private JLabel currentStep;
     private JStyle jStyle;
     private Chart chart;
@@ -49,6 +49,7 @@ public class GraphView extends JPanel{
      * Returns CharType
      * @return charType
      */
+    @SuppressWarnings("UnusedDeclaration")
     public String getChartType(){
         return chartType;
     }
@@ -205,28 +206,17 @@ public class GraphView extends JPanel{
      * @return
      */
     public Chart getChart(String dataChartType, String dataSource) {
-
         // Put the turn steps in a double array
         double[] turns = calculateTurns();
-
-
-
         // Create Chart
         chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step").yAxisTitle("Amount").build();
-
-        Iterator it = controller.fetchClassDefinitions().keySet().iterator();
-        while (it.hasNext()){
-            String key = (String)it.next();
-
-
-            if (key == "Hunter" && dataSource != "stepsStat") { } else {
+        Set<String> it = controller.fetchClassDefinitions().keySet();
+        for (String key : it){
+            if (!(key.equalsIgnoreCase("Hunter") && !dataSource.equalsIgnoreCase("stepsStat"))) {
                 Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
-                chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).
-                        setLineColor(classColor).setMarkerColor(classColor);
-
+                chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).setLineColor(classColor).setMarkerColor(classColor);
             }
         }
-
         return chart;
     }
 
