@@ -18,7 +18,7 @@ public class JStyle {
         button.setActionCommand(command);
         button.setBounds(xposition, yposition, width, height);
 
-        button.addActionListener(controller.getButtonHandler());
+        button.addActionListener(controller.getListener());
         panel.add(button);
     }
 

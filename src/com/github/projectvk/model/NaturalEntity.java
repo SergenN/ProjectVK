@@ -46,8 +46,8 @@ public abstract class NaturalEntity implements Actor
     abstract protected int getMaxAge();
 
     /**
-     *
-     * @return
+     * get the age where the entity can bread
+     * @return age of breed
      */
     abstract protected int getBreedingAge();
 
@@ -70,8 +70,8 @@ public abstract class NaturalEntity implements Actor
     protected abstract Class[] getPrey();
 
     /**
-     *
-     * @return
+     * verkrijg het max-voedsel level van het entity
+     * @return het voedsel level
      */
     protected abstract int getFoodDecayLevel();
 
@@ -220,16 +220,24 @@ public abstract class NaturalEntity implements Actor
         }
     }
 
+    /**
+     *
+     * @param foodLevel
+     */
     protected void setFoodLevel(int foodLevel){
         this.foodLevel = foodLevel;
     }
 
+    /**
+     *
+     * @return
+     */
     protected int getFoodLevel(){
         return foodLevel;
     }
 
     /**
-     * Look for rabbits adjacent to the current location.
+     * Look for prey adjacent to the current location.
      * Only the first live rabbit is eaten.
      * @return Where food was found, or null if it wasn't.
      */
@@ -251,7 +259,7 @@ public abstract class NaturalEntity implements Actor
                 if (Arrays.asList(getPrey()).contains(object.getClass())){//replacing instanceof
                     NaturalEntity prey = (NaturalEntity)object;
                     if(prey.isAlive()){
-                        spreadSickness(prey);
+                        spreadSickness(this);
                         prey.setDead();
                         setFoodLevel(getFoodDecayLevel());
                         return where;
@@ -277,18 +285,12 @@ public abstract class NaturalEntity implements Actor
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            if(field.getObjectAt(loc) instanceof Grass) ((Grass) field.getObjectAt(loc)).setDead();
+            if (field.getObjectAt(loc) instanceof Grass) ((Grass) field.getObjectAt(loc)).setDead();
             try {
-                Actor newActor = (Actor)getEntityClass().getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc);
+                Actor newActor = (Actor) getEntityClass().getDeclaredConstructor(Boolean.class, Field.class, Location.class).newInstance(false, field, loc);
                 spreadSickness(newActor);
                 actors.add(newActor);
-            } catch (NoSuchMethodException e){
-                e.printStackTrace();
-            } catch (InstantiationException e){
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }
@@ -303,6 +305,7 @@ public abstract class NaturalEntity implements Actor
      */
     public void act(List<Actor> actors)
     {
+        System.out.println(getBreedingAge() +", "+ getFoodDecayLevel() + ", "+ getMaxAge() + ", "+ getMaxLitterSize() + ", " + getBreedingProbability() + ", "+ getMinimalBreedFood());
         incrementAge();
         incrementHunger();
         if(isAlive()) {

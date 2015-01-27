@@ -36,7 +36,6 @@ public class ControlPanel extends JPanel{
         ////////////////////// IMAGES  ////////////////////////
         ImageIcon pauseIcon = new ImageIcon("img/pause.png");
         ImageIcon playIcon = new ImageIcon("img/play.png");
-
         ImageIcon icon = new ImageIcon("img/fox.png");
         JLabel fox = new JLabel();
         fox.setIcon(icon);

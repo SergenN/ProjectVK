@@ -1,31 +1,20 @@
 package com.github.projectvk.model;
 
+import static com.github.projectvk.Main.propertiesFile;
+
 /**
  * Created by Sergen on 19-1-2015.
  */
 public class Dodo extends NaturalEntity{
 
-    // The age at which a rabbit can start to breed.     xxxx
-    private static final int BREEDING_AGE = 7;
-    // The age to which a rabbit can live.
-    private static final int MAX_AGE = 60;
-    // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.10;
-    // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 5;
-    // the maximum number a rabbit can move without food before dying
-    private static final int FOOD_LEVEL = 12;
     // The rabbits it's natural prey
     private static final Class[] PREY = {Grass.class};
     // Can the animal walk/breed on grass (will remove grass
-    private static final boolean IGNORE_GRASS = true;
-    // the minimum foodlevel an entity needs to breed
-    private static final int BREED_FOODLEVEL = 7;
-
+    private static final boolean IGNORE_GRASS = false;
 
     public Dodo(Boolean randomAge, Field field, Location location){
         super(field, location, 0);
-        setFoodLevel(FOOD_LEVEL);
+        setFoodLevel(getFoodDecayLevel());
         if(randomAge) {
             setAge(getRandom().nextInt(getMaxAge()));
             setFoodLevel(getRandom().nextInt(getFoodDecayLevel()));
@@ -39,7 +28,7 @@ public class Dodo extends NaturalEntity{
      */
     @Override
     protected int getMaxAge() {
-        return MAX_AGE;
+        return propertiesFile.getInt("dodo-MAX_AGE");
     }
 
     /**
@@ -47,7 +36,7 @@ public class Dodo extends NaturalEntity{
      */
     @Override
     protected int getBreedingAge() {
-        return BREEDING_AGE;
+        return propertiesFile.getInt("dodo-BREEDING_AGE");
     }
 
     /**
@@ -57,7 +46,7 @@ public class Dodo extends NaturalEntity{
      */
     @Override
     protected int getMaxLitterSize() {
-        return MAX_LITTER_SIZE;
+        return propertiesFile.getInt("dodo-MAX_LITTER_SIZE");
     }
 
     /**
@@ -67,7 +56,7 @@ public class Dodo extends NaturalEntity{
      */
     @Override
     protected double getBreedingProbability() {
-        return BREEDING_PROBABILITY;
+        return (propertiesFile.getInt("dodo-BREEDING_PROBABILITY") / 100.0);
     }
 
     /**
@@ -82,7 +71,7 @@ public class Dodo extends NaturalEntity{
 
     @Override
     protected int getFoodDecayLevel() {
-        return FOOD_LEVEL;
+        return propertiesFile.getInt("dodo-FOOD_LEVEL");
     }
 
     /**
@@ -102,12 +91,11 @@ public class Dodo extends NaturalEntity{
      */
     @Override
     protected int getMinimalBreedFood() {
-        return BREED_FOODLEVEL;
+        return propertiesFile.getInt("dodo-BREED_FOODLEVEL");
     }
 
     /**
      * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
-     * Todo betere oplossing voor dit
      *
      * @return klasse van het dier
      */

@@ -1,20 +1,15 @@
 package com.github.projectvk.model;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 public class Hunter implements Actor {
 
-    // number of steps a hunter can go before his mood dropped so low he wants to go home.
-    private static final int HUNTER_MOOD = 10;
-    //Random nummer generator voor random Mood level
-    private static final Random rand = Randomizer.getRandom();
-    private int moodLevel;
     private Field field;
     private Location location;
-    private boolean isHome;
-
+    private static final Class[] prey = {Dodo.class, Rabbit.class, Fox.class};
+    private static final boolean overrideGrass = true;
     private Statistics statistics;
 
     /**
@@ -28,13 +23,6 @@ public class Hunter implements Actor {
     {
         this.field = field;
         this.location = location;
-        isHome = false;
-        if(randomMood) {
-            moodLevel = rand.nextInt(HUNTER_MOOD);
-        }
-        else {
-            moodLevel = HUNTER_MOOD;
-        }
     }
 
     @Override
@@ -61,62 +49,52 @@ public class Hunter implements Actor {
         this.field = field;
     }
 
-    @Override
-    public void act(List<Actor> newActors) {
-        decrementMood();
-        if(!isHome) {
-            // Move towards a source of prey if found.
-            Location newLocation = findFood();
-            if(newLocation == null) {
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
-            }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
-                statistics.addData(statistics.steps, this.getClass(), 1);
-            }
-            else {
-                goHome();
-            }
+    /**
+     * This is what the entity does most of the time
+     * In the process, it might breed, die of hunger,
+     * or die of old age.
+     * @param actors A list to return newly born actors.
+     */
+    public void act(List<Actor> actors)
+    {
+        // Move towards a source of food if found.
+        Location newLocation = findPrey();
+        if(newLocation == null) {
+            // No food found - try to move to a free location.
+            newLocation = getField().freeAdjacentLocation(getLocation(), canOverrideGras());
+        }
+        // See if it was possible to move.
+        if(newLocation != null) {
+            setLocation(newLocation);
         }
     }
 
     /**
-     * Look for rabbits or foxes adjacent to the current location.
-     * Only the first live rabbit or fox is shot.
-     * @return Where prey was found, or null if it wasn't.
+     * Look for rabbits adjacent to the current location.
+     * Only the first live rabbit is eaten.
+     * @return Where food was found, or null if it wasn't.
      */
-    private Location findFood()
+    protected Location findPrey()
     {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
         while(it.hasNext()) {
             Location where = it.next();
-            Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit) {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) {
-                    rabbit.setDead();
-                    moodLevel = HUNTER_MOOD;
+            Object object = field.getObjectAt(where);
+            if (Arrays.asList(getPrey()).isEmpty()){
+                if(object == null) {
                     return where;
                 }
+                return null;
             }
-            if(animal instanceof Fox){
-                Fox fox = (Fox) animal;
-                if(fox.isAlive()){
-                    fox.setDead();
-                    moodLevel = HUNTER_MOOD;
-                    return where;
-                }
-            }
-            if(animal instanceof Dodo){
-                Dodo dodo = (Dodo) animal;
-                if(dodo.isAlive()){
-                    dodo.setDead();
-                    moodLevel = HUNTER_MOOD;
-                    return where;
+            if(object != null){
+                if (Arrays.asList(getPrey()).contains(object.getClass())){//replacing instanceof
+                    NaturalEntity prey = (NaturalEntity)object;
+                    if(prey.isAlive()){
+                        prey.setDead();
+                        return where;
+                    }
                 }
             }
         }
@@ -124,28 +102,18 @@ public class Hunter implements Actor {
     }
 
     /**
-     * Make this hunter lose mood and eventually he goes home.
+     * Get the prey this hunter is hunting for
+     * @return Class[] of prey the hunter can hunt
      */
-    private void decrementMood()
-    {
-        moodLevel--;
-        if(moodLevel <= 0) {
-            goHome();
-        }
+    private Class[] getPrey(){
+        return prey;
     }
 
     /**
-     * Hunter goes home.
+     * Check if the hunter can step on grass
+     * @return if the hunter can step on grass
      */
-    private void goHome(){
-        isHome = true;
-        getField().clear(location);
-        location = null;
-        setField(null);
+    private boolean canOverrideGras(){
+        return overrideGrass;
     }
-
-    public boolean isHome(){
-        return isHome;
-    }
-
 }

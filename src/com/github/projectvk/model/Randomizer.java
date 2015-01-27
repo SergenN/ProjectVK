@@ -1,14 +1,14 @@
 package com.github.projectvk.model;
 
 import java.util.Random;
-
+import static com.github.projectvk.Main.propertiesFile;
 /**
  * Provide control over the randomization of the simulation.
  */
 public class Randomizer
 {
     // The default seed for control of randomization.
-    private static final int SEED = 111;
+    private static int SEED = propertiesFile.getInt("general-SEED");
     // A shared Random object, if required.
     private static final Random rand = new Random(SEED);
     // Determine whether a shared random generator is to be provided.

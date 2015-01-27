@@ -17,20 +17,18 @@ public class Controller {
     private Simulator simulator;
     private ControlPanel panel;
     private SimulatorView simulatorView;
-    private ButtonHandler buttonHandler;
+    private Listener listener;
     private JStyle jStyle = new JStyle();
     private GraphView graphView;
     private Statistics statistics;
     private Field field;
     private FieldStats fieldStats;
-    //private boolean simulatorRunning = false;
 
     public Controller(){
-
         fieldStats = new FieldStats();
         field = new Field(Main.getSize()[0], Main.getSize()[1]);
         // Make new ButtonHandler to catch ButtonEvents
-        this.buttonHandler = new ButtonHandler(this);
+        this.listener = new Listener(this);
     }
 
     public void setSimulatorView(SimulatorView simulatorView) {
@@ -46,8 +44,6 @@ public class Controller {
     public JStyle getJStyle(){return jStyle;}
 
     protected void controllerDo(String doThis) {
-
-        System.out.println(doThis);
         switch (doThis) {
             case "plusEen":
                 simulator.start(1);
@@ -64,7 +60,6 @@ public class Controller {
             case "longSim":
                 simulator.start(1000);
                 break;
-
             case "reset":
                 simulator.reset();
                 statistics.resetStats();
@@ -72,26 +67,19 @@ public class Controller {
                 break;
             case "settings":
                 new SettingsFrame();
+                break;
             case "birthsStat":
-               // simulatorView.getGraphView().drawChart("births");
                 simulatorView.getGraphView().setHeaderTitle("Births");
                 simulatorView.getGraphView().setDataSource("birthsHistory");
-
-                //simulator.start(0);
                 break;
             case "deathsStat":
-                //simulatorView.getGraphView().drawChart("deaths");
                 simulatorView.getGraphView().setHeaderTitle("Deaths");
                 simulatorView.getGraphView().setDataSource("deathsHistory");
-
                 break;
             case "stepsStat":
-                //simulatorView.getGraphView().drawChart("steps");
                 simulatorView.getGraphView().setHeaderTitle("Steps");
                 simulatorView.getGraphView().setDataSource("stepsHistory");
-
                 break;
-
             case "drawScatter":
                 simulatorView.getGraphView().setDataChartType("scatter");
                 break;
@@ -101,9 +89,7 @@ public class Controller {
             case "drawLine":
                 simulatorView.getGraphView().setDataChartType("line");
                 break;
-
         }
-
     }
 
     /**
@@ -122,8 +108,8 @@ public class Controller {
      *
      * @return
      */
-    public ButtonHandler getButtonHandler() {
-        return buttonHandler;
+    public Listener getListener() {
+        return listener;
     }
 
     /**
@@ -170,20 +156,12 @@ public class Controller {
      * @return Class[]
      */ // Todo make this hashmap compatible
     public HashMap<String, Class> fetchClassDefinitions() {
-
-        //Class[] classes = new Class[]{Rabbit.class, Fox.class, Dodo.class, Hunter.class};
-
         HashMap<String, Class> classes = new HashMap<String, Class>(){};
         classes.put("Rabbit", Rabbit.class);
         classes.put("Fox", Fox.class);
         classes.put("Dodo", Dodo.class);
         classes.put("Hunter", Hunter.class);
-
-
-
         return classes;
-
-
     }
 
     /**

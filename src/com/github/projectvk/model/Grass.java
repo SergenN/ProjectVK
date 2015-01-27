@@ -1,20 +1,17 @@
 package com.github.projectvk.model;
 
 import java.util.List;
+import static com.github.projectvk.Main.propertiesFile;
 
 /**
  * Created by Sergen on 22-1-2015.
  */
 public class Grass extends NaturalEntity {
 
-    // after 5 turns grass is ready to spread
-    private static final int SPREAD_AGE = 3;
-    // probability of spreading at each turn
-    private static final double SPREAD_PROBABILITY = 0.3;
-    //amount of seedlings grass can seed if hitting spread age and spread probability
-    private static final int SEEDLING_PROBABILITY = 5;
     // The entity it's natural prey
     private static final Class[] PREY = {};
+    // Can the animal walk/breed on grass (will remove grass
+    private static final boolean IGNORE_GRASS = false;
 
     /**
      * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
@@ -26,11 +23,6 @@ public class Grass extends NaturalEntity {
     protected Class getEntityClass() {
         return getClass();
     }
-
-    // Can the animal walk/breed on grass (will remove grass
-    private static final boolean IGNORE_GRASS = false;
-    // the minimum foodlevel an entity needs to breed
-    private static final int BREED_FOODLEVEL = 0;
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -55,15 +47,16 @@ public class Grass extends NaturalEntity {
      */
     @Override
     protected int getMaxAge() {
-        return SPREAD_AGE;
+        return getBreedingAge();
     }
 
     /**
+     * Get the age of the entity when it's ready to breed
      * @return
      */
     @Override
     protected int getBreedingAge() {
-        return SPREAD_AGE;
+        return propertiesFile.getInt("grass-SPREAD_AGE");
     }
 
     /**
@@ -73,7 +66,7 @@ public class Grass extends NaturalEntity {
      */
     @Override
     protected int getMaxLitterSize() {
-        return SEEDLING_PROBABILITY;
+        return propertiesFile.getInt("grass-SEEDLING_PROBABILITY");
     }
 
     /**
@@ -83,7 +76,7 @@ public class Grass extends NaturalEntity {
      */
     @Override
     protected double getBreedingProbability() {
-        return SPREAD_PROBABILITY;
+        return (propertiesFile.getInt("grass-SPREAD_PROBABILITY") / 100.0);
     }
 
     /**
@@ -108,7 +101,7 @@ public class Grass extends NaturalEntity {
      */
     @Override
     protected int getMinimalBreedFood() {
-        return BREED_FOODLEVEL;
+        return propertiesFile.getInt("grass-BREED_FOODLEVEL");
     }
 
     /**
@@ -121,9 +114,13 @@ public class Grass extends NaturalEntity {
         return IGNORE_GRASS;
     }
 
+    /**
+     * increase the age of this entity BUT stop increasing once it reaches breeding age
+     * @return age of the entity
+     */
     @Override
     public int incrementAge(){
-        if(!(getAge() >= SPREAD_AGE)){
+        if(!(getAge() >= getBreedingAge())){
             setAge(getAge() + 1);
         }
         return getAge();

@@ -1,9 +1,9 @@
 package com.github.projectvk;
 
 import com.github.projectvk.controller.Controller;
-import com.github.projectvk.model.Field;
 import com.github.projectvk.model.Simulator;
 import com.github.projectvk.model.Statistics;
+import com.github.projectvk.model.file.PropertiesHandler;
 import com.github.projectvk.view.SimulatorView;
 
 public class Main {
@@ -16,13 +16,22 @@ public class Main {
     private static final int HEIGHT = 80;
     private static final int WIDTH = 100;
     private static Statistics statistics;
+    public static PropertiesHandler propertiesFile;
 
     //private static final
 
+    /**
+     *
+     * @return
+     */
     public static Simulator getSimulator() {
         return simulator;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int[] getSize() {
         return new int[]{HEIGHT, WIDTH};
     }
@@ -31,10 +40,8 @@ public class Main {
      * Main methode
      */
     public static void main(String[] args) {
-
-        /**
-         * Initialising Script
-         */
+        //Initialize the propertiesfile
+        propertiesFile = new PropertiesHandler();
 
         // Create Controller Object
         controller = new Controller();

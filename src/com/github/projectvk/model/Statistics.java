@@ -3,7 +3,6 @@ package com.github.projectvk.model;
 import com.github.projectvk.controller.Controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class Statistics {
     // Methods to fill the data arrays
     public static void addData(HashMap<Class, ArrayList<Double>> list, Class animal, double amount){
         if(list.get(animal) == null || list.get(animal).isEmpty()){
-            list.put(animal, new ArrayList<Double>());
+            list.put(animal, new ArrayList<>());
             list.get(animal).add(0.0);
         }
         list.get(animal).set(0, list.get(animal).get(0) + amount);
@@ -89,12 +88,12 @@ public class Statistics {
 
         // Catch error codes
         if(list.get(animal) == null){
-            list.put(animal, new ArrayList<Double>());
+            list.put(animal, new ArrayList<>());
             list.get(animal).add(0.0);
         }
 
         if(source.get(animal) == null) {
-            source.put(animal, new ArrayList<Double>());
+            source.put(animal, new ArrayList<>());
             source.get(animal).add(0.0);
         }
 
@@ -134,7 +133,7 @@ public class Statistics {
     // Convert all data to data that can be used for XCharts
     public double[] convertToGraphData(List<Double> list){
         // Limitedlist contains the last HISTORY_TURNS (100 standard) values of the history list.
-        List<Double> limitedList = new ArrayList<Double>();;
+        List<Double> limitedList = new ArrayList<>();
 
         // If the history list is empty, then fill it with data to prevent errors.
         if(list == null || list.isEmpty()){

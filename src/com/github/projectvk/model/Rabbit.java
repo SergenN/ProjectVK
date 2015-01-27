@@ -1,29 +1,17 @@
 package com.github.projectvk.model;
 
+import static com.github.projectvk.Main.propertiesFile;
+
 /**
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
  */
 public class Rabbit extends NaturalEntity implements Sickness {
-    // The age at which a rabbit can start to breed.
-    private static final int BREEDING_AGE = 5;
-    // The age to which a rabbit can live.
-    private static final int MAX_AGE = 40;
-    // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.12;
-    // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 4;
-    // the maximum number a rabbit can move without food before dying
-    private static final int FOOD_LEVEL = 8;
     // The rabbits it's natural prey
     private static final Class[] PREY = {Grass.class};
     // Can the animal walk/breed on grass (will remove grass
-    private static final boolean IGNORE_GRASS = true;
-    // the minimum foodlevel an entity needs to breed
-    private static final int BREED_FOODLEVEL = 2;
-    // chance other rabbits can get infected
-    private static final double SICKNESS_CATCH_PROBABILITY = 0.90;
-
+    private static final boolean IGNORE_GRASS = false;
+    // Check if the rabbit is sick; false on default
     private boolean isSick;
 
     /**
@@ -34,15 +22,14 @@ public class Rabbit extends NaturalEntity implements Sickness {
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Rabbit(Boolean randomAge, Field field, Location location)
-    {
+    public Rabbit(Boolean randomAge, Field field, Location location) {
         super(field, location, 0);
-        setFoodLevel(FOOD_LEVEL);
+        setFoodLevel(getFoodDecayLevel());
         isSick = false;
         if(randomAge) {
-            if(getRandom().nextDouble() <= SICKNESS_CATCH_PROBABILITY)setSick();
+            if(getRandom().nextDouble() <= getSicknessCatchProbability())setSick();
             setAge(getRandom().nextInt(getMaxAge()));
-            setFoodLevel(getRandom().nextInt(FOOD_LEVEL));
+            setFoodLevel(getRandom().nextInt(getFoodDecayLevel()));
         }
     }
 
@@ -52,7 +39,7 @@ public class Rabbit extends NaturalEntity implements Sickness {
      */
     @Override
     protected int getMaxAge() {
-        return MAX_AGE;
+        return propertiesFile.getInt("rabbit-MAX_AGE");
     }
 
     /**
@@ -61,7 +48,7 @@ public class Rabbit extends NaturalEntity implements Sickness {
      */
     @Override
     protected int getBreedingAge() {
-        return BREEDING_AGE;
+        return propertiesFile.getInt("rabbit-BREEDING_AGE");
     }
 
     /**
@@ -70,7 +57,7 @@ public class Rabbit extends NaturalEntity implements Sickness {
      */
     @Override
     protected int getMaxLitterSize() {
-        return MAX_LITTER_SIZE;
+        return propertiesFile.getInt("rabbit-MAX_LITTER_SIZE");
     }
 
     /**
@@ -79,7 +66,7 @@ public class Rabbit extends NaturalEntity implements Sickness {
      */
     @Override
     protected double getBreedingProbability() {
-        return BREEDING_PROBABILITY;
+        return (propertiesFile.getInt("rabbit-BREEDING_PROBABILITY") / 100.0);
     }
 
     /**
@@ -94,7 +81,7 @@ public class Rabbit extends NaturalEntity implements Sickness {
 
     @Override
     protected int getFoodDecayLevel() {
-        return FOOD_LEVEL;
+        return propertiesFile.getInt("rabbit-FOOD_LEVEL");
     }
 
     /**
@@ -114,12 +101,11 @@ public class Rabbit extends NaturalEntity implements Sickness {
      */
     @Override
     protected int getMinimalBreedFood() {
-        return BREED_FOODLEVEL;
+        return propertiesFile.getInt("rabbit-BREED_FOODLEVEL");
     }
 
     /**
      * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
-     * Todo betere oplossing voor dit
      *
      * @return klasse van het dier
      */
@@ -144,10 +130,18 @@ public class Rabbit extends NaturalEntity implements Sickness {
      */
     @Override
     public void setSick() {
-        if(getRandom().nextDouble() <= SICKNESS_CATCH_PROBABILITY)isSick = true;
+        if(getRandom().nextDouble() <= getSicknessCatchProbability())isSick = true;
         if(isSick() && getAge() > getMaxAge()-5){
             setAge(getMaxAge()-5);
         }
+    }
+
+    /**
+     * Get the chance the animal might become sick
+     * @return double chance of sickness between 0 to 1
+     */
+    public double getSicknessCatchProbability(){
+        return (propertiesFile.getInt("rabbit-SICKNESS_CATCH_PROBABILITY") / 100.0);
     }
 
 }

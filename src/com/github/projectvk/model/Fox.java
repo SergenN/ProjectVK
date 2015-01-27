@@ -1,30 +1,18 @@
 package com.github.projectvk.model;
 
+import static com.github.projectvk.Main.propertiesFile;
+
 /**
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.
  */
-public class Fox extends NaturalEntity implements Sickness{
-    // The age at which a fox can start to breed.
-    private static final int BREEDING_AGE = 15;
-    // The age to which a fox can live.
-    private static final int MAX_AGE = 150;
-    // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.12;
-    // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 4;
-    // The food value of a single rabbit. In effect, this is the
-    // number of steps a fox can go before it has to eat again.
-    private static final int FOOD_LEVEL = 15;
+public class Fox extends NaturalEntity implements Sickness {
+
     // The fox it's natural prey
-    private static final Class[] PREY = {Dodo.class, Rabbit.class};
+    private static Class[] PREY = {Dodo.class, Rabbit.class};
     // Can the animal walk/breed on grass (will remove grass
     private static final boolean IGNORE_GRASS = true;
-    // the minimum foodlevel an entity needs to breed
-    private static final int BREED_FOODLEVEL = 2;
-
-    private static final double SICKNESS_CATCH_PROBABILITY = 0.5;
-
+    // check if the animal is sick false by default
     private boolean isSick;
 
     /**
@@ -37,11 +25,11 @@ public class Fox extends NaturalEntity implements Sickness{
      */
     public Fox(Boolean randomAge, Field field, Location location) {
         super(field, location, 0);
-        setFoodLevel(FOOD_LEVEL);
+        setFoodLevel(getFoodDecayLevel());
         isSick = false;
         if (randomAge) {
-            setAge(getRandom().nextInt(MAX_AGE));
-            setFoodLevel(getRandom().nextInt(FOOD_LEVEL));
+            setAge(getRandom().nextInt(getMaxAge()));
+            setFoodLevel(getRandom().nextInt(getFoodDecayLevel()));
         }
     }
 
@@ -52,7 +40,7 @@ public class Fox extends NaturalEntity implements Sickness{
      */
     @Override
     protected int getMaxAge() {
-        return MAX_AGE;
+        return propertiesFile.getInt("fox-MAX_AGE");
     }
 
     /**
@@ -62,7 +50,7 @@ public class Fox extends NaturalEntity implements Sickness{
      */
     @Override
     protected int getBreedingAge() {
-        return BREEDING_AGE;
+        return propertiesFile.getInt("fox-BREEDING_AGE");
     }
 
     /**
@@ -72,7 +60,7 @@ public class Fox extends NaturalEntity implements Sickness{
      */
     @Override
     protected int getMaxLitterSize() {
-        return MAX_LITTER_SIZE;
+        return propertiesFile.getInt("fox-MAX_LITTER_SIZE");
     }
 
     /**
@@ -82,7 +70,7 @@ public class Fox extends NaturalEntity implements Sickness{
      */
     @Override
     protected double getBreedingProbability() {
-        return BREEDING_PROBABILITY;
+        return (propertiesFile.getInt("BREEDING_PROBABILITY") / 100.0);
     }
 
     /**
@@ -101,7 +89,7 @@ public class Fox extends NaturalEntity implements Sickness{
      */
     @Override
     public void setSick() {
-        if(getRandom().nextDouble() <= SICKNESS_CATCH_PROBABILITY)isSick = true;
+        if(getRandom().nextDouble() <= getSicknessCatchProbability())isSick = true;
         if(isSick() && getAge() > getMaxAge()-5){
             setAge(getMaxAge()-5);
         }
@@ -124,7 +112,7 @@ public class Fox extends NaturalEntity implements Sickness{
      */
     @Override
     protected int getFoodDecayLevel() {
-        return FOOD_LEVEL;
+        return propertiesFile.getInt("fox-FOOD_LEVEL");
     }
 
     /**
@@ -144,17 +132,24 @@ public class Fox extends NaturalEntity implements Sickness{
      */
     @Override
     protected int getMinimalBreedFood() {
-        return BREED_FOODLEVEL;
+        return propertiesFile.getInt("fox-BREED_FOODLEVEL");
     }
 
     /**
      * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
-     * Todo betere oplossing voor dit
      *
      * @return klasse van het dier
      */
     @Override
     protected Class getEntityClass() {
         return this.getClass();
+    }
+
+    /**
+     * Get the chance the animal might become sick
+     * @return double chance of sickness between 0 to 1
+     */
+    public double getSicknessCatchProbability(){
+        return (propertiesFile.getInt("rabbit-SICKNESS_CATCH_PROBABILITY") / 100.0);
     }
 }

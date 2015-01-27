@@ -1,5 +1,7 @@
 package com.github.projectvk.view;
 
+import com.github.projectvk.controller.Listener;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,10 +10,10 @@ import java.awt.*;
  */
 public class SettingsFrame extends JFrame{
 
-    private SettingsView view;
+    private SettingPanel view;
 
     public SettingsFrame(){
-        view = new SettingsView(new GridLayout(7,7));
+        view = new SettingPanel(new Listener());
         ImageIcon img = new ImageIcon("img\\fox.png");
         setIconImage(img.getImage());
         setTitle("Vossen en konijnen simulatie settings");
