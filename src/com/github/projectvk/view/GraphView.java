@@ -47,7 +47,7 @@ public class GraphView extends JPanel{
 
     /**
      * Returns CharType
-     * @return
+     * @return charType
      */
     public String getChartType(){
         return chartType;
@@ -131,8 +131,6 @@ public class GraphView extends JPanel{
      * @return double[] turns
      */
     public double[] calculateTurns(){
-        System.out.println("Current: " + controller.getCurrentSteps() + " | Max: " + (int)controller.getMaxTurns());
-
         // When there has been more than HISTORY_TURNS steps, only show the last HISTORYTURNS entries
         if(controller.getCurrentSteps() >= (int)controller.getMaxTurns()) {
             double[] turns_temp = new double[(int)controller.getMaxTurns()];
@@ -232,6 +230,10 @@ public class GraphView extends JPanel{
         return chart;
     }
 
+    /**
+     * This function will call getChart to make a new graph. It also removes the previously drawn graph to improve the performance a bit.
+     * @param chartType
+     */
     public void drawChart(String chartType){
         this.chartType = chartType;
         this.chart = getChart(dataChartType, dataSource);

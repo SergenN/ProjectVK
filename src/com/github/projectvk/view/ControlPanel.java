@@ -9,10 +9,18 @@ import java.awt.*;
 public class ControlPanel extends JPanel{
     private final int GRID_VIEW_SCALING_FACTOR = 6;
     private JLabel sim_kop;
+
+    private JLabel sim_kop, weather_kop, weatherIcon, weatherBG;
     private JButton plusEen, plusHonderd, longSim, start, stop, settings, reset;
     private int height;
     private Controller controller;
     private JStyle jStyle;
+
+    // Weather icons
+    private ImageIcon snow = new ImageIcon("img/snow.png");
+    private ImageIcon rain = new ImageIcon("img/rain.png");
+    private ImageIcon sunny = new ImageIcon("img/sun.png");
+    private ImageIcon bgWeather = new ImageIcon("img/bg_weathericon.png");
 
     /**
      * Constructor voor het maken van de control panel
@@ -46,6 +54,16 @@ public class ControlPanel extends JPanel{
         //////////////////////// HEADERS  ////////////////////////
         sim_kop = new JLabel("Simulate");
         jStyle.headerStyle(sim_kop, this, 10, 20, 80, 30, new Color(132, 132, 132), 16);
+
+        weather_kop = new JLabel("Weather", SwingConstants.CENTER);
+        jStyle.headerStyle(weather_kop, this, -1, 305, 101, 30, new Color(132, 132, 132), 16);
+
+        weatherIcon = new JLabel("", SwingConstants.CENTER);
+        jStyle.headerStyle(weatherIcon, this, 0, 340, 101, 58, new Color(216, 214, 126), 16);
+
+        weatherBG = new JLabel("", SwingConstants.CENTER);
+        jStyle.headerStyle(weatherBG, this, 0, 337, 101, 68, new Color(216, 214, 126), 16);
+        weatherBG.setIcon(bgWeather);
 
         //////////////////////// BUTTONS  ////////////////////////
 
@@ -88,6 +106,29 @@ public class ControlPanel extends JPanel{
     @Override
     public Dimension getPreferredSize(){
         return new Dimension(100, height * GRID_VIEW_SCALING_FACTOR);
+    }
+
+    public void changeWeatherText(String weatherType){
+        weather_kop.setText(weatherType);
+
+        System.out.println(weatherType);
+
+        controller.playSound("audio/" + weatherType + ".wav");
+
+        switch(weatherType){
+            case "Sunny":
+                weatherIcon.setIcon(sunny);
+                weatherIcon.setBounds(weatherIcon.getX(), 341, weatherIcon.getWidth(), weatherIcon.getHeight());
+                break;
+            case "Rain":
+                weatherIcon.setIcon(rain);
+                weatherIcon.setBounds(-2, 345, weatherIcon.getWidth(), weatherIcon.getHeight());
+                break;
+            case "Snow":
+                weatherIcon.setIcon(snow);
+                weatherIcon.setBounds(weatherIcon.getX(), 344, weatherIcon.getWidth(), weatherIcon.getHeight());
+                break;
+        }
     }
 
     /**

@@ -23,6 +23,10 @@ public class Controller {
     private Statistics statistics;
     private Field field;
     private FieldStats fieldStats;
+    private Weather weather;
+    private Audio audio;
+
+    //private boolean simulatorRunning = false;
 
     /**
      * the constructor of the controller
@@ -61,6 +65,10 @@ public class Controller {
      * @param statistics the statistics
      */
     public void setStatistics(Statistics statistics) { this.statistics = statistics; }
+
+    public void setWeather(Weather weather) { this.weather = weather; }
+
+    public void setAudio(Audio audio) { this.audio = audio; }
 
     /**
      * get the JStyle of this controller
@@ -125,6 +133,7 @@ public class Controller {
                 simulatorView.getGraphView().setDataChartType("line");
                 setStatisticHistoryTurns(20);
                 break;
+
         }
     }
 
@@ -261,5 +270,18 @@ public class Controller {
     public void setStatisticHistoryTurns(int historyTurns){
         Statistics.setHistoryTurns(historyTurns);
     }
+
+    // These are all methods related to weather
+    public void changeWeatherText(String weatherType){ simulatorView.getControlPanel().changeWeatherText(weatherType); }
+
+    public void randomWeather(){ weather.randomWeather(); }
+
+    public int getWeatherStep(){ return weather.getChangeWeatherStep(); }
+
+    // These are all methods related to Audio
+
+    public void playSound(String soundPath){ audio.playSound(soundPath); }
+
+    public void stopSound(){ audio.stopSound(); }
 
 }

@@ -92,7 +92,7 @@ public class Statistics {
     }
 
     /**
-     * TODO
+     * When a step is finished, we need to empty all statistics hashmaps (those hashmap will only contain data for one step)
      */
     public void resetData(){
         currentStep++;
@@ -103,7 +103,7 @@ public class Statistics {
     }
 
     /**
-     * TODO
+     * This method will clear all variabels related to the statistics. This method is being called when the user presses the reset button.
      */
     public void resetStats(){
 
@@ -127,7 +127,7 @@ public class Statistics {
     }
 
     /**
-     * TODO
+     * This method is being called when a step is finished. It will add all newly gained data to the history list. This history lists contains all data of the previous HISTORY_TURNS steps.
      * @param list
      * @param animal
      * @param source
@@ -149,17 +149,15 @@ public class Statistics {
             source.get(animal).add(0.0);
         }
 
-      //Setup birth data for graph
-//        if(list.size() >= HISTORY_TURNS) {
-//            list.get(animal).add(source.get(animal).get(0));
-//            list.get(animal).remove(0);
-//        } else {
-//            list.get(animal).add(source.get(animal).get(0));
-//        }
+        //Setup birth data for graph
+        if(list.get(animal).size() >= HISTORY_TURNS) {
+            list.get(animal).add(source.get(animal).get(0));
+            list.get(animal).remove(0);
+        } else {
+            list.get(animal).add(source.get(animal).get(0));
+        }
 
-        // Add data to the arraylist and remove data from the source
-        list.get(animal).add(source.get(animal).get(0));
-//        source.get(animal).clear();
+        source.get(animal).clear();
     }
 
     /**
@@ -183,7 +181,6 @@ public class Statistics {
         addDataToHistory(aliveHistory, Dodo.class, alive);
         addDataToHistory(aliveHistory, Rabbit.class, alive);
         addDataToHistory(aliveHistory, Hunter.class, alive);
-
     }
 
     /**
