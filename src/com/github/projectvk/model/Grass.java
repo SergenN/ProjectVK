@@ -139,16 +139,6 @@ public class Grass extends NaturalEntity {
         incrementAge();
         if(isAlive()) {
             super.giveBirth(actors);
-            // Move towards a source of food if found.
-            Location newLocation = findPrey();
-            if(newLocation == null) {
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
-            }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
         }
     }
 }
