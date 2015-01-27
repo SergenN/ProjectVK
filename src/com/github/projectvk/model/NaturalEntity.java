@@ -330,7 +330,7 @@ public abstract class NaturalEntity implements Actor
                 setDead();
             }
             if(this instanceof Sickness){
-                System.out.println(((Sickness) this).isSick());
+                //System.out.println(((Sickness) this).isSick());
             }
         }
     }

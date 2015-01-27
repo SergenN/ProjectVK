@@ -119,7 +119,6 @@ public class Controller {
                 simulatorView.getGraphView().setDataChartType("line");
                 setStatisticHistoryTurns(20);
                 break;
-
         }
 
     }
@@ -249,5 +248,11 @@ public class Controller {
     public void randomWeather(){ weather.randomWeather(); }
 
     public int getWeatherStep(){ return weather.getChangeWeatherStep(); }
+
+    // These are all methods related to Audio
+
+    public void playSound(String soundPath){ audio.playSound(soundPath); }
+
+    public void stopSound(){ audio.stopSound(); }
 
 }

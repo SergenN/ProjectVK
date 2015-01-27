@@ -43,6 +43,10 @@ public class Main {
         statistics = new Statistics(controller);
         controller.setStatistics(statistics);
 
+        // Create Audio class
+        audio = new Audio(controller);
+        controller.setAudio(audio);
+
         // Create View
         simulatorView = new SimulatorView(80,100, controller);
         controller.setSimulatorView(simulatorView);
@@ -54,10 +58,6 @@ public class Main {
         // Create Simulator
         simulator = new Simulator(controller);
         controller.setSimulator(simulator);
-        
-        // Create Audio class
-        audio = new Audio(controller);
-        controller.setAudio(audio);
     }
 
 }

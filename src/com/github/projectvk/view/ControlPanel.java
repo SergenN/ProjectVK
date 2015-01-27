@@ -110,6 +110,8 @@ public class ControlPanel extends JPanel{
 
         System.out.println(weatherType);
 
+        controller.playSound("audio/" + weatherType + ".wav");
+
         switch(weatherType){
             case "Sunny":
                 weatherIcon.setIcon(sunny);

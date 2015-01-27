@@ -121,8 +121,8 @@ public class Statistics {
             source.get(animal).add(0.0);
         }
 
-      //Setup birth data for graph
-        if(list.size() >= HISTORY_TURNS) {
+        //Setup birth data for graph
+        if(list.get(animal).size() >= HISTORY_TURNS) {
             list.get(animal).add(source.get(animal).get(0));
             list.get(animal).remove(0);
         } else {
@@ -130,7 +130,9 @@ public class Statistics {
         }
 
         // Add data to the arraylist and remove data from the source
-        //list.get(animal).add(source.get(animal).get(0));
+        //System.out.println("Source: " + source.get(animal).size());
+        //System.out.println("List: " + list.get(animal).size());
+
         source.get(animal).clear();
     }
 
@@ -153,7 +155,6 @@ public class Statistics {
         addDataToHistory(aliveHistory, Dodo.class, alive);
         addDataToHistory(aliveHistory, Rabbit.class, alive);
         addDataToHistory(aliveHistory, Hunter.class, alive);
-
     }
 
     // Convert all data to data that can be used for XCharts

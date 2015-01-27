@@ -13,8 +13,8 @@ public class Weather {
     private int changeWeatherStep;
     private Random rand = new Random();
 
-    private static int MIN_WEATHER_STEP = 100;
-    private static int MAX_WEATHER_STEP = 200;
+    private static int MIN_WEATHER_STEP = 20;
+    private static int MAX_WEATHER_STEP = 50;
 
     public Weather(Controller controller){
         this.controller = controller;
