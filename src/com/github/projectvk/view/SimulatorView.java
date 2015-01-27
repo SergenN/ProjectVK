@@ -59,12 +59,16 @@ public class SimulatorView extends JFrame  {
         controlPanel = new ControlPanel(height, controller);
         colors = new LinkedHashMap<>();
         HashMap<String, Class> animals = controller.fetchClassDefinitions();
+
+        // Set the colors for the classes
         this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
         this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
         this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
         this.setColor(animals.get("Hunter"), new Color(219, 0, 37)); //Hunter
+
+
+        // Screen setup
         graphView = new GraphView(height, controller, colors);
-        colors = new LinkedHashMap<>();
         setTitle("Vossen en konijnen simulatie");
         stepLabel = new JLabel();
         stepLabel.setForeground(Color.WHITE);
@@ -73,6 +77,7 @@ public class SimulatorView extends JFrame  {
         population.setForeground(Color.WHITE);
         population.setFont(new Font("Helvetica", Font.PLAIN, 10));
         fieldView = new FieldView(height, width);
+
         Container contents = getContentPane();
         contents.setBackground(new Color(211, 47, 47));
         contents.add(fieldView, BorderLayout.CENTER);
@@ -84,10 +89,7 @@ public class SimulatorView extends JFrame  {
         setVisible(true);
         setResizable(false);
         animals = controller.fetchClassDefinitions();
-        this.setColor(animals.get("Rabbit"), new Color(76, 114, 255)); //Rabbit
-        this.setColor(animals.get("Fox"), new Color(255, 196, 76)); //Fox
-        this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
-        this.setColor(animals.get("Hunter"), new Color(219, 0, 37)); //Hunter
+
         //noinspection MagicConstant
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
