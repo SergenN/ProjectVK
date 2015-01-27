@@ -102,32 +102,31 @@ public class Simulator implements Runnable
         field.clear();
         for(int row = 0; row < field.getHeight(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
-                if(rand.nextDouble() <= intToDouble(propertiesFile.getInt("general-FOX_CREATION_PROBABILITY"))) {
+                if(rand.nextDouble() <= propertiesFile.getIntTransformed("general-FOX_CREATION_PROBABILITY")) {
                     Location location = new Location(row, col);
                     Fox fox = new Fox(true, field, location);
                     actors.add(fox);
                 }
-                else if(rand.nextDouble() <= intToDouble(propertiesFile.getInt("general-RABBIT_CREATION_PROBABILITY"))) {
+                else if(rand.nextDouble() <= propertiesFile.getIntTransformed("general-RABBIT_CREATION_PROBABILITY")) {
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location);
                     actors.add(rabbit);
                 }
-                else if(rand.nextDouble() <= intToDouble(propertiesFile.getInt("general-GRASS_CREATION_PROBABILITY"))) {
+                else if(rand.nextDouble() <= propertiesFile.getIntTransformed("general-GRASS_CREATION_PROBABILITY")) {
                     Location location = new Location(row, col);
                     Grass grass = new Grass(true, field, location);
                     actors.add(grass);
                 }
-                else if(rand.nextDouble() <= intToDouble(propertiesFile.getInt("general-DODO_CREATION_PROBABILITY"))) {
+                else if(rand.nextDouble() <= propertiesFile.getIntTransformed("general-DODO_CREATION_PROBABILITY")) {
                     Location location = new Location(row, col);
                     Dodo dodo = new Dodo(true, field, location);
                     actors.add(dodo);
                 }
-                else if(rand.nextDouble() <= intToDouble(propertiesFile.getInt("general-HUNTER_CREATION_PROBABILITY"))) {
+                else if(rand.nextDouble() <= propertiesFile.getIntTransformed("general-HUNTER_CREATION_PROBABILITY")) {
                     Location location = new Location(row, col);
                     Hunter hunter = new Hunter(true, field, location);
                     actors.add(hunter);
                 }
-                // else leave the location empty.
             }
         }
     }
@@ -175,7 +174,7 @@ public class Simulator implements Runnable
                 Main.getSimulator().simulateOneStep();
                 try {
                     //TODO merge fail moet ff goed zetten naar goede methode!
-                    Thread.sleep(propertiesFile.getFixedInt("general-STEP_SPEED"));
+                    Thread.sleep(propertiesFile.getInt("general-STEP_SPEED"));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
