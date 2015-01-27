@@ -5,14 +5,22 @@ import java.util.Map;
 
 /**
  * Created by Sergen on 27-1-2015.
+ * Class: PropertiesHandler
  */
 public class PropertiesHandler extends PropertiesFile{
 
+    /**
+     * Create a new PropertiesHandler
+     * will create new propertiesFile and input all default properties
+     */
     public PropertiesHandler(){
         super("Properties.txt");
         initializeProperties();
     }
 
+    /**
+     * Create all default properties
+     */
     private void initializeProperties(){
         getInt("fox-BREEDING_AGE",15);
         getInt("fox-MAX_AGE",150);

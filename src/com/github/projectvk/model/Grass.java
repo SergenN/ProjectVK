@@ -66,14 +66,16 @@ public class Grass extends NaturalEntity {
     @Override
     protected int getMaxLitterSize() {
         int multiplier = 0;
-        if(Weather.weatherType.equals("Sunny")) {
-            multiplier = propertiesFile.getInt("weather-SUNNY_GRASS_SEED_MULTIPLIER");
-        }
-        else if(Weather.weatherType.equals("Snow")) {
-            multiplier = propertiesFile.getInt("weather-SNOW_GRASS_SEED_MULTIPLIER");
-        }
-        else if(Weather.weatherType.equals("Rain")) {
-            multiplier = propertiesFile.getInt("weather-RAIN_GRASS_SEED_MULTIPLIER");
+        switch (Weather.weatherType){
+            case "Sunny":
+                multiplier = propertiesFile.getInt("weather-SUNNY_GRASS_SEED_MULTIPLIER");
+                break;
+            case "Snow":
+                multiplier = propertiesFile.getInt("weather-SNOW_GRASS_SEED_MULTIPLIER");
+                break;
+            case "Rain":
+                multiplier = propertiesFile.getInt("weather-RAIN_GRASS_SEED_MULTIPLIER");
+                break;
         }
         return propertiesFile.getInt("grass-SEEDLING_PROBABILITY") + multiplier;
     }
@@ -86,14 +88,16 @@ public class Grass extends NaturalEntity {
     @Override
     protected double getBreedingProbability() {
         int multiplier = 0;
-        if(Weather.weatherType.equals("Sunny")) {
-            multiplier = propertiesFile.getInt("weather-SUNNY_GRASS_SPREAD_MULTIPLIER");
-        }
-        else if(Weather.weatherType.equals("Snow")) {
-            multiplier = propertiesFile.getInt("weather-SNOW_GRASS_SPREAD_MULTIPLIER");
-        }
-        else if(Weather.weatherType.equals("Rain")) {
-            multiplier = propertiesFile.getInt("weather-RAIN_GRASS_SPREAD_MULTIPLIER");
+        switch (Weather.weatherType){
+            case "Sunny" :
+                multiplier = propertiesFile.getInt("weather-SUNNY_GRASS_SPREAD_MULTIPLIER");
+                break;
+            case "Snow" :
+                multiplier = propertiesFile.getInt("weather-SNOW_GRASS_SPREAD_MULTIPLIER");
+                break;
+            case "Rain" :
+                multiplier = propertiesFile.getInt("weather-RAIN_GRASS_SPREAD_MULTIPLIER");
+                break;
         }
         return propertiesFile.getIntTransformed("grass-SPREAD_PROBABILITY") + multiplier;
     }

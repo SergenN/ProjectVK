@@ -62,14 +62,28 @@ public class Weather {
     }
 
     // Getter and setter for the weather type
+
+    /**
+     * get the current weather
+     * @return weatherType
+     */
+    @SuppressWarnings("UnusedDeclaration")
     public String getWeatherType() {
         return weatherType;
     }
 
+    /**
+     * Set the current weather
+     * @param weatherType new weather type
+     */
     public void setWeatherType(String weatherType) {
-        this.weatherType = weatherType;
+        Weather.weatherType = weatherType;
     }
 
+    /**
+     * gets the step at which the weather is gonna change
+     * @return step at which weather is gonna change
+     */
     public int getChangeWeatherStep(){
         return changeWeatherStep;
     }

@@ -50,19 +50,6 @@ public class Field
      * If there is already an animal at the location it will
      * be lost.
      * @param animal The animal to be placed.
-     * @param row Row coordinate of the location.
-     * @param col Column coordinate of the location.
-     */
-    //TODO Not used
-    /*public void place(Object animal, int row, int col) {
-        place(animal, new Location(row, col));
-    }*/
-
-    /**
-     * Place an animal at the given location.
-     * If there is already an animal at the location it will
-     * be lost.
-     * @param animal The animal to be placed.
      * @param location Where to place the animal.
      */
     public void place(Object animal, Location location) {
@@ -88,30 +75,6 @@ public class Field
         return field[row][col];
     }
 
-    /*
-     * Generate a random location that is adjacent to the
-     * given location, or is the same location.
-     * The returned location will be within the valid bounds
-     * of the field.
-     * @param location The location from which to generate an adjacency.
-     * @return A valid location within the grid area.
-     */
-    //TODO not used
-    /*public Location randomAdjacentLocation(Location location) {
-        List<Location> adjacent = adjacentLocations(location);
-        return adjacent.get(0);
-    }*/
-
-    /**
-     * Get a shuffled list of the free adjacent locations.
-     * @param location Get locations adjacent to this.
-     * @return A list of free adjacent locations.
-     */
-    //TODO not used
-    /*public List<Location> getFreeAdjacentLocations(Location location) {
-        return getFreeAdjacentLocations(location, false);
-    }*/
-
     /**
      * Get a shuffled list of the free adjacent locations.
      * @param location Get locations adjacent to this.
@@ -127,18 +90,6 @@ public class Field
             }
         }
         return free;
-    }
-
-    /**
-     * Try to find a free location that is adjacent to the
-     * given location. If there is none, return null.
-     * The returned location will be within the valid bounds
-     * of the field.
-     * @param location The location from which to generate an adjacency.
-     * @return A valid location within the grid area.
-     */
-    public Location freeAdjacentLocation(Location location) {
-        return freeAdjacentLocation(location, false);
     }
 
     /**

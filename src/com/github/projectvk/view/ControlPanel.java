@@ -7,7 +7,7 @@ import java.awt.*;
 
 @SuppressWarnings("serial")
 public class ControlPanel extends JPanel{
-    private final int GRID_VIEW_SCALING_FACTOR = 6;
+    private static final int GRID_VIEW_SCALING_FACTOR = 6;
     private JLabel sim_kop, weather_kop, weatherIcon, weatherBG;
     private JButton plusEen, plusHonderd, longSim, start, stop, settings, reset;
     private int height;

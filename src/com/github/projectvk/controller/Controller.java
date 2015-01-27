@@ -15,18 +15,14 @@ import java.util.List;
  */
 public class Controller {
     private Simulator simulator;
-    private ControlPanel panel;
     private SimulatorView simulatorView;
     private Listener listener;
     private JStyle jStyle = new JStyle();
-    private GraphView graphView;
     private Statistics statistics;
     private Field field;
     private FieldStats fieldStats;
     private Weather weather;
     private Audio audio;
-
-    //private boolean simulatorRunning = false;
 
     /**
      * the constructor of the controller
@@ -46,13 +42,6 @@ public class Controller {
     }
 
     /**
-     * get the simulatorview of the controller
-     * @return the simulator view of this controller
-     */
-    //TODO unused
-    /*public SimulatorView getSimulatorView() {return simulatorView;}*/
-
-    /**
      * set the simulator of the controller
      * @param simulator the simulator which has to be set
      */
@@ -66,8 +55,16 @@ public class Controller {
      */
     public void setStatistics(Statistics statistics) { this.statistics = statistics; }
 
+    /**
+     * Set the weather Instance
+     * @param weather current Weather Instance
+     */
     public void setWeather(Weather weather) { this.weather = weather; }
 
+    /**
+     * Set the audio instance
+     * @param audio Current audio instance
+     */
     public void setAudio(Audio audio) { this.audio = audio; }
 
     /**
@@ -195,7 +192,7 @@ public class Controller {
      * Returns hashmap of Class.class objects
      *
      * @return Class[]
-     */ // Todo make this hashmap compatible
+     */
     public HashMap<String, Class> fetchClassDefinitions() {
         HashMap<String, Class> classes = new HashMap<String, Class>(){};
         classes.put("Rabbit", Rabbit.class);
@@ -238,23 +235,23 @@ public class Controller {
     public HashMap<Class, ArrayList<Double>> getHistory(String type){ return statistics.getHistory(type);}
 
     /**
-     * TODO not
-     * @param list
-     * @return
+     * Convert the graph data from list to double array
+     * @param list List to convert
+     * @return double array of the converted data
      */
     public double[] convertToGraphData(List<Double> list) {
         return statistics.convertToGraphData(list);
     }
 
     /**
-     * TODO not
-     * @return
+     * get max turns the history saves
+     * @return max turns the history saves
      */
     public double getMaxTurns(){return Statistics.HISTORY_TURNS;}
 
     /**
-     * TODO not
-     * @return
+     * get the current steps of the simulator
+     * @return current steps
      */
     public int getCurrentSteps(){ return statistics.getCurrentStep();}
 
@@ -264,24 +261,39 @@ public class Controller {
     public void resetData(){ statistics.resetData();}
 
     /**
-     * TODO not
-     * @param historyTurns
+     * change the amount of max history steps saved
+     * @param historyTurns new amount of steps saved
      */
     public void setStatisticHistoryTurns(int historyTurns){
         Statistics.setHistoryTurns(historyTurns);
     }
 
-    // These are all methods related to weather
+    /**
+     * change the weather type to the goven weathertype
+     * @param weatherType new weather type
+     */
     public void changeWeatherText(String weatherType){ simulatorView.getControlPanel().changeWeatherText(weatherType); }
 
+    /**
+     * get a random weather type
+     */
     public void randomWeather(){ weather.randomWeather(); }
 
+    /**
+     * get step at which the weather changes
+     * @return step at which the weather changes
+     */
     public int getWeatherStep(){ return weather.getChangeWeatherStep(); }
 
-    // These are all methods related to Audio
-
+    /**
+     * play a new sound from given path
+     * @param soundPath path of sound to play
+     */
     public void playSound(String soundPath){ audio.playSound(soundPath); }
 
+    /**
+     * Stop the sound
+     */
+    @SuppressWarnings("UnusedDeclaration")
     public void stopSound(){ audio.stopSound(); }
-
 }

@@ -8,10 +8,13 @@ import java.util.Map;
 import java.util.Properties;
 
 public class PropertiesFile {
-    
     private String fileName;
     private Properties props = new Properties();
 
+    /**
+     * Create a new properties file with the given name
+     * @param fileName name of the new propertiesFile
+     */
     public PropertiesFile(String fileName) {
         File file = new File(fileName);
 
@@ -28,33 +31,48 @@ public class PropertiesFile {
         }
     }
 
+    /**
+     * Load a new propertiesfile into the system
+     * @throws IOException
+     */
     public void load() throws IOException {
         FileInputStream stream = null;
 
         try {
             stream = new FileInputStream(fileName);
             props.load(stream);
-        } catch (IOException ex) {} finally {
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
             try {
                 if (stream != null) {
                     stream.close();
                 }
-            } catch (IOException ex) {}
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
+    /**
+     * save the propertiesfile from system to file
+     */
     public void save() {
         FileOutputStream stream = null;
 
         try {
             stream = new FileOutputStream(fileName);
             props.store(stream, null);
-        } catch (IOException ex) {} finally {
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
             try {
                 if (stream != null) {
                     stream.close();
                 }
-            } catch (IOException ex) {}
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -63,50 +81,29 @@ public class PropertiesFile {
         return (Map<String, String>) props.clone();
     }
 
-
+    /**
+     * check if the propertiesFile contains the given key
+     * @param var key to search for
+     * @return true of it contains the key
+     */
     public boolean containsKey(String var) {
         return props.containsKey(var);
     }
 
-
+    /**
+     * get the property from the given key
+     * @param var key to search for
+     * @return the value of the key found
+     */
     public String getProperty(String var) {
         return props.getProperty(var);
     }
 
-
-    public void removeKey(String var) {
-        if (props.containsKey(var)) {
-            props.remove(var);
-            save();
-        }
-    }
-
-    public boolean keyExists(String key) {
-        return containsKey(key);
-    }
-
-    public String getString(String key) {
-        if (containsKey(key)) {
-            return getProperty(key);
-        }
-        return "";
-    }
-
-    public String getString(String key, String value) {
-        if (containsKey(key)) {
-            return getProperty(key);
-        }
-        setString(key, value);
-        return value;
-    }
-
-
-    public void setString(String key, String value) {
-        props.put(key, value);
-        save();
-    }
-
-
+    /**
+     * get an int by the given property from the propertiesfile
+     * @param key property to search for
+     * @return found property; 0 if property was not found
+     */
     public int getInt(String key) {
         if (containsKey(key)) {
             return Integer.parseInt(getProperty(key));
@@ -114,6 +111,13 @@ public class PropertiesFile {
         return 0;
     }
 
+    /**
+     * Get a value from the propertiesFile
+     * if this does not exist it will create one and return the default value
+     * @param key the key you search for
+     * @param value default value
+     * @return the property requested
+     */
     public int getInt(String key, int value) {
         if (containsKey(key)) {
             return Integer.parseInt(getProperty(key));
@@ -123,36 +127,14 @@ public class PropertiesFile {
 
     }
 
+    /**
+     * Set an existing int in the file
+     * @param key key of the property
+     * @param value new value of the property
+     */
     public void setInt(String key, int value) {
         props.put(key, String.valueOf(value));
         save();
-    }
-
-    public double getDouble(String key) {
-        if (containsKey(key)) {
-            return Double.parseDouble(getProperty(key));
-        }
-        return 0;
-    }
-
-    public double getDouble(String key, double value) {
-        if (containsKey(key)) {
-            return Double.parseDouble(getProperty(key));
-        }
-        setDouble(key, value);
-        return value;
-    }
-
-    public void setDouble(String key, double value) {
-        props.put(key, String.valueOf(value));
-        save();
-    }
-
-    public long getLong(String key) {
-        if (containsKey(key)) {
-            return Long.parseLong(getProperty(key));
-        }
-        return 0;
     }
 
 }

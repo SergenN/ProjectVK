@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import static com.github.projectvk.Main.propertiesFile;
 /**
  * Created by kevin on 22-1-15.
+ * Class: Listener
  */
 public class Listener implements ActionListener, ChangeListener{
     private Controller controller;
@@ -46,7 +47,7 @@ public class Listener implements ActionListener, ChangeListener{
         if (e.getSource() instanceof JSlider){
             JSlider source = (JSlider)e.getSource();
             if(!source.getValueIsAdjusting()){
-                int value = (int)source.getValue();
+                int value = source.getValue();
                 String property = source.getName();
                 propertiesFile.setInt(property, value);
             }
