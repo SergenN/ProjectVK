@@ -78,6 +78,9 @@ public class Statistics {
         list.get(animal).set(0, list.get(animal).get(0) + amount);
     }
 
+    /**
+     * When a step is finished, we need to empty all statistics hashmaps (those hashmap will only contain data for one step)
+     */
     public void resetData(){
         currentStep++;
         births.clear();
@@ -86,6 +89,9 @@ public class Statistics {
         alive.clear();
     }
 
+    /**
+     * This method will clear all variabels related to the statistics. This method is being called when the user presses the reset button.
+     */
     public void resetStats(){
 
         currentStep = 0;
@@ -103,7 +109,12 @@ public class Statistics {
         return currentStep;
     }
 
-    // Add newly gained data to the history Arraylist
+    /**
+     * This method is being called when a step is finished. It will add all newly gained data to the history list. This history lists contains all data of the previous HISTORY_TURNS steps.
+     * @param list
+     * @param animal
+     * @param source
+     */
     public void addDataToHistory(HashMap<Class, ArrayList<Double>> list, Class animal, HashMap<Class, ArrayList<Double>> source){
 
         // Catch error codes

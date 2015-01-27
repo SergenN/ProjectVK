@@ -226,10 +226,13 @@ public class GraphView extends JPanel{
 
                 }
             }
-
         return chart;
     }
 
+    /**
+     * This function will call getChart to make a new graph. It also removes the previously drawn graph to improve the performance a bit.
+     * @param chartType
+     */
     public void drawChart(String chartType){
         this.chartType = chartType;
         this.chart = getChart(dataChartType, dataSource);
