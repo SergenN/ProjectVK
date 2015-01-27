@@ -1,6 +1,7 @@
 package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
+import com.github.projectvk.controller.Listener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,7 @@ public class JStyle {
         button.setActionCommand(command);
         button.setBounds(xposition, yposition, width, height);
 
-        button.addActionListener(controller.getListener());
+        button.addActionListener(new Listener());
         panel.add(button);
     }
 

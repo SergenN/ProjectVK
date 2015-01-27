@@ -70,7 +70,7 @@ public class Fox extends NaturalEntity implements Sickness {
      */
     @Override
     protected double getBreedingProbability() {
-        return (propertiesFile.getInt("BREEDING_PROBABILITY") / 100.0);
+        return (propertiesFile.getIntTransformed("BREEDING_PROBABILITY"));
     }
 
     /**
@@ -108,7 +108,7 @@ public class Fox extends NaturalEntity implements Sickness {
     /**
      * verkrijg de foodDecayLevel
      *
-     * @return
+     * @return de food decay level
      */
     @Override
     protected int getFoodDecayLevel() {
@@ -150,6 +150,6 @@ public class Fox extends NaturalEntity implements Sickness {
      * @return double chance of sickness between 0 to 1
      */
     public double getSicknessCatchProbability(){
-        return (propertiesFile.getInt("rabbit-SICKNESS_CATCH_PROBABILITY") / 100.0);
+        return (propertiesFile.getIntTransformed("rabbit-SICKNESS_CATCH_PROBABILITY"));
     }
 }

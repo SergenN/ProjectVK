@@ -83,4 +83,13 @@ public class PropertiesHandler extends PropertiesFile{
         }catch (NumberFormatException ignored){}
         return toReturn;
     }
+
+    /**
+     * Verkrijg de property en verander het naar een double voor de
+     * veiligheid return 0.01 als de property 0 is want delen door 0 kan niet.
+     * @return 0.01 als de property 0 is anders property / 100
+     */
+    public double getIntTransformed(String property){
+        return getInt(property) == 0 ? 0.01 : (getInt(property) / 100.0);
+    }
 }

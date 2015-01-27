@@ -15,7 +15,6 @@ public class Grass extends NaturalEntity {
 
     /**
      * verkrijg de klasse van het dier dat op dit moment gebruik maakt van deze super klasse
-     * Todo betere oplossing voor dit
      *
      * @return klasse van het dier
      */
@@ -32,8 +31,7 @@ public class Grass extends NaturalEntity {
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Grass(Boolean randomAge, Field field, Location location)
-    {
+    public Grass(Boolean randomAge, Field field, Location location) {
         super(field, location, 0);
         if(randomAge) {
             setAge(getRandom().nextInt(getMaxAge()));
@@ -52,7 +50,7 @@ public class Grass extends NaturalEntity {
 
     /**
      * Get the age of the entity when it's ready to breed
-     * @return
+     * @return the age when the entity is able to breed.
      */
     @Override
     protected int getBreedingAge() {
@@ -76,7 +74,7 @@ public class Grass extends NaturalEntity {
      */
     @Override
     protected double getBreedingProbability() {
-        return (propertiesFile.getInt("grass-SPREAD_PROBABILITY") / 100.0);
+        return (propertiesFile.getIntTransformed("grass-SPREAD_PROBABILITY"));
     }
 
     /**
@@ -129,7 +127,7 @@ public class Grass extends NaturalEntity {
     /**
      * acteer
      *
-     * @param actors
+     * @param actors all actors
      */
     @Override
     public void act(List<Actor> actors) {

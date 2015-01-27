@@ -19,17 +19,24 @@ public class Hunter implements Actor {
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Hunter(boolean randomMood, Field field, Location location)
-    {
+    public Hunter(boolean randomMood, Field field, Location location) {
         this.field = field;
         this.location = location;
     }
 
+    /**
+     * get the location of the hunter
+     * @return hunters location
+     */
     @Override
     public Location getLocation() {
         return location;
     }
 
+    /**
+     * Set the location of the hunter
+     * @param loc Locatie
+     */
     @Override
     public void setLocation(Location loc) {
         if(location != null) {
@@ -39,11 +46,19 @@ public class Hunter implements Actor {
         getField().place(this, loc);
     }
 
+    /**
+     * get the field the hunter is on
+     * @return field of the hunter
+     */
     @Override
     public Field getField() {
         return field;
     }
 
+    /**
+     * set the field of the hunter
+     * @param field
+     */
     @Override
     public void setField(Field field) {
         this.field = field;
@@ -55,8 +70,7 @@ public class Hunter implements Actor {
      * or die of old age.
      * @param actors A list to return newly born actors.
      */
-    public void act(List<Actor> actors)
-    {
+    public void act(List<Actor> actors) {
         // Move towards a source of food if found.
         Location newLocation = findPrey();
         if(newLocation == null) {
@@ -74,8 +88,7 @@ public class Hunter implements Actor {
      * Only the first live rabbit is eaten.
      * @return Where food was found, or null if it wasn't.
      */
-    protected Location findPrey()
-    {
+    protected Location findPrey() {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();

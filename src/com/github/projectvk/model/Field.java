@@ -21,8 +21,7 @@ public class Field
      * @param height The height of the field.
      * @param width The width of the field.
      */
-    public Field(int height, int width)
-    {
+    public Field(int height, int width) {
         this.height = height;
         this.width = width;
         field = new Object[height][width];
@@ -31,8 +30,7 @@ public class Field
     /**
      * Empty the field.
      */
-    public void clear()
-    {
+    public void clear() {
         for(int row = 0; row < height; row++) {
             for(int col = 0; col < width; col++) {
                 field[row][col] = null;
@@ -44,8 +42,7 @@ public class Field
      * Clear the given location.
      * @param location The location to clear.
      */
-    public void clear(Location location)
-    {
+    public void clear(Location location) {
         field[location.getRow()][location.getCol()] = null;
     }
 
@@ -57,8 +54,7 @@ public class Field
      * @param row Row coordinate of the location.
      * @param col Column coordinate of the location.
      */
-    public void place(Object animal, int row, int col)
-    {
+    public void place(Object animal, int row, int col) {
         place(animal, new Location(row, col));
     }
 
@@ -69,8 +65,7 @@ public class Field
      * @param animal The animal to be placed.
      * @param location Where to place the animal.
      */
-    public void place(Object animal, Location location)
-    {
+    public void place(Object animal, Location location) {
         field[location.getRow()][location.getCol()] = animal;
     }
 
@@ -79,8 +74,7 @@ public class Field
      * @param location Where in the field.
      * @return The animal at the given location, or null if there is none.
      */
-    public Object getObjectAt(Location location)
-    {
+    public Object getObjectAt(Location location) {
         return getObjectAt(location.getRow(), location.getCol());
     }
 
@@ -90,8 +84,7 @@ public class Field
      * @param col The desired column.
      * @return The animal at the given location, or null if there is none.
      */
-    public Object getObjectAt(int row, int col)
-    {
+    public Object getObjectAt(int row, int col) {
         return field[row][col];
     }
 
@@ -103,8 +96,7 @@ public class Field
      * @param location The location from which to generate an adjacency.
      * @return A valid location within the grid area.
      */
-    public Location randomAdjacentLocation(Location location)
-    {
+    public Location randomAdjacentLocation(Location location) {
         List<Location> adjacent = adjacentLocations(location);
         return adjacent.get(0);
     }
@@ -114,8 +106,7 @@ public class Field
      * @param location Get locations adjacent to this.
      * @return A list of free adjacent locations.
      */
-    public List<Location> getFreeAdjacentLocations(Location location)
-    {
+    public List<Location> getFreeAdjacentLocations(Location location) {
         return getFreeAdjacentLocations(location, false);
     }
 
@@ -125,8 +116,7 @@ public class Field
      * @param ignoreGrass ignore the grass and see it as free field.
      * @return A list of free adjacent locations.
      */
-    public List<Location> getFreeAdjacentLocations(Location location, boolean ignoreGrass)
-    {
+    public List<Location> getFreeAdjacentLocations(Location location, boolean ignoreGrass) {
         List<Location> free = new LinkedList<Location>();
         List<Location> adjacent = adjacentLocations(location);
         for(Location next : adjacent) {
@@ -137,7 +127,6 @@ public class Field
         return free;
     }
 
-
     /**
      * Try to find a free location that is adjacent to the
      * given location. If there is none, return null.
@@ -146,8 +135,7 @@ public class Field
      * @param location The location from which to generate an adjacency.
      * @return A valid location within the grid area.
      */
-    public Location freeAdjacentLocation(Location location)
-    {
+    public Location freeAdjacentLocation(Location location) {
         return freeAdjacentLocation(location, false);
     }
 
@@ -159,8 +147,7 @@ public class Field
      * @param location The location from which to generate an adjacency.
      * @return A valid location within the grid area.
      */
-    public Location freeAdjacentLocation(Location location, boolean ignoreGrass)
-    {
+    public Location freeAdjacentLocation(Location location, boolean ignoreGrass) {
         // The available free ones.
         List<Location> free = getFreeAdjacentLocations(location, ignoreGrass);
         if(free.size() > 0) {
@@ -171,6 +158,12 @@ public class Field
         }
     }
 
+    /**
+     * Get all locations adjacent to the given location which are empty
+     * @param location the location where to check around
+     * @param ignoreGrass ignore grass // grass will be added to the return
+     * @return the List of empty locations around the given location
+     */
     public List<Location> getOccupiedAdjacentLocations(Location location, boolean ignoreGrass){
         List<Location> free = new LinkedList<Location>();
         List<Location> adjacent = adjacentLocations(location);
@@ -189,8 +182,7 @@ public class Field
      * @param location The location from which to generate adjacencies.
      * @return A list of locations adjacent to that given.
      */
-    public List<Location> adjacentLocations(Location location)
-    {
+    public List<Location> adjacentLocations(Location location) {
         assert location != null : "Null location passed to adjacentLocations";
         // The list of locations to be returned.
         List<Location> locations = new LinkedList<Location>();
@@ -221,8 +213,7 @@ public class Field
      * Return the height of the field.
      * @return The height of the field.
      */
-    public int getHeight()
-    {
+    public int getHeight() {
         return height;
     }
 
@@ -230,8 +221,7 @@ public class Field
      * Return the width of the field.
      * @return The width of the field.
      */
-    public int getWidth()
-    {
+    public int getWidth() {
         return width;
     }
 }

@@ -32,7 +32,9 @@ public class Dodo extends NaturalEntity{
     }
 
     /**
-     * @return
+     * get the age at which the animal is able to breed
+     *
+     * @return breeding age
      */
     @Override
     protected int getBreedingAge() {
@@ -56,7 +58,7 @@ public class Dodo extends NaturalEntity{
      */
     @Override
     protected double getBreedingProbability() {
-        return (propertiesFile.getInt("dodo-BREEDING_PROBABILITY") / 100.0);
+        return (propertiesFile.getIntTransformed("dodo-BREEDING_PROBABILITY"));
     }
 
     /**
@@ -69,6 +71,10 @@ public class Dodo extends NaturalEntity{
         return PREY;
     }
 
+    /**
+     * get the foodlevel with which the animal can survive before having to eat again
+     * @return foodlevel
+     */
     @Override
     protected int getFoodDecayLevel() {
         return propertiesFile.getInt("dodo-FOOD_LEVEL");
