@@ -88,8 +88,7 @@ public class SimulatorView extends JFrame  {
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);
-        animals = controller.fetchClassDefinitions();
-
+        controller.fetchClassDefinitions();
         //noinspection MagicConstant
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

@@ -67,6 +67,7 @@ public class Weather {
      * Returns WeatherType
      * @return weatherType - Type of weather. By example "Sunny"
      */
+    @SuppressWarnings("UnusedDeclaration")
     public String getWeatherType() {
         return weatherType;
     }

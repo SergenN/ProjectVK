@@ -34,7 +34,6 @@ public class Fox extends NaturalEntity implements Sickness {
 
     /**
      * verkrijg de maximum leeftijd van een dier
-     *
      * @return int maximum age
      */
     @Override

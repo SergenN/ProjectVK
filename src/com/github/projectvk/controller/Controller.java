@@ -15,11 +15,9 @@ import java.util.List;
  */
 public class Controller {
     private Simulator simulator;
-    private ControlPanel panel;
     private SimulatorView simulatorView;
     private Listener listener;
     private JStyle jStyle = new JStyle();
-    private GraphView graphView;
     private Statistics statistics;
     private Field field;
     private FieldStats fieldStats;
