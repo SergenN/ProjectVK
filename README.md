@@ -1,6 +1,6 @@
-##Hallo mensen van de hanze,
+##Hallo mensen van de Hanze,
 
-Dit is onze vossen en konijnen project.<br>
+Dit is ons vossen en konijnen project.<br>
 Wij vinden het erg leuk dat jullie onze code willen bekijken.<br>
 Deze code mag alleen gebruikt worden voor educatieve doeleinden.<br>
 **Pls no copy => pasta!<br>**
