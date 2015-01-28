@@ -25,10 +25,10 @@ public abstract class NaturalEntity implements Actor {
     private static final Random rand = Randomizer.getRandom();
 
     /**
-     * Create a new animal at location in field.
-     * f
+     * Create a new entity at location in field.
      * @param field The field currently occupied.
      * @param location The location within the field.
+     * @param age the age of this entity
      */
     public NaturalEntity(Field field, Location location, int age) {
         alive = true;
@@ -324,9 +324,9 @@ public abstract class NaturalEntity implements Actor {
             else {
                 setDead();
             }
-            if(this instanceof Sickness){
-                //System.out.println(((Sickness) this).isSick());
-            }
+            /*if(this instanceof Sickness){
+                System.out.println(((Sickness) this).isSick());
+            }*/
         }
     }
 

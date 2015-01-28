@@ -66,7 +66,7 @@ public class Rabbit extends NaturalEntity implements Sickness {
      */
     @Override
     protected double getBreedingProbability() {
-        return (propertiesFile.getInt("rabbit-BREEDING_PROBABILITY") / 100.0);
+        return (propertiesFile.getIntTransformed("rabbit-BREEDING_PROBABILITY"));
     }
 
     /**

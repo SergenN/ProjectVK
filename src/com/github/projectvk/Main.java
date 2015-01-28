@@ -9,8 +9,6 @@ import com.github.projectvk.view.SimulatorView;
 
 public class Main {
 
-    //private static Simulator simulator;
-
     private static Controller controller;
     private static SimulatorView simulatorView;
     private static Simulator simulator;
@@ -21,19 +19,17 @@ public class Main {
     private static Audio audio;
     public static PropertiesHandler propertiesFile;
 
-    //private static final
-
     /**
-     *
-     * @return
+     * the Simulator handler of the simulation
+     * @return the current simulator handler
      */
     public static Simulator getSimulator() {
         return simulator;
     }
 
     /**
-     *
-     * @return
+     * get the size of the frame
+     * @return int array with the height as 0 and with as 1
      */
     public static int[] getSize() {
         return new int[]{HEIGHT, WIDTH};
