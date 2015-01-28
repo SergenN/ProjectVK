@@ -1,4 +1,0 @@
-Owncloud:
-http://cloud.bwhosting.nl
-user:	projectjava
-passwd: PIV1F
