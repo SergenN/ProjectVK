@@ -1,5 +1,3 @@
-# ProjectVK
-
 ##Hallo mensen van de hanze,
 
 Dit is onze vossen en konijnen project.<br>
