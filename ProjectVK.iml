@@ -6,11 +6,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/img" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/audio" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/Libraries" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="xchart-2.4" level="project" />
-    <orderEntry type="library" name="xchart-2.4.32" level="project" />
-    <orderEntry type="library" name="xchart-demo-2.4.31" level="project" />
+    <orderEntry type="library" name="xchart-demo-2.4.3" level="project" />
+    <orderEntry type="library" name="xchart-2.4.3" level="project" />
   </component>
 </module>
