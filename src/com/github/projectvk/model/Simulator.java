@@ -64,9 +64,7 @@ public class Simulator implements Runnable {
             try {
                 for (Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
                     Actor actor = it.next();
-
                     actor.act(newActors);
-
                     if (actor instanceof NaturalEntity) {
                         NaturalEntity naturalEntity = (NaturalEntity) actor;
 
