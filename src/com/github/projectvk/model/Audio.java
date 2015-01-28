@@ -15,31 +15,48 @@ public class Audio {
 
     private Controller controller;
     AudioInputStream audio;
-    Clip clip;
+    public static Clip clip;
 
-    //private static String getPlayingAudio = "default";
+    private static String getPlayingAudio = "default";
 
+    /**
+     * Constructor to make a Audio model
+     *
+     * @param controller - the linked controller
+     */
     public Audio(Controller controller){
         this.controller = controller;
     }
 
+    /**
+     * Play a sound file
+     *
+     * @param path - this is the location of the sound file. By example "/audio/audiofile.wav"
+     */
     public void playSound(String path)
     {
-                //stopSound();
-                try{
-                    File soundFile =new File(path);
-                    AudioInputStream sound = AudioSystem.getAudioInputStream(soundFile);
-                    // load the sound into memory (a Clip)
-                    clip = AudioSystem.getClip();
-                    clip.open(sound);
-                    clip.start();
-                }
-                catch(Exception e)
-                {
-                    e.printStackTrace();
-                }
+        try{
+            if(!(getPlayingAudio.equals("default")) && !(getPlayingAudio.equals(path))){
+                clip.close();
             }
-//        }
+
+            if(!(getPlayingAudio.equals(path))) {
+                getPlayingAudio = path;
+
+                File soundFile = new File(path);
+                AudioInputStream sound = AudioSystem.getAudioInputStream(soundFile);
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+                clip.start();
+            }
+        }
+            catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+//      }
 //        getPlayingAudio = path;
 //
 //        if(getPlayingAudio != "default") {
@@ -73,10 +90,4 @@ public class Audio {
 //    public void loop(){
 //        clip.loop(Clip.LOOP_CONTINUOUSLY);
     // }
-
-    public void stopSound(){
-        if(clip.isRunning()) {
-            clip.close();
-        }
-    }
 }

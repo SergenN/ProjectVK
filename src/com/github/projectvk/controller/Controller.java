@@ -282,6 +282,4 @@ public class Controller {
 
     public void playSound(String soundPath){ audio.playSound(soundPath); }
 
-    public void stopSound(){ audio.stopSound(); }
-
 }

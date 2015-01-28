@@ -27,9 +27,11 @@ public class GraphView extends JPanel{
     private Map<Class, Color> colors;
 
     /**
-     * Constructor voor het maken van de control panel
+     * Constructor of this GraphView
      *
-     * @param height - Hoogte van de simulator
+     * @param height - Height of the simulator
+     * @param controller - the linked controller
+     * @param colors - Colors of all entities
      */
     public GraphView(int height, Controller controller, Map<Class, Color> colors) {
         this.setBackground(new Color(210, 210, 210));
@@ -44,10 +46,9 @@ public class GraphView extends JPanel{
         this.add(new XChartPanel(chart), BorderLayout.NORTH);
     }
 
-
     /**
      * Returns CharType
-     * @return charType
+     * @return charType - Return the chart type
      */
     public String getChartType(){
         return chartType;
@@ -55,7 +56,7 @@ public class GraphView extends JPanel{
 
     /**
      * Changes the HeaderTitle
-     * @param headerTitle
+     * @param headerTitle - Change the header title of a graph
      */
     public void setHeaderTitle(String headerTitle){
         this.headerTitle = headerTitle;
@@ -109,7 +110,7 @@ public class GraphView extends JPanel{
 
     /**
      * Updates the amount of steps shown
-     * @param newStep
+     * @param newStep - Set text to current step
      */
     public void updateSteps(int newStep){
         currentStep.setText("Step: " + newStep);
@@ -117,7 +118,7 @@ public class GraphView extends JPanel{
 
 
     /**
-     * verkrijg de geprefereerde groote voor deze jPane
+     * Get the preferred size of this jPane
      *
      * @return preferred size of this jPane
      */
@@ -128,7 +129,7 @@ public class GraphView extends JPanel{
 
     /**
      * This methods produces an double array which contains the stepvalue for the x-axis of the graph
-     * @return double[] turns
+     * @return double[] turns - The X axis of the graph
      */
     public double[] calculateTurns(){
         // When there has been more than HISTORY_TURNS steps, only show the last HISTORYTURNS entries
@@ -157,8 +158,8 @@ public class GraphView extends JPanel{
 
     /**
      * Returns a DataChartType ( eg Line ) based on given string
-     * @param dataChartType String -> line, bar, scatter
-     * @return StyleManager.ChartType
+     * @param dataChartType String - line, bar, scatter
+     * @return StyleManager.ChartType - Return a chartype, like bar or line
      */
     public StyleManager.ChartType getGraphChartType(String dataChartType){
         switch (dataChartType){
@@ -185,7 +186,7 @@ public class GraphView extends JPanel{
 
     /**
      * Sets the Datacharttype
-     * @param type
+     * @param type - The wished type
      */
     public void setDataChartType(String type){
         this.dataChartType = type;
@@ -193,7 +194,7 @@ public class GraphView extends JPanel{
 
     /**
      * Gets the Datacharttype
-     * @return
+     * @return dataChartType - The type of a chart
      */
     public String getDataChartType(){
         return dataChartType;
@@ -201,15 +202,13 @@ public class GraphView extends JPanel{
 
     /**
      * Returns a Chart
-     * @param dataChartType
-     * @return
+     * @param dataChartType - What kind of graph do you want? By example: bar, line, scatter
+     * @param dataSource - What do you want the graph to show? By example the deaths of the rabbits
+     * @return chart - This returns the newly built graph
      */
     public Chart getChart(String dataChartType, String dataSource) {
-
         // Put the turn steps in a double array
         double[] turns = calculateTurns();
-
-
 
         // Create Chart
         chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step").yAxisTitle("Amount").build();
@@ -218,7 +217,6 @@ public class GraphView extends JPanel{
         while (it.hasNext()){
             String key = (String)it.next();
 
-
             if (key == "Hunter" && dataSource != "stepsStat") { } else {
                 Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
                 chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).
@@ -226,13 +224,12 @@ public class GraphView extends JPanel{
 
             }
         }
-
         return chart;
     }
 
     /**
-     * This function will call getChart to make a new graph. It also removes the previously drawn graph to improve the performance a bit.
-     * @param chartType
+     * This function will call getChart to make a new graph.
+     * @param chartType - What kind of chart do you want to draw?
      */
     public void drawChart(String chartType){
         this.chartType = chartType;
