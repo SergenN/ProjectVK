@@ -15,14 +15,18 @@ import java.util.List;
  */
 public class Controller {
     private Simulator simulator;
+    private ControlPanel panel;
     private SimulatorView simulatorView;
     private Listener listener;
     private JStyle jStyle = new JStyle();
+    private GraphView graphView;
     private Statistics statistics;
     private Field field;
     private FieldStats fieldStats;
     private Weather weather;
     private Audio audio;
+
+    //private boolean simulatorRunning = false;
 
     /**
      * the constructor of the controller
@@ -40,6 +44,7 @@ public class Controller {
     public void setSimulatorView(SimulatorView simulatorView) {
         this.simulatorView = simulatorView;
     }
+    
 
     /**
      * set the simulator of the controller
@@ -191,7 +196,7 @@ public class Controller {
     /**
      * Returns hashmap of Class.class objects
      *
-     * @return Class[]
+     * @return Class[] classes
      */
     public HashMap<String, Class> fetchClassDefinitions() {
         HashMap<String, Class> classes = new HashMap<String, Class>(){};
@@ -290,10 +295,4 @@ public class Controller {
      * @param soundPath path of sound to play
      */
     public void playSound(String soundPath){ audio.playSound(soundPath); }
-
-    /**
-     * Stop the sound
-     */
-    @SuppressWarnings("UnusedDeclaration")
-    public void stopSound(){ audio.stopSound(); }
 }

@@ -29,16 +29,16 @@ public class Statistics {
 
     /**
      * Constructor
-     * @param controller
+     * @param controller - the linked controller
      */
     public Statistics(Controller controller) {
         this.controller = controller;
     }
 
     /**
-     *
-     * @param type
-     * @return
+     * Retrieve history hashmap by name
+     * @param type - What kind of history do you want to be returned?
+     * @return HashMap - Hashmap which contains data of the last HISTORY_TURNS
      */
     public HashMap<Class, ArrayList<Double>> getHistory(String type){
 
@@ -79,9 +79,9 @@ public class Statistics {
 
     /**
      * Methods to fill the data arrays
-     * @param list
-     * @param animal
-     * @param amount
+     * @param list - Hashmap which contains data of this step
+     * @param animal - The kind of animal you want to retrieve
+     * @param amount - How much should be added to the stats?
      */
     public static void addData(HashMap<Class, ArrayList<Double>> list, Class animal, double amount){
         if(list.get(animal) == null || list.get(animal).isEmpty()){
@@ -119,8 +119,8 @@ public class Statistics {
     }
 
     /**
-     * get the step the simulator is at
-     * @return the current step
+     * Get the current step
+     * @return currentStep - The current step
      */
     public int getCurrentStep(){
         return currentStep;
@@ -128,9 +128,9 @@ public class Statistics {
 
     /**
      * This method is being called when a step is finished. It will add all newly gained data to the history list. This history lists contains all data of the previous HISTORY_TURNS steps.
-     * @param list
-     * @param animal
-     * @param source
+     * @param list - Hashmap with the history steps
+     * @param animal - The kind of animal you want to modify
+     * @param source - Hashmap with data of a step
      */
     public void addDataToHistory(HashMap<Class, ArrayList<Double>> list, Class animal, HashMap<Class, ArrayList<Double>> source){
 
@@ -150,13 +150,10 @@ public class Statistics {
         }
 
         //Setup birth data for graph
-        if(list.get(animal).size() >= HISTORY_TURNS) {
-            list.get(animal).add(source.get(animal).get(0));
-            list.get(animal).remove(0);
-        } else {
-            list.get(animal).add(source.get(animal).get(0));
-        }
-
+//        if(list.get(animal).size() >= HISTORY_TURNS) {
+//            list.get(animal).remove(0);
+//        }
+        list.get(animal).add(source.get(animal).get(0));
         source.get(animal).clear();
     }
 
@@ -185,7 +182,7 @@ public class Statistics {
 
     /**
      * Convert all data to data that can be used for XCharts
-     * @param list
+     * @param list - History hashmap
      * @return
      */
     public double[] convertToGraphData(List<Double> list){

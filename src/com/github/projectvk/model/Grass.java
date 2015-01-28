@@ -99,6 +99,7 @@ public class Grass extends NaturalEntity {
                 multiplier = propertiesFile.getInt("weather-RAIN_GRASS_SPREAD_MULTIPLIER");
                 break;
         }
+
         return propertiesFile.getIntTransformed("grass-SPREAD_PROBABILITY") + multiplier;
     }
 
