@@ -33,8 +33,7 @@ public class Audio {
      *
      * @param path - this is the location of the sound file. By example "/audio/audiofile.wav"
      */
-    public void playSound(String path)
-    {
+    public void playSound(String path) {
         try{
             if(!(getPlayingAudio.equals("default")) && !(getPlayingAudio.equals(path))){
                 clip.close();
@@ -49,9 +48,7 @@ public class Audio {
                 clip.open(sound);
                 clip.start();
             }
-        }
-            catch(Exception e)
-        {
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
