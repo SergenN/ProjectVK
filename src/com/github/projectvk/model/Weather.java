@@ -59,18 +59,6 @@ public class Weather {
 
         // DEBUG
         System.out.println("Next weather change at step " + changeWeatherStep);
-
-        switch (weatherType) {
-            case "sunny":
-                System.out.println("sunny");
-                break;
-            case "snowstorm":
-
-                break;
-            case "rain":
-
-                break;
-        }
     }
 
     /**
