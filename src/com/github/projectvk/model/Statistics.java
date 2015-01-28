@@ -149,10 +149,6 @@ public class Statistics {
             source.get(animal).add(0.0);
         }
 
-        //Setup birth data for graph
-//        if(list.get(animal).size() >= HISTORY_TURNS) {
-//            list.get(animal).remove(0);
-//        }
         list.get(animal).add(source.get(animal).get(0));
         source.get(animal).clear();
     }
@@ -183,7 +179,7 @@ public class Statistics {
     /**
      * Convert all data to data that can be used for XCharts
      * @param list - History hashmap
-     * @return
+     * @return double array met al het geconverteerde data
      */
     public double[] convertToGraphData(List<Double> list){
         // Limitedlist contains the last HISTORY_TURNS (100 standard) values of the history list.

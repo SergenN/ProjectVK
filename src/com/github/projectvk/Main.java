@@ -37,6 +37,7 @@ public class Main {
 
     /**
      * Main methode
+     * @param args de meegegeven parameters bij het starten
      */
     public static void main(String[] args) {
         //Initialize the propertiesfile

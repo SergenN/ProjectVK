@@ -149,6 +149,7 @@ public class Simulator implements Runnable {
 
     /**
      * Start a new thread that runs the run method
+     * @param toStep the step till which the thread has to run
      */
     public void start(int toStep){
         this.toStep = toStep;

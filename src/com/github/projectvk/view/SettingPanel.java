@@ -47,7 +47,7 @@ public class SettingPanel extends JPanel {
      * This will generate a tab from the given Hashmap with keys(labels) and values (slides)
      * Some of the content had to be checked by hand.
      * @param categorie the title of the tab
-     * @param dataMap the settings hashmap in key -> value order
+     * @param dataMap the settings hashmap in key , value order
      */
     private void generateTab(String categorie, HashMap<String, Integer> dataMap){
         JPanel panel = createTab(categorie.toLowerCase());

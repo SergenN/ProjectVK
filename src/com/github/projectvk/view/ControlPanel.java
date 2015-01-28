@@ -23,7 +23,8 @@ public class ControlPanel extends JPanel{
     /**
      * Constructor voor het maken van de control panel
      *
-     * @param height - Hoogte van de simulator
+     * @param height Hoogte van de simulator
+     * @param controller instantie van de controller
      */
     public ControlPanel(int height, Controller controller) {
 

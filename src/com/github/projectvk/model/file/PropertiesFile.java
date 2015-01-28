@@ -33,11 +33,10 @@ public class PropertiesFile {
 
     /**
      * Load a new propertiesfile into the system
-     * @throws IOException
+     * @throws IOException throws an exception if something goes wrong with the stream closing or file input stream
      */
     public void load() throws IOException {
         FileInputStream stream = null;
-
         try {
             stream = new FileInputStream(fileName);
             props.load(stream);

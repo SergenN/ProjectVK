@@ -31,7 +31,7 @@ public class SimulatorView extends JFrame  {
 
     /**
      * Contstructor to use default window settings
-     * @param controller
+     * @param controller the controller instance
      */
     @SuppressWarnings("UnusedDeclaration")
     public SimulatorView(Controller controller){
@@ -138,7 +138,6 @@ public class SimulatorView extends JFrame  {
     /**
      * Show the current status of the field.
      * @param step Which iteration step it is.
-     * @param //field The field whose status is to be displayed.
      */
     public void showStatus(int step) {
         graphView.drawChart(graphView.getDataChartType());

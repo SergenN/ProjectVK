@@ -21,6 +21,8 @@ public class FieldView extends JPanel {
 
     /**
      * Create a new FieldView component.
+     * @param height height of the FieldView
+     * @param width width of the FieldView
      */
     public FieldView(int height, int width) {
         gridHeight = height;
@@ -58,6 +60,9 @@ public class FieldView extends JPanel {
 
     /**
      * Paint on grid location on this field in a given color.
+     * @param x the x location on the grid
+     * @param y the y location on the grid
+     * @param color the color to be drawn
      */
     public void drawMark(int x, int y, Color color) {
         g.setColor(color);

@@ -98,6 +98,7 @@ public class Field
      * The returned location will be within the valid bounds
      * of the field.
      * @param location The location from which to generate an adjacency.
+     * @param ignoreGrass to see the grass as an empty tile
      * @return A valid location within the grid area.
      */
     public Location freeAdjacentLocation(Location location, boolean ignoreGrass) {

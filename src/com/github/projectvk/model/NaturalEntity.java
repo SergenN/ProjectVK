@@ -178,6 +178,7 @@ public abstract class NaturalEntity implements Actor {
 
     /**
      * Increase the age. This could result in the entity's death.
+     * @return the new age of the entity
      */
     protected int incrementAge() {
         setAge(getAge() + 1);
@@ -189,6 +190,7 @@ public abstract class NaturalEntity implements Actor {
 
     /**
      * A fox can breed if it has reached the breeding age.
+     * @return true if the entity can breed or spread
      */
     protected boolean canBreed() {
         return ((getAge() >= getBreedingAge()) && (getFoodLevel() >= getMinimalBreedFood()));

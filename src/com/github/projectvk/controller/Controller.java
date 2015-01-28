@@ -233,9 +233,9 @@ public class Controller {
     }
 
     /**
-     *
-     * @param type
-     * @return
+     * get the hirtory of the graph
+     * @param type the type of history you want to retreive
+     * @return a hashmap with the class of the history and the arrray of the data in it.
      */
     public HashMap<Class, ArrayList<Double>> getHistory(String type){ return statistics.getHistory(type);}
 
