@@ -51,7 +51,7 @@ public class Main {
         controller.setStatistics(statistics);
 
         // Create Audio class
-        audio = new Audio(controller);
+        audio = new Audio();
         controller.setAudio(audio);
 
         // Create View

@@ -1,7 +1,5 @@
 package com.github.projectvk.model;
 
-import com.github.projectvk.controller.Controller;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -12,21 +10,9 @@ import java.io.File;
  * Class: Audio
  */
 public class Audio {
-
-    private Controller controller;
-    AudioInputStream audio;
     public static Clip clip;
 
     private static String getPlayingAudio = "default";
-
-    /**
-     * Constructor to make a Audio model
-     *
-     * @param controller - the linked controller
-     */
-    public Audio(Controller controller){
-        this.controller = controller;
-    }
 
     /**
      * Play a sound file

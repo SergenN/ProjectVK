@@ -50,6 +50,7 @@ public class GraphView extends JPanel{
      * Returns CharType
      * @return charType - Return the chart type
      */
+    @SuppressWarnings("UnusedDeclaration")
     public String getChartType(){
         return chartType;
     }
