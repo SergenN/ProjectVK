@@ -15,11 +15,31 @@ public class Statistics {
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
     public static double HISTORY_TURNS = 1;
 
+    /*
+
+        map     fox     new     alive   9001
+    * HashMap<Class, LinkedList<String, Double>>()
+
+    Data    Classes         Alive       Double
+    * HashMap<Class, HashMap<String, List<Double>>>()
+
+    1         class.size()   4      20
+    So that'll be max 80 objects in a list at a given time
+
+
+
+
+     */
+
+
+
+    // Todo Change this to LinkedLists
     public static HashMap<Class, ArrayList<Double>> deaths = new HashMap<>();
     public static HashMap<Class, ArrayList<Double>> births = new HashMap<>();
     public static HashMap<Class, ArrayList<Double>> steps = new HashMap<>();
     public static HashMap<Class, ArrayList<Double>> alive = new HashMap<>();
 
+    // TODO Just delete these
     private HashMap<Class, ArrayList<Double>> deathsHistory = new HashMap<>();
     private HashMap<Class, ArrayList<Double>> birthsHistory = new HashMap<>();
     private HashMap<Class, ArrayList<Double>> stepsHistory = new HashMap<>();
@@ -85,7 +105,7 @@ public class Statistics {
      */
     public static void addData(HashMap<Class, ArrayList<Double>> list, Class animal, double amount){
         if(list.get(animal) == null || list.get(animal).isEmpty()){
-            list.put(animal, new ArrayList<Double>());
+            list.put(animal, new ArrayList<>());
             list.get(animal).add(0.0);
         }
         list.get(animal).set(0, list.get(animal).get(0) + amount);
