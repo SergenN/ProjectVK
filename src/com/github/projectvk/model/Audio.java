@@ -55,39 +55,4 @@ public class Audio {
             e.printStackTrace();
         }
     }
-
-//      }
-//        getPlayingAudio = path;
-//
-//        if(getPlayingAudio != "default") {
-//            System.out.println(path + "|" + getPlayingAudio + " | Same: " + path.equals(getPlayingAudio));
-//            if(!(path.equals(getPlayingAudio))){
-//                System.out.println("STOP DE SOUND");
-//                stopSound();
-//            } else {
-//                try{
-//                    File soundFile =new File(path);
-//                    AudioInputStream sound = AudioSystem.getAudioInputStream(soundFile);
-//                    // load the sound into memory (a Clip)
-//                    clip = AudioSystem.getClip();
-//                    clip.open(sound);
-//                    clip.start();
-//                }
-//                catch(Exception e)
-//                {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//        getPlayingAudio = path;
-//    }
-
-    // play, stop, loop the sound clip
-//    public void play(){
-//        clip.setFramePosition(0);  // Must always rewind!
-//        clip.start();
-//    }
-//    public void loop(){
-//        clip.loop(Clip.LOOP_CONTINUOUSLY);
-    // }
 }
