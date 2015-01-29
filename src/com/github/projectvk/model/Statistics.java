@@ -4,6 +4,7 @@ import com.github.projectvk.controller.Controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,15 +16,15 @@ public class Statistics {
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
     public static double HISTORY_TURNS = 1;
 
-    public static HashMap<Class, ArrayList<Double>> deaths = new HashMap<>();
-    public static HashMap<Class, ArrayList<Double>> births = new HashMap<>();
-    public static HashMap<Class, ArrayList<Double>> steps = new HashMap<>();
-    public static HashMap<Class, ArrayList<Double>> alive = new HashMap<>();
+    public static HashMap<Class, LinkedList<Double>> deaths = new HashMap<>();
+    public static HashMap<Class, LinkedList<Double>> births = new HashMap<>();
+    public static HashMap<Class, LinkedList<Double>> steps = new HashMap<>();
+    public static HashMap<Class, LinkedList<Double>> alive = new HashMap<>();
 
-    private HashMap<Class, ArrayList<Double>> deathsHistory = new HashMap<>();
-    private HashMap<Class, ArrayList<Double>> birthsHistory = new HashMap<>();
-    private HashMap<Class, ArrayList<Double>> stepsHistory = new HashMap<>();
-    private HashMap<Class, ArrayList<Double>> aliveHistory = new HashMap<>();
+    private HashMap<Class, LinkedList<Double>> deathsHistory = new HashMap<>();
+    private HashMap<Class, LinkedList<Double>> birthsHistory = new HashMap<>();
+    private HashMap<Class, LinkedList<Double>> stepsHistory = new HashMap<>();
+    private HashMap<Class, LinkedList<Double>> aliveHistory = new HashMap<>();
 
     private int currentStep = 0;
 
@@ -40,7 +41,7 @@ public class Statistics {
      * @param type - What kind of history do you want to be returned?
      * @return HashMap - Hashmap which contains data of the last HISTORY_TURNS
      */
-    public HashMap<Class, ArrayList<Double>> getHistory(String type){
+    public HashMap<Class, LinkedList<Double>> getHistory(String type){
 
         if(type.equals("deathsHistory")) {
             return deathsHistory;
@@ -83,9 +84,9 @@ public class Statistics {
      * @param animal - The kind of animal you want to retrieve
      * @param amount - How much should be added to the stats?
      */
-    public static void addData(HashMap<Class, ArrayList<Double>> list, Class animal, double amount){
+    public static void addData(HashMap<Class, LinkedList<Double>> list, Class animal, double amount){
         if(list.get(animal) == null || list.get(animal).isEmpty()){
-            list.put(animal, new ArrayList<Double>());
+            list.put(animal, new LinkedList<Double>());
             list.get(animal).add(0.0);
         }
         list.get(animal).set(0, list.get(animal).get(0) + amount);
@@ -132,16 +133,16 @@ public class Statistics {
      * @param animal - The kind of animal you want to modify
      * @param source - Hashmap with data of a step
      */
-    public void addDataToHistory(HashMap<Class, ArrayList<Double>> list, Class animal, HashMap<Class, ArrayList<Double>> source){
+    public void addDataToHistory(HashMap<Class, LinkedList<Double>> list, Class animal, HashMap<Class, LinkedList<Double>> source){
 
         // Catch error codes
         if(list.get(animal) == null){
-            list.put(animal, new ArrayList<>());
+            list.put(animal, new LinkedList<>());
             list.get(animal).add(0.0);
         }
 
         if(source.get(animal) == null) {
-            source.put(animal, new ArrayList<>());
+            source.put(animal, new LinkedList<>());
             source.get(animal).add(0.0);
         }
 

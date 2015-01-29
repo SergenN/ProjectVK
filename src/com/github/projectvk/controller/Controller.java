@@ -6,6 +6,7 @@ import com.github.projectvk.view.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -235,7 +236,7 @@ public class Controller {
      * @param type the type of history you want to retreive
      * @return a hashmap with the class of the history and the arrray of the data in it.
      */
-    public HashMap<Class, ArrayList<Double>> getHistory(String type){ return statistics.getHistory(type);}
+    public HashMap<Class, LinkedList<Double>> getHistory(String type){ return statistics.getHistory(type);}
 
     /**
      * Convert the graph data from list to double array
