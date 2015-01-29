@@ -175,6 +175,14 @@ public class Statistics {
         addDataToHistory(aliveHistory, Dodo.class, alive);
         addDataToHistory(aliveHistory, Rabbit.class, alive);
         addDataToHistory(aliveHistory, Hunter.class, alive);
+
+        LinkedList<Double> test = aliveHistory.get(Fox.class);
+
+        while (aliveHistory.get(Fox.class).size() > 20){
+            aliveHistory.get(Fox.class).removeFirst();
+            System.out.println("Removing an entry");
+        }
+
     }
 
     /**
