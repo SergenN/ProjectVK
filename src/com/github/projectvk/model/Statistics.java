@@ -16,6 +16,8 @@ public class Statistics {
     // Bepaal voor hoe lang de geschiedenis van de data moet worden (standaard laatste 100 turns)
     public static double HISTORY_TURNS = 1;
 
+    public static LinkedList<HashMap<Class, LinkedList<Double>>> history = new LinkedList<>();
+    public static LinkedList<HashMap<Class, LinkedList<Double>>> stepHistory = new LinkedList<>();
     public static HashMap<Class, LinkedList<Double>> deaths = new HashMap<>();
     public static HashMap<Class, LinkedList<Double>> births = new HashMap<>();
     public static HashMap<Class, LinkedList<Double>> steps = new HashMap<>();
@@ -26,6 +28,8 @@ public class Statistics {
     private HashMap<Class, LinkedList<Double>> stepsHistory = new HashMap<>();
     private HashMap<Class, LinkedList<Double>> aliveHistory = new HashMap<>();
 
+
+
     private int currentStep = 0;
 
     /**
@@ -34,6 +38,19 @@ public class Statistics {
      */
     public Statistics(Controller controller) {
         this.controller = controller;
+
+        history.add(deathsHistory);
+        history.add(birthsHistory);
+        history.add(stepsHistory);
+        history.add(aliveHistory);
+
+        stepHistory.add(deaths);
+        stepHistory.add(births);
+        stepHistory.add(steps);
+        stepHistory.add(alive);
+
+
+
     }
 
     /**
@@ -176,11 +193,16 @@ public class Statistics {
         addDataToHistory(aliveHistory, Rabbit.class, alive);
         addDataToHistory(aliveHistory, Hunter.class, alive);
 
-        LinkedList<Double> test = aliveHistory.get(Fox.class);
+      //  controller.fetchClassDefinitions().forEach((i,c) -> history.forEach((k,v) -> addDataToHistory(v, c, stepHistory.get(k))));
 
-        while (aliveHistory.get(Fox.class).size() > 20){
-            aliveHistory.get(Fox.class).removeFirst();
-            System.out.println("Removing an entry");
+        /*for (int i=0; i<controller.fetchClassDefinitions().size();i++){
+            for (int j=0; j<history.size(); j++){
+                addDataToHistory(history.get(j), controller.fetchClassDefinitions().get(i), stepHistory.get(j));
+            }*/
+
+
+        while (stepsHistory.get(Rabbit.class).size() > 20) {
+            history.forEach((k) -> k.forEach((m, n) -> n.removeFirst()));
         }
 
     }
