@@ -212,6 +212,12 @@ public class Statistics {
      * @return double array met al het geconverteerde data
      */
     public double[] convertToGraphData(List<Double> list){
+
+        // If the history list is empty, then fill it with data to prevent errors.
+        if(list == null || list.isEmpty()){
+            return new double[]{0};
+        }
+        
         double[] toReturn = new double[list.size()];
         for (int i = 0; i < list.size(); i++) {
             toReturn[i] = list.get(i);
