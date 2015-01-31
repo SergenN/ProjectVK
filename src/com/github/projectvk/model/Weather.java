@@ -59,7 +59,7 @@ public class Weather {
         changeWeatherStep = controller.getCurrentSteps() + rand.nextInt(MAX_WEATHER_STEP) + MIN_WEATHER_STEP;
 
         // DEBUG
-        System.out.println("Next weather change at step " + changeWeatherStep);
+       // System.out.println("Next weather change at step " + changeWeatherStep);
     }
 
     // Getter and setter for the weather type

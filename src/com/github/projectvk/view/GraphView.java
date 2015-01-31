@@ -8,6 +8,7 @@ import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
@@ -135,16 +136,13 @@ public class GraphView extends JPanel{
     public double[] calculateTurns(){
         // When there has been more than HISTORY_TURNS steps, only show the last HISTORYTURNS entries
         if(controller.getCurrentSteps() >= (int)controller.getMaxTurns()) {
-            double[] turns_temp = new double[(int)controller.getMaxTurns()];
-
-            int currentValue = controller.getCurrentSteps() - (int)controller.getMaxTurns();
-
-            for(int i = 0; i < controller.getMaxTurns(); i++){
+            double[] turns_temp = new double[(int) controller.getMaxTurns()];
+            int currentValue = controller.getCurrentSteps() - (int) controller.getMaxTurns();
+            for (int i = 0; i < controller.getMaxTurns(); i++) {
                 turns_temp[i] = currentValue;
                 currentValue++;
             }
             return turns_temp;
-
         } else {
             // When we're still below HISTORY_TURNS, show turns from 0 to current stepvalue
             double[] turns_temp = new double[controller.getCurrentSteps() + 1];
@@ -152,7 +150,6 @@ public class GraphView extends JPanel{
             for (int i = 0; i < turns_temp.length; i++){
                 turns_temp[i] = i;
             }
-
             return turns_temp;
         }
     }
@@ -173,7 +170,6 @@ public class GraphView extends JPanel{
                 return StyleManager.ChartType.Scatter;
             default:
                 return StyleManager.ChartType.Bar;
-
         }
     }
 

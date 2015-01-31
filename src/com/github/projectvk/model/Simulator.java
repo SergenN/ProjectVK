@@ -55,7 +55,6 @@ public class Simulator implements Runnable {
             nextWeatherEvent = controller.getWeatherStep();
         }
 
-        controller.resetData();
         step++;
 
         // Provide space for newborn animals.
