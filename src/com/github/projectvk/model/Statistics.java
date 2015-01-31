@@ -114,10 +114,12 @@ public class Statistics {
      */
     public void resetData(){
         currentStep++;
-        births.clear();
+        /*births.clear();
         steps.clear();
         deaths.clear();
         alive.clear();
+        */
+        stepHistory.forEach(l -> l.forEach((k,v) -> v.clear()));
     }
 
     /**
@@ -168,7 +170,7 @@ public class Statistics {
         }
 
         list.get(animal).add(source.get(animal).get(0));
-        source.get(animal).clear();
+
     }
 
     /**
@@ -193,13 +195,7 @@ public class Statistics {
         addDataToHistory(aliveHistory, Rabbit.class, alive);
         addDataToHistory(aliveHistory, Hunter.class, alive);
 
-      //  controller.fetchClassDefinitions().forEach((i,c) -> history.forEach((k,v) -> addDataToHistory(v, c, stepHistory.get(k))));
-
-        /*for (int i=0; i<controller.fetchClassDefinitions().size();i++){
-            for (int j=0; j<history.size(); j++){
-                addDataToHistory(history.get(j), controller.fetchClassDefinitions().get(i), stepHistory.get(j));
-            }*/
-
+        resetData();
 
         while (stepsHistory.get(Rabbit.class).size() > 20) {
             history.forEach((k) -> k.forEach((m, n) -> n.removeFirst()));

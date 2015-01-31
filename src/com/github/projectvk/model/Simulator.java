@@ -83,6 +83,7 @@ public class Simulator implements Runnable {
         //
         controller.showStatus(step);
 
+
         //view.showStatus(step, field);
     }
         
