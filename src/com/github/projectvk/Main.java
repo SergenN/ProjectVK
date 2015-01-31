@@ -45,7 +45,7 @@ public class Main {
 
         // Create Controller Object
         controller = new Controller();
-
+        
         // Create statistics
         statistics = new Statistics(controller);
         controller.setStatistics(statistics);
