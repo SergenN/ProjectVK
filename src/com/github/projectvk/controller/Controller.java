@@ -4,7 +4,6 @@ import com.github.projectvk.Main;
 import com.github.projectvk.model.*;
 import com.github.projectvk.view.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;

@@ -127,8 +127,7 @@ public class ControlPanel extends JPanel{
                 break;
         }
     }
-
-    /**
+     /**
      * Disables buttons while the simulation is running running
      * Enables the buttons when the simulation is finished.
      */

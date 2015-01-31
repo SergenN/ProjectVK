@@ -2,7 +2,6 @@ package com.github.projectvk.model;
 
 import com.github.projectvk.controller.Controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -103,7 +102,7 @@ public class Statistics {
      */
     public static void addData(HashMap<Class, LinkedList<Double>> list, Class animal, double amount){
         if(list.get(animal) == null || list.get(animal).isEmpty()){
-            list.put(animal, new LinkedList<Double>());
+            list.put(animal, new LinkedList<>());
             list.get(animal).add(0.0);
         }
         list.get(animal).set(0, list.get(animal).get(0) + amount);
@@ -209,7 +208,20 @@ public class Statistics {
      * @return double array met al het geconverteerde data
      */
     public double[] convertToGraphData(List<Double> list){
-        // Limitedlist contains the last HISTORY_TURNS (100 standard) values of the history list.
+
+        // If the history list is empty, then fill it with data to prevent errors.
+        if(list == null || list.isEmpty()){
+            return new double[]{0};
+        }
+        
+        double[] toReturn = new double[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            toReturn[i] = list.get(i);
+        }
+        return toReturn;
+    }
+       
+       /*// Limitedlist contains the last HISTORY_TURNS (100 standard) values of the history list.
         List<Double> limitedList = new ArrayList<>();
         // If the history list is empty, then fill it with data to prevent errors.
         if(list == null || list.isEmpty()){
@@ -230,5 +242,5 @@ public class Statistics {
             returnDouble[i] = limitedList.get(i);
         }
         return returnDouble;
-    }
+    }*/
 }
