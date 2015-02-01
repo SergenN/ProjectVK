@@ -18,7 +18,6 @@ public class GraphView extends JPanel{
     private int height;
     private Controller controller;
     protected JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton, areaStatButton;
-    private JLabel currentStep;
     private JStyle jStyle;
     private Chart chart;
     private String dataSource = "stepsHistory";
@@ -74,55 +73,42 @@ public class GraphView extends JPanel{
         ImageIcon scatterIcon = new ImageIcon("img/scatter.png");
         ImageIcon areaIcon = new ImageIcon("img/area.png");
 
-
-        // Show current step
-        currentStep = new JLabel("currentStep");
-        jStyle.headerStyle(currentStep, this, 20, 428, 100, 30, new Color(152, 152, 152),12);
-
         // Births button
         birthsStat = new JButton("Births");
-        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 120, 404, 80, 30);
+        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 83, 404, 80, 30);
 
         // Deaths button
         deathsStat = new JButton("Deaths");
 
-        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 220, 404, 80, 30);
+        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 183, 404, 80, 30);
 
         // Steps button
         stepsStat = new JButton("Steps");
-        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 320, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 283, 404, 80, 30);
 
         // Alive button
         stepsStat = new JButton("Alive");
-        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 420, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 383, 404, 80, 30);
 
         //Line Button
         lineStatButton = new JButton("");
-        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 120, 445, 80, 30);
+        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 83, 445, 80, 30);
         lineStatButton.setIcon(lineIcon);
 
         //Scatter Button
         scatterStatButton = new JButton("");
-        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 220, 445, 80, 30);
+        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 183, 445, 80, 30);
         scatterStatButton.setIcon(scatterIcon);
 
         //Bar Button
         barStatButton = new JButton("");
-        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 320, 445, 80, 30);
+        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 283, 445, 80, 30);
         barStatButton.setIcon(barIcon);
 
         //Area Button
         areaStatButton = new JButton("");
-        jStyle.buttonStyle(areaStatButton, "drawArea",controller, this, 420, 445, 80, 30);
+        jStyle.buttonStyle(areaStatButton, "drawArea",controller, this, 383, 445, 80, 30);
         areaStatButton.setIcon(areaIcon);
-    }
-
-    /**
-     * Updates the amount of steps shown
-     * @param newStep - Set text to current step
-     */
-    public void updateSteps(int newStep){
-        currentStep.setText("Step: " + newStep);
     }
 
     /**
@@ -215,7 +201,7 @@ public class GraphView extends JPanel{
         double[] turns = calculateTurns();
 
         // Create Chart
-        chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step").yAxisTitle("Amount").build();
+        chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step (Currently " + controller.getCurrentSteps() + ")").yAxisTitle("Amount").build();
         Set<String> it = controller.fetchClassDefinitions().keySet();
         for (String key : it){
             if (!(key.equalsIgnoreCase("Hunter") && !dataSource.equalsIgnoreCase("stepsStat"))) {
@@ -231,10 +217,9 @@ public class GraphView extends JPanel{
      * @param chartType - What kind of chart do you want to draw?
      */
     public void drawChart(String chartType){
-        this.remove(9);
+        this.remove(8);
         this.chartType = chartType;
         this.chart = getChart(dataChartType, dataSource);
         this.add(new XChartPanel(chart), BorderLayout.NORTH);
-        updateSteps(controller.getCurrentSteps());
     }
 }
