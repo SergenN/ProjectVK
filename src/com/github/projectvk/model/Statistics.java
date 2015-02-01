@@ -187,7 +187,7 @@ public class Statistics {
         addDataToHistory(aliveHistory, Rabbit.class, alive);
         addDataToHistory(aliveHistory, Hunter.class, alive);
 
-        resetData();
+       // resetData();
 
         while (stepsHistory.get(Rabbit.class).size() > 20) {
             history.forEach((k) -> k.forEach((m, n) -> n.removeFirst()));
@@ -202,7 +202,7 @@ public class Statistics {
      */
     public double[] convertToGraphData(List<Double> list){
         // Limitedlist contains the last HISTORY_TURNS (100 standard) values of the history list.
-        List<Double> limitedList = new ArrayList<>();
+        List<Double> limitedList = new LinkedList<>();
 
         // If the history list is empty, then fill it with data to prevent errors.
         if(list == null || list.isEmpty()){
