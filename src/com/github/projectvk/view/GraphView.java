@@ -204,9 +204,19 @@ public class GraphView extends JPanel{
         chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step (Currently " + controller.getCurrentSteps() + ")").yAxisTitle("Amount").build();
         Set<String> it = controller.fetchClassDefinitions().keySet();
         for (String key : it){
-            if (!(key.equalsIgnoreCase("Hunter") && !dataSource.equalsIgnoreCase("stepsStat"))) {
+//            if (!(key.equalsIgnoreCase("Hunter") && !dataSource.equalsIgnoreCase("stepsStat"))) {
+//                Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
+//                chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).setLineColor(classColor).setMarkerColor(classColor);
+//            }
+
+            if(headerTitle.equals("Steps")){
                 Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
                 chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).setLineColor(classColor).setMarkerColor(classColor);
+            } else {
+                if (!(key.equalsIgnoreCase("Hunter"))) {
+                    Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
+                    chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).setLineColor(classColor).setMarkerColor(classColor);
+                }
             }
         }
         return chart;

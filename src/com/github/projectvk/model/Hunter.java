@@ -3,6 +3,9 @@ package com.github.projectvk.model;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.github.projectvk.model.Statistics.addData;
+import static com.github.projectvk.model.Statistics.steps;
+
 public class Hunter implements Actor {
     private Field field;
     private Location location;
@@ -76,6 +79,7 @@ public class Hunter implements Actor {
         // See if it was possible to move.
         if(newLocation != null) {
             setLocation(newLocation);
+            addData(steps, this.getClass(), 1);
         }
     }
 
