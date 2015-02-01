@@ -137,6 +137,10 @@ public class Controller {
                 simulatorView.getGraphView().setDataChartType("area");
                 setStatisticHistoryTurns(20);
                 break;
+            case "pieChart":
+                simulatorView.getGraphView().setDataChartType("pie");
+                setStatisticHistoryTurns(1);
+                break;
         }
     }
 
@@ -264,6 +268,7 @@ public class Controller {
     /**
      * reset the data of the statistics
      */
+    @SuppressWarnings("UnusedDeclaration")
     public void resetData(){ statistics.resetData();}
 
     /**
