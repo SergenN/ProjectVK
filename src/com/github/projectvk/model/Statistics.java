@@ -111,7 +111,7 @@ public class Statistics {
         deaths.clear();
         alive.clear();
         */
-        stepHistory.forEach(l -> l.forEach((k,v) -> v.clear()));
+        stepHistory.forEach(l -> l.forEach((k,v) -> v.set(0, 0.0)));
     }
 
     /**
