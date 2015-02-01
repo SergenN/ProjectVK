@@ -17,7 +17,7 @@ public class GraphView extends JPanel{
     private static final int GRID_VIEW_SCALING_FACTOR = 6;
     private int height;
     private Controller controller;
-    protected JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton, areaStatButton;
+    protected JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton, areaStatButton, pieStatButton;
     private JStyle jStyle;
     private Chart chart;
     private String dataSource = "stepsHistory";
@@ -72,43 +72,49 @@ public class GraphView extends JPanel{
         ImageIcon barIcon = new ImageIcon("img/bar.png");
         ImageIcon scatterIcon = new ImageIcon("img/scatter.png");
         ImageIcon areaIcon = new ImageIcon("img/area.png");
+        ImageIcon pieIcon = new ImageIcon("img/piechart.png");
 
         // Births button
         birthsStat = new JButton("Births");
-        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 83, 404, 80, 30);
+        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 110, 404, 80, 30);
 
         // Deaths button
         deathsStat = new JButton("Deaths");
 
-        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 183, 404, 80, 30);
+        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 210, 404, 80, 30);
 
         // Steps button
         stepsStat = new JButton("Steps");
-        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 283, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 310, 404, 80, 30);
 
         // Alive button
         stepsStat = new JButton("Alive");
-        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 383, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 410, 404, 80, 30);
 
         //Line Button
         lineStatButton = new JButton("");
-        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 83, 445, 80, 30);
+        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 60, 445, 80, 30);
         lineStatButton.setIcon(lineIcon);
 
         //Scatter Button
         scatterStatButton = new JButton("");
-        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 183, 445, 80, 30);
+        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 160, 445, 80, 30);
         scatterStatButton.setIcon(scatterIcon);
 
         //Bar Button
         barStatButton = new JButton("");
-        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 283, 445, 80, 30);
+        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 260, 445, 80, 30);
         barStatButton.setIcon(barIcon);
 
         //Area Button
         areaStatButton = new JButton("");
-        jStyle.buttonStyle(areaStatButton, "drawArea",controller, this, 383, 445, 80, 30);
+        jStyle.buttonStyle(areaStatButton, "drawArea",controller, this, 360, 445, 80, 30);
         areaStatButton.setIcon(areaIcon);
+
+        //Pie Chart Button
+        pieStatButton = new JButton("");
+        jStyle.buttonStyle(pieStatButton, "pieChart",controller, this, 458, 445, 80, 30);
+        pieStatButton.setIcon(pieIcon);
     }
 
     /**
@@ -227,7 +233,7 @@ public class GraphView extends JPanel{
      * @param chartType - What kind of chart do you want to draw?
      */
     public void drawChart(String chartType){
-        this.remove(8);
+        this.remove(9);
         this.chartType = chartType;
         this.chart = getChart(dataChartType, dataSource);
         this.add(new XChartPanel(chart), BorderLayout.NORTH);
