@@ -17,7 +17,7 @@ public class GraphView extends JPanel{
     private static final int GRID_VIEW_SCALING_FACTOR = 6;
     private int height;
     private Controller controller;
-    protected JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton;
+    protected JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton, areaStatButton;
     private JLabel currentStep;
     private JStyle jStyle;
     private Chart chart;
@@ -72,42 +72,49 @@ public class GraphView extends JPanel{
         ImageIcon lineIcon = new ImageIcon("img/line.png");
         ImageIcon barIcon = new ImageIcon("img/bar.png");
         ImageIcon scatterIcon = new ImageIcon("img/scatter.png");
+        ImageIcon areaIcon = new ImageIcon("img/area.png");
+
 
         // Show current step
         currentStep = new JLabel("currentStep");
-        jStyle.headerStyle(currentStep, this, 20, 455, 100, 30, new Color(161, 161, 161),14);
+        jStyle.headerStyle(currentStep, this, 20, 428, 100, 30, new Color(152, 152, 152),12);
 
         // Births button
         birthsStat = new JButton("Births");
-        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 83, 404, 80, 30);
+        jStyle.buttonStyle(birthsStat, "birthsStat",controller, this, 120, 404, 80, 30);
 
         // Deaths button
         deathsStat = new JButton("Deaths");
 
-        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 183, 404, 80, 30);
+        jStyle.buttonStyle(deathsStat, "deathsStat",controller, this, 220, 404, 80, 30);
 
         // Steps button
         stepsStat = new JButton("Steps");
-        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 283, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "stepsStat",controller, this, 320, 404, 80, 30);
 
         // Alive button
         stepsStat = new JButton("Alive");
-        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 383, 404, 80, 30);
+        jStyle.buttonStyle(stepsStat, "aliveStat",controller, this, 420, 404, 80, 30);
 
         //Line Button
         lineStatButton = new JButton("");
-        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 133, 445, 80, 30);
+        jStyle.buttonStyle(lineStatButton, "drawLine",controller, this, 120, 445, 80, 30);
         lineStatButton.setIcon(lineIcon);
 
         //Scatter Button
         scatterStatButton = new JButton("");
-        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 233, 445, 80, 30);
+        jStyle.buttonStyle(scatterStatButton, "drawScatter",controller, this, 220, 445, 80, 30);
         scatterStatButton.setIcon(scatterIcon);
 
         //Bar Button
         barStatButton = new JButton("");
-        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 333, 445, 80, 30);
+        jStyle.buttonStyle(barStatButton, "drawBar",controller, this, 320, 445, 80, 30);
         barStatButton.setIcon(barIcon);
+
+        //Area Button
+        areaStatButton = new JButton("");
+        jStyle.buttonStyle(areaStatButton, "drawArea",controller, this, 420, 445, 80, 30);
+        areaStatButton.setIcon(areaIcon);
     }
 
     /**
@@ -117,7 +124,6 @@ public class GraphView extends JPanel{
     public void updateSteps(int newStep){
         currentStep.setText("Step: " + newStep);
     }
-
 
     /**
      * Get the preferred size of this jPane
@@ -161,13 +167,14 @@ public class GraphView extends JPanel{
      */
     public StyleManager.ChartType getGraphChartType(String dataChartType){
         switch (dataChartType){
-
             case "line":
                 return StyleManager.ChartType.Line;
             case "bar":
                 return StyleManager.ChartType.Bar;
             case "scatter":
                 return StyleManager.ChartType.Scatter;
+            case "area":
+                return StyleManager.ChartType.Area;
             default:
                 return StyleManager.ChartType.Bar;
         }
@@ -224,6 +231,7 @@ public class GraphView extends JPanel{
      * @param chartType - What kind of chart do you want to draw?
      */
     public void drawChart(String chartType){
+        this.remove(9);
         this.chartType = chartType;
         this.chart = getChart(dataChartType, dataSource);
         this.add(new XChartPanel(chart), BorderLayout.NORTH);
