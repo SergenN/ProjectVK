@@ -12,8 +12,8 @@ public class Main {
     private static Controller controller;
     private static SimulatorView simulatorView;
     private static Simulator simulator;
-    private static final int HEIGHT = 80;
-    private static final int WIDTH = 100;
+    private static final int HEIGHT = 82;
+    private static final int WIDTH = 102;
     private static Statistics statistics;
     private static Weather weather;
     private static Audio audio;

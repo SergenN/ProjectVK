@@ -186,7 +186,7 @@ public class Simulator implements Runnable {
      */
     @Override
     public void run() {
-        while (running && controller.getFieldStats().isViable(new Field(0, 0))) {
+        while (running && controller.getFieldStats().isViable(field)) {
             if (toStep < 0 || toStep != -1) {
                 Main.getSimulator().simulateOneStep();
                 try {
