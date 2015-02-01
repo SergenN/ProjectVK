@@ -33,6 +33,7 @@ public class Audio {
                 clip = AudioSystem.getClip();
                 clip.open(sound);
                 clip.start();
+                clip.loop(100);
             }
         } catch(Exception e) {
             e.printStackTrace();

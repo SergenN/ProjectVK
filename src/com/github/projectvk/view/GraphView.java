@@ -207,7 +207,7 @@ public class GraphView extends JPanel{
         double[] turns = calculateTurns();
 
         // Create Chart
-        chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step (Currently " + controller.getCurrentSteps() + ")").yAxisTitle("Amount").build();
+        chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step (Current step: " + controller.getCurrentSteps() + ")").yAxisTitle("Amount").build();
         Set<String> it = controller.fetchClassDefinitions().keySet();
         for (String key : it){
 //            if (!(key.equalsIgnoreCase("Hunter") && !dataSource.equalsIgnoreCase("stepsStat"))) {
