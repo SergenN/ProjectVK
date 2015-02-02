@@ -261,7 +261,7 @@ public class GraphView extends JPanel{
                 }
             }
         }
-        Component pieChart = new CustomPieChart(data, controller);
+        Component pieChart = new CustomPieChart(data, headerTitle);
         return pieChart;
     }
     
