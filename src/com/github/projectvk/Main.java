@@ -8,7 +8,6 @@ import com.github.projectvk.model.file.PropertiesHandler;
 import com.github.projectvk.view.SimulatorView;
 
 public class Main {
-
     private static Controller controller;
     private static SimulatorView simulatorView;
     private static Simulator simulator;

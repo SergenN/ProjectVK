@@ -6,7 +6,7 @@ import java.awt.*;
 
 
 @SuppressWarnings("serial")
-public class ControlPanel extends JPanel{
+public class ControlPanel extends JPanel {
     private static final int GRID_VIEW_SCALING_FACTOR = 6;
     private JLabel sim_kop, weather_kop, weatherIcon, weatherBG;
     private JButton plusEen, plusHonderd, longSim, start, stop, settings, reset;
@@ -40,7 +40,7 @@ public class ControlPanel extends JPanel{
     /**
      * Add buttons to the GUI
      */
-    public void makeGUI(){
+    public void makeGUI() {
         ////////////////////// IMAGES  ////////////////////////
         ImageIcon pauseIcon = new ImageIcon("img/pause.png");
         ImageIcon playIcon = new ImageIcon("img/play.png");
@@ -107,11 +107,12 @@ public class ControlPanel extends JPanel{
         return new Dimension(100, height * GRID_VIEW_SCALING_FACTOR);
     }
 
+    /**
+     * Chance the weather to the given weather type
+     * @param weatherType new weather type
+     */
     public void changeWeatherText(String weatherType){
         weather_kop.setText(weatherType);
-
-        System.out.println(weatherType);
-
         switch(weatherType){
             case "Sunny":
                 weatherIcon.setIcon(sunny);
@@ -127,7 +128,8 @@ public class ControlPanel extends JPanel{
                 break;
         }
     }
-     /**
+     
+    /**
      * Disables buttons while the simulation is running running
      * Enables the buttons when the simulation is finished.
      */

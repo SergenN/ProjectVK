@@ -6,14 +6,19 @@ import static com.github.projectvk.Main.propertiesFile;
  * Created by Sergen on 19-1-2015.
  * Class: Dodo
  */
-public class Dodo extends NaturalEntity{
-
+public class Dodo extends NaturalEntity {
     // The rabbits it's natural prey
     private static final Class[] PREY = {Grass.class};
     // Can the animal walk/breed on grass (will remove grass
     private static final boolean IGNORE_GRASS = false;
 
-    public Dodo(Boolean randomAge, Field field, Location location){
+    /**
+     * Create a new Dodo
+     * @param randomAge if the age should be random or max
+     * @param field field handler
+     * @param location location where to spawn
+     */
+    public Dodo(Boolean randomAge, Field field, Location location) {
         super(field, location, 0);
         setFoodLevel(getFoodDecayLevel());
         if(randomAge) {

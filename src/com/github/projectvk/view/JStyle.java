@@ -21,14 +21,13 @@ public class JStyle {
      * @param width the witdh of the button
      * @param height the height of the button
      */
-    public void buttonStyle(JButton button, String command, Controller controller, JPanel panel, int xposition, int yposition, int width, int height){
+    public void buttonStyle(JButton button, String command, Controller controller, JPanel panel, int xposition, int yposition, int width, int height) {
         button.setBackground(new Color(114, 114, 114));
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
         button.setFont(new Font("Helvetica", Font.PLAIN, 12));
         button.setActionCommand(command);
         button.setBounds(xposition, yposition, width, height);
-
         button.addActionListener(controller.getListener());
         panel.add(button);
     }
@@ -44,7 +43,7 @@ public class JStyle {
      * @param color the color of the label
      * @param fontSize the fontSize of the label
      */
-    public void headerStyle(JComponent label, JPanel panel, int xposition, int yposition, int width, int height, Color color, int fontSize){
+    public void headerStyle(JComponent label, JPanel panel, int xposition, int yposition, int width, int height, Color color, int fontSize) {
         label.setForeground(color);
         label.setFont(new Font("Helvetica", Font.BOLD, fontSize));
         panel.add(label);

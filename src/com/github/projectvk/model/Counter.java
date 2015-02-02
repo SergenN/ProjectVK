@@ -6,8 +6,7 @@ package com.github.projectvk.model;
  * many participants of this type currently exist within 
  * the simulation.
  */
-public class Counter
-{
+public class Counter {
     // A name for this type of simulation participant
     private String name;
     // How many of this type exist in the simulation.
@@ -25,32 +24,28 @@ public class Counter
     /**
      * @return The short description of this type.
      */
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     /**
      * @return The current count for this type.
      */
-    public int getCount()
-    {
+    public int getCount() {
         return count;
     }
 
     /**
      * Increment the current count by one.
      */
-    public void increment()
-    {
+    public void increment() {
         count++;
     }
     
     /**
      * Reset the current count to zero.
      */
-    public void reset()
-    {
+    public void reset() {
         count = 0;
     }
 }

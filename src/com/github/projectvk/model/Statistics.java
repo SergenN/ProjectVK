@@ -50,7 +50,7 @@ public class Statistics {
      * @param type - What kind of history do you want to be returned?
      * @return HashMap - Hashmap which contains data of the last HISTORY_TURNS
      */
-    public HashMap<Class, LinkedList<Double>> getHistory(String type){
+    public HashMap<Class, LinkedList<Double>> getHistory(String type) {
 
         if(type.equals("deathsHistory")) {
             return deathsHistory;
@@ -83,7 +83,7 @@ public class Statistics {
      * Sets Historyturns , which stands for the max x value on the graph
      * @param historyTurns the history turn
      */
-    public static void setHistoryTurns(int historyTurns){
+    public static void setHistoryTurns(int historyTurns) {
         HISTORY_TURNS = historyTurns;
     }
 
@@ -93,7 +93,7 @@ public class Statistics {
      * @param animal - The kind of animal you want to retrieve
      * @param amount - How much should be added to the stats?
      */
-    public static void addData(HashMap<Class, LinkedList<Double>> list, Class animal, double amount){
+    public static void addData(HashMap<Class, LinkedList<Double>> list, Class animal, double amount) {
         if(list.get(animal) == null || list.get(animal).isEmpty()){
             list.put(animal, new LinkedList<>());
             list.get(animal).add(0.0);
@@ -104,7 +104,7 @@ public class Statistics {
     /**
      * When a step is finished, we need to empty all statistics hashmaps (those hashmap will only contain data for one step)
      */
-    public void resetData(){
+    public void resetData() {
         currentStep++;
         /*births.clear();
         steps.clear();
@@ -117,7 +117,7 @@ public class Statistics {
     /**
      * This method will clear all variabels related to the statistics. This method is being called when the user presses the reset button.
      */
-    public void resetStats(){
+    public void resetStats() {
 
         currentStep = 0;
         births.clear();
@@ -134,7 +134,7 @@ public class Statistics {
      * Get the current step
      * @return currentStep - The current step
      */
-    public int getCurrentStep(){
+    public int getCurrentStep() {
         return currentStep;
     }
 
@@ -144,7 +144,7 @@ public class Statistics {
      * @param animal - The kind of animal you want to modify
      * @param source - Hashmap with data of a step
      */
-    public void addDataToHistory(HashMap<Class, LinkedList<Double>> list, Class animal, HashMap<Class, LinkedList<Double>> source){
+    public void addDataToHistory(HashMap<Class, LinkedList<Double>> list, Class animal, HashMap<Class, LinkedList<Double>> source) {
 
         // Catch error codes
         if(list.get(animal) == null){
@@ -168,7 +168,7 @@ public class Statistics {
     /**
      * This will run at the end of each step. It is responsible for adding the gained data to the history arraylist
      */
-    public void updateData(){
+    public void updateData() {
         addDataToHistory(birthsHistory, Fox.class, births);
         addDataToHistory(birthsHistory, Dodo.class, births);
         addDataToHistory(birthsHistory, Rabbit.class, births);
@@ -200,7 +200,7 @@ public class Statistics {
      * @param list - History hashmap
      * @return double array met al het geconverteerde data
      */
-    public double[] convertToGraphData(List<Double> list){
+    public double[] convertToGraphData(List<Double> list) {
         // Limitedlist contains the last HISTORY_TURNS (100 standard) values of the history list.
         List<Double> limitedList = new LinkedList<>();
 
@@ -224,16 +224,4 @@ public class Statistics {
         }
         return returnDouble;
     }
-    //        // If the history list is empty, then fill it with data to prevent errors.
-//        if(list == null || list.isEmpty()){
-//            return new double[]{0};
-//        }
-//
-//        double[] toReturn = new double[list.size()];
-//        for (int i = 0; i < list.size(); i++) {
-//            toReturn[i] = list.get(i);
-//        }
-//       // System.out.println("List: " + list);
-//        System.out.println(("ConvertedDouble: " + Arrays.toString(toReturn)));
-//        return toReturn;
 }

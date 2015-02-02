@@ -6,8 +6,7 @@ import java.util.*;
  * Represent a rectangular grid of field positions.
  * Each position is able to store a single animal.
  */
-public class Field
-{
+public class Field {
     // A random number generator for providing random locations.
     private static final Random rand = Randomizer.getRandom();
     // The height and width of the field.
@@ -118,7 +117,7 @@ public class Field
      * @param ignoreGrass ignore grass // grass will be added to the return
      * @return the List of empty locations around the given location
      */
-    public List<Location> getOccupiedAdjacentLocations(Location location, boolean ignoreGrass){
+    public List<Location> getOccupiedAdjacentLocations(Location location, boolean ignoreGrass) {
         List<Location> free = new LinkedList<>();
         List<Location> adjacent = adjacentLocations(location);
         for(Location next : adjacent) {

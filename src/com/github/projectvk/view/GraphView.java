@@ -8,12 +8,11 @@ import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
 @SuppressWarnings("serial")
-public class GraphView extends JPanel{
+public class GraphView extends JPanel {
     private static final int GRID_VIEW_SCALING_FACTOR = 6;
     private int height;
     private Controller controller;
@@ -39,7 +38,6 @@ public class GraphView extends JPanel{
         this.controller = controller;
         this.jStyle = controller.getJStyle();
         this.colors = colors;
-
         makeGUI();
         this.setLayout(new BorderLayout());
         this.chart = getChart(dataChartType, dataSource);
@@ -66,7 +64,7 @@ public class GraphView extends JPanel{
     /**
      * Creates the GUI
      */
-    public void makeGUI(){
+    public void makeGUI() {
         // IMAGES
         ImageIcon lineIcon = new ImageIcon("img/line.png");
         ImageIcon barIcon = new ImageIcon("img/bar.png");
@@ -123,7 +121,7 @@ public class GraphView extends JPanel{
      * @return preferred size of this jPane
      */
     @Override
-    public Dimension getPreferredSize(){
+    public Dimension getPreferredSize() {
         return new Dimension(600, height * GRID_VIEW_SCALING_FACTOR);
     }
 
@@ -131,7 +129,7 @@ public class GraphView extends JPanel{
      * This methods produces an double array which contains the stepvalue for the x-axis of the graph
      * @return double[] turns - The X axis of the graph
      */
-    public double[] calculateTurns(){
+    public double[] calculateTurns() {
         // When there has been more than HISTORY_TURNS steps, only show the last HISTORYTURNS entries
         if(controller.getCurrentSteps() >= (int)controller.getMaxTurns()) {
             double[] turns_temp = new double[(int) controller.getMaxTurns()];
@@ -157,7 +155,7 @@ public class GraphView extends JPanel{
      * @param dataChartType String - line, bar, scatter
      * @return StyleManager.ChartType - Return a chartype, like bar or line
      */
-    public StyleManager.ChartType getGraphChartType(String dataChartType){
+    public StyleManager.ChartType getGraphChartType(String dataChartType) {
         switch (dataChartType){
             case "line":
                 return StyleManager.ChartType.Line;
@@ -210,11 +208,6 @@ public class GraphView extends JPanel{
         chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step (Current step: " + controller.getCurrentSteps() + ")").yAxisTitle("Amount").build();
         Set<String> it = controller.fetchClassDefinitions().keySet();
         for (String key : it){
-//            if (!(key.equalsIgnoreCase("Hunter") && !dataSource.equalsIgnoreCase("stepsStat"))) {
-//                Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
-//                chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).setLineColor(classColor).setMarkerColor(classColor);
-//            }
-
             if(headerTitle.equals("Steps")){
                 Color classColor = colors.get(controller.fetchClassDefinitions().get(key));
                 chart.addSeries(key, turns, controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key))))).setLineColor(classColor).setMarkerColor(classColor);
@@ -232,7 +225,7 @@ public class GraphView extends JPanel{
      * This function will call getChart to make a new graph.
      * @param chartType - What kind of chart do you want to draw?
      */
-    public void drawChart(String chartType){
+    public void drawChart(String chartType) {
         this.remove(9);
         this.chartType = chartType;
         this.chart = getChart(dataChartType, dataSource);

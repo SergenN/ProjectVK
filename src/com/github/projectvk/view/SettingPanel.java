@@ -14,11 +14,10 @@ import static com.github.projectvk.Main.propertiesFile;
  * Class SettingsPanel
  */
 public class SettingPanel extends JPanel {
-
     private JTabbedPane tabbedPane;
     private Listener listener;
 
-    public SettingPanel(Listener listener){
+    public SettingPanel(Listener listener) {
         this.listener = listener;
         buildPane();
     }
@@ -26,7 +25,7 @@ public class SettingPanel extends JPanel {
     /**
      * Build a new panel from the properties which are available
      */
-    public void buildPane(){
+    public void buildPane() {
         setLayout(new GridBagLayout());
 
         tabbedPane = new JTabbedPane();
@@ -49,36 +48,32 @@ public class SettingPanel extends JPanel {
      * @param categorie the title of the tab
      * @param dataMap the settings hashmap in key , value order
      */
-    private void generateTab(String categorie, HashMap<String, Integer> dataMap){
+    private void generateTab(String categorie, HashMap<String, Integer> dataMap) {
         JPanel panel = createTab(categorie.toLowerCase());
         int i = 1;
         for (String key : dataMap.keySet()){
             if(key.equalsIgnoreCase("MAX_LITTER_SIZE")) {
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
                 panel.add(createSlider(0,10,dataMap.get(key),1,0, categorie+"-"+key, true, false), createGridBagConstraint(2,i));
-            } else if (key.equalsIgnoreCase("SEED")){
+            } else if (key.equalsIgnoreCase("SEED")) {
                 panel.add(new JPanel(), createGridBagConstraint(1, i));
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i+1));
                 panel.add(createSpinner(0, 100000000, dataMap.get(key), 1, categorie+"-"+key), createGridBagConstraint(2, i+1));
                 panel.add(new JPanel(), createGridBagConstraint(1, i+2));
                 i = i+2;
-            } else if (key.equalsIgnoreCase("STEP_SPEED")){
+            } else if (key.equalsIgnoreCase("STEP_SPEED")) {
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
                 panel.add(createSlider(0, 1000, dataMap.get(key), 1000, 100, categorie+"-"+key), createGridBagConstraint(2, i));
-            }
-            else if (key.equalsIgnoreCase("MAX_AGE")){
+            } else if (key.equalsIgnoreCase("MAX_AGE")) {
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
                 panel.add(createSlider(0, 1000, dataMap.get(key), 1000, 100, categorie+"-"+key), createGridBagConstraint(2, i));
-            }
-            else if(key.contains("PROBABILITY")){
+            } else if(key.contains("PROBABILITY")) {
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
                 panel.add(createSlider(0, 100, dataMap.get(key), 10, 5, categorie+"-"+key), createGridBagConstraint(2, i));
-            }
-            else if(key.contains("MULTIPLIER")){
+            } else if(key.contains("MULTIPLIER")) {
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
                 panel.add(createSlider(-10, 10, dataMap.get(key), 5, 1, categorie+"-"+key, true, false), createGridBagConstraint(2, i));
-            }
-            else {
+            } else {
                 panel.add(new JLabel(key.toLowerCase()), createGridBagConstraint(1, i));
                 panel.add(createSlider(0, 30, dataMap.get(key), 10, 5, categorie+"-"+key), createGridBagConstraint(2, i));
             }
@@ -97,7 +92,7 @@ public class SettingPanel extends JPanel {
      * @param name - name of the spin
      * @return Jspinner
      */
-    private JSpinner createSpinner(int min, int max, int init, int step, String name){
+    private JSpinner createSpinner(int min, int max, int init, int step, String name) {
         SpinnerModel model = new SpinnerNumberModel(init, min, max, step);
         JSpinner spinner = new JSpinner(model);
         JComponent comp = spinner.getEditor();
@@ -122,7 +117,7 @@ public class SettingPanel extends JPanel {
      * @param invert invert the slider
      * @return JSlide the adjusted slider
      */
-    private JSlider createSlider(int min, int max, int init, int tickSpacingMajor, int tickSpacingMinor, String name, boolean lock, boolean invert){
+    private JSlider createSlider(int min, int max, int init, int tickSpacingMajor, int tickSpacingMinor, String name, boolean lock, boolean invert) {
         JSlider slider = createSlider(min, max, init, tickSpacingMajor, tickSpacingMinor, name);
         slider.setInverted(invert);
         slider.setSnapToTicks(lock);
@@ -141,7 +136,7 @@ public class SettingPanel extends JPanel {
      * @param name name of the slider
      * @return new configured jSlider
      */
-    private JSlider createSlider(int min, int max, int init, int tickSpacingMajor, int tickSpacingMinor, String name){
+    private JSlider createSlider(int min, int max, int init, int tickSpacingMajor, int tickSpacingMinor, String name) {
         JSlider slider = new JSlider(JSlider.HORIZONTAL, min, max, init);
         slider.setName(name);
         slider.setMajorTickSpacing(tickSpacingMajor);

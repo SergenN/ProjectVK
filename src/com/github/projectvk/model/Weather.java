@@ -22,7 +22,7 @@ public class Weather {
      *
      * @param controller - the linked controller
      */
-    public Weather(Controller controller){
+    public Weather(Controller controller) {
         this.controller = controller;
         randomWeather();
     }
@@ -30,7 +30,7 @@ public class Weather {
     /**
      * Change weather randomly by chance
      */
-    public void randomWeather(){
+    public void randomWeather() {
         // Chances of a particular type of weather
         double randomDouble = Math.random();
 
@@ -48,7 +48,7 @@ public class Weather {
      *
      * @param weatherType - the linked controller
      */
-    public void changeWeather(String weatherType){
+    public void changeWeather(String weatherType) {
         setWeatherType(weatherType);
 
         // Change text in controlPanel and play a song in Audio class
@@ -57,12 +57,8 @@ public class Weather {
 
         // Decide when the next weather change occurs. This needs a minimum and maximum step (see statics)
         changeWeatherStep = controller.getCurrentSteps() + rand.nextInt(MAX_WEATHER_STEP) + MIN_WEATHER_STEP;
-
-        // DEBUG
-       // System.out.println("Next weather change at step " + changeWeatherStep);
     }
 
-    // Getter and setter for the weather type
     /**
      * Returns WeatherType
      * @return weatherType - Type of weather. By example "Sunny"

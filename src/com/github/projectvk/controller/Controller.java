@@ -24,12 +24,10 @@ public class Controller {
     private Weather weather;
     private Audio audio;
 
-    //private boolean simulatorRunning = false;
-
     /**
      * the constructor of the controller
      */
-    public Controller(){
+    public Controller() {
         fieldStats = new FieldStats();
         field = new Field(Main.getSize()[0], Main.getSize()[1]);
         this.listener = new Listener(this);
@@ -56,25 +54,33 @@ public class Controller {
      * get the statistics of this controller
      * @param statistics the statistics
      */
-    public void setStatistics(Statistics statistics) { this.statistics = statistics; }
+    public void setStatistics(Statistics statistics) { 
+        this.statistics = statistics; 
+    }
 
     /**
      * Set the weather Instance
      * @param weather current Weather Instance
      */
-    public void setWeather(Weather weather) { this.weather = weather; }
+    public void setWeather(Weather weather) {
+        this.weather = weather; 
+    }
 
     /**
      * Set the audio instance
      * @param audio Current audio instance
      */
-    public void setAudio(Audio audio) { this.audio = audio; }
+    public void setAudio(Audio audio) {
+        this.audio = audio; 
+    }
 
     /**
      * get the JStyle of this controller
      * @return the jstyle
      */
-    public JStyle getJStyle(){return jStyle;}
+    public JStyle getJStyle() {
+        return jStyle;
+    }
 
     /**
      * preform an action
@@ -229,7 +235,7 @@ public class Controller {
     /**
      * These are all methods related to statistics.java
      */
-    public void updateData(){
+    public void updateData() {
         statistics.updateData();
     }
 
@@ -238,7 +244,9 @@ public class Controller {
      * @param type the type of history you want to retreive
      * @return a hashmap with the class of the history and the arrray of the data in it.
      */
-    public HashMap<Class, LinkedList<Double>> getHistory(String type){ return statistics.getHistory(type);}
+    public HashMap<Class, LinkedList<Double>> getHistory(String type) {
+        return statistics.getHistory(type);
+    }
 
     /**
      * Convert the graph data from list to double array
@@ -253,24 +261,31 @@ public class Controller {
      * get max turns the history saves
      * @return max turns the history saves
      */
-    public double getMaxTurns(){return Statistics.HISTORY_TURNS;}
+    public double getMaxTurns() {
+        return Statistics.HISTORY_TURNS;
+    }
 
     /**
      * get the current steps of the simulator
      * @return current steps
      */
-    public int getCurrentSteps(){ return statistics.getCurrentStep();}
+    public int getCurrentSteps() {
+        return statistics.getCurrentStep();
+    }
 
     /**
      * reset the data of the statistics
      */
-    public void resetData(){ statistics.resetData();}
+    @SuppressWarnings("UnusedDeclaration")
+    public void resetData() {
+        statistics.resetData();
+    }
 
     /**
      * change the amount of max history steps saved
      * @param historyTurns new amount of steps saved
      */
-    public void setStatisticHistoryTurns(int historyTurns){
+    public void setStatisticHistoryTurns(int historyTurns) {
         Statistics.setHistoryTurns(historyTurns);
     }
 
@@ -278,22 +293,30 @@ public class Controller {
      * change the weather type to the goven weathertype
      * @param weatherType new weather type
      */
-    public void changeWeatherText(String weatherType){ simulatorView.getControlPanel().changeWeatherText(weatherType); }
+    public void changeWeatherText(String weatherType){
+        simulatorView.getControlPanel().changeWeatherText(weatherType); 
+    }
 
     /**
      * get a random weather type
      */
-    public void randomWeather(){ weather.randomWeather(); }
+    public void randomWeather(){
+        weather.randomWeather();
+    }
 
     /**
      * get step at which the weather changes
      * @return step at which the weather changes
      */
-    public int getWeatherStep(){ return weather.getChangeWeatherStep(); }
+    public int getWeatherStep(){
+        return weather.getChangeWeatherStep();
+    }
 
     /**
      * play a new sound from given path
      * @param soundPath path of sound to play
      */
-    public void playSound(String soundPath){ audio.playSound(soundPath); }
+    public void playSound(String soundPath){
+        audio.playSound(soundPath);
+    }
 }

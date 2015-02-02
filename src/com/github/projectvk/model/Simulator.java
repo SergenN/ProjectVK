@@ -19,11 +19,9 @@ public class Simulator implements Runnable {
     // The current step of the simulation.
     public int step = 0;
     // Check if the simulator is running
-
-    public int nextWeatherEvent;
-
-    //
     private boolean running = false;
+    //the step when the next weather event is taking place
+    public int nextWeatherEvent;
     // The steps the simulator has to run to stop
     private int toStep = 0;
     // The controller
@@ -138,7 +136,7 @@ public class Simulator implements Runnable {
     /**
      * Start a new thread that runs the run method
      */
-    public void start(){
+    public void start() {
         this.toStep = -1;
         running = true;
         new Thread(this).start();
@@ -149,7 +147,7 @@ public class Simulator implements Runnable {
      * Start a new thread that runs the run method
      * @param toStep the step till which the thread has to run
      */
-    public void start(int toStep){
+    public void start(int toStep) {
         this.toStep = toStep;
         running = true;
         new Thread(this).start();
@@ -159,7 +157,7 @@ public class Simulator implements Runnable {
     /**
      * Stop the simulation
      */
-    public void stop(){
+    public void stop() {
         running = false;
         controller.disableButtons();
     }
@@ -167,7 +165,7 @@ public class Simulator implements Runnable {
     /**
      * decerement the simulation steps till 0
      */
-    public void decrementStep(){
+    public void decrementStep() {
         if (toStep > 0){
             toStep--;
         }
@@ -177,7 +175,7 @@ public class Simulator implements Runnable {
      * check if the simulation is running
      * @return true if the simulation is running
      */
-    public boolean isRunning(){
+    public boolean isRunning() {
         return running;
     }
 

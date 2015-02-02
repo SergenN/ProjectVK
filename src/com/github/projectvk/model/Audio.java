@@ -11,7 +11,6 @@ import java.io.File;
  */
 public class Audio {
     public static Clip clip;
-
     private static String getPlayingAudio = "default";
 
     /**
@@ -21,7 +20,7 @@ public class Audio {
      */
     public void playSound(String path) {
         try{
-            if(!(getPlayingAudio.equals("default")) && !(getPlayingAudio.equals(path))){
+            if(!(getPlayingAudio.equals("default")) && !(getPlayingAudio.equals(path))) {
                 clip.close();
             }
 

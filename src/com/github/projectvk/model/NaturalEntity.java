@@ -115,7 +115,7 @@ public abstract class NaturalEntity implements Actor {
      * Check whether the animal is alive or not.
      * @return true if the animal is still alive.
      */
-    protected boolean isAlive(){
+    protected boolean isAlive() {
         return alive;
     }
 
@@ -123,7 +123,7 @@ public abstract class NaturalEntity implements Actor {
      * verkrijg de age van het dier.
      * @return int age
      */
-    protected int getAge(){
+    protected int getAge() {
         return age;
     }
 
@@ -131,7 +131,7 @@ public abstract class NaturalEntity implements Actor {
      * zet de leeftijd van dit dier.
      * @param age de leeftijd dat gezet moet worden
      */
-    protected void setAge(int age){
+    protected void setAge(int age) {
         this.age = age;
     }
 
@@ -139,7 +139,7 @@ public abstract class NaturalEntity implements Actor {
      * Return the animal's field.
      * @return The animal's field.
      */
-    public Field getField(){
+    public Field getField() {
         return field;
     }
 
@@ -147,7 +147,7 @@ public abstract class NaturalEntity implements Actor {
      * set the field of this entity
      * @param field new field of the entity
      */
-    public void setField(Field field){
+    public void setField(Field field) {
         this.field = field;
     }
 
@@ -155,7 +155,7 @@ public abstract class NaturalEntity implements Actor {
      * Krijg de random nummer generator
      * @return Random rand
      */
-    protected Random getRandom(){
+    protected Random getRandom() {
         return rand;
     }
 
@@ -206,10 +206,7 @@ public abstract class NaturalEntity implements Actor {
         if(canBreed() && getRandom().nextDouble() <= getBreedingProbability()) {
             births = getRandom().nextInt(getMaxLitterSize()) + 1;
         }
-        //boolean testProb = getAge() >= getBreedingAge();
-        //boolean testProb2 = getFoodLevel() >= getMinimalBreedFood();
-        //if(this instanceof Fox) System.out.println("CUBS: " + births + "  CANBREED: " + canBreed() + "   VARS::" + getAge() + " >= " + getBreedingAge() + " = "+ testProb  +"    "+ getFoodLevel()+ " >= "+ getMinimalBreedFood() + " = " + testProb2);
-        return births;
+         return births;
     }
 
     /**
@@ -322,8 +319,7 @@ public abstract class NaturalEntity implements Actor {
             if(newLocation != null) {
                 setLocation(newLocation);
                 if (getEntityClass() != Grass.class) addData(steps, getEntityClass(), 1);
-            }
-            else {
+            } else {
                 setDead();
             }
             /*if(this instanceof Sickness){
@@ -351,7 +347,7 @@ public abstract class NaturalEntity implements Actor {
      * this function will check if the actor can get sick and set the actor to sick if so.
      * @param actor the actor which has to become sick
      */
-    private void spreadSickness(Actor actor){
+    private void spreadSickness(Actor actor) {
         if (this instanceof Sickness){
             if(actor instanceof Sickness){
                 ((Sickness) actor).setSick();

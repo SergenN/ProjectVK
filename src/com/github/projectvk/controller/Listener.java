@@ -52,7 +52,7 @@ public class Listener implements ActionListener, ChangeListener{
                 propertiesFile.setInt(property, value);
             }
         }
-        if(e.getSource() instanceof JSpinner){
+        if(e.getSource() instanceof JSpinner) {
             JSpinner spinner = (JSpinner)e.getSource();
             int value = (Integer)spinner.getValue();
             String property = spinner.getName();

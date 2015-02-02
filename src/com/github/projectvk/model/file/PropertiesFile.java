@@ -75,6 +75,10 @@ public class PropertiesFile {
         }
     }
 
+    /**
+     * Get all properties in the properties file in a map
+     * @return Map of all keys in key = value order
+     */
     @SuppressWarnings("unchecked")
     public Map<String, String> returnMap() {
         return (Map<String, String>) props.clone();

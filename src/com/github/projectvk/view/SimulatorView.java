@@ -15,7 +15,7 @@ import java.util.Map;
  * Colors for each type of species can be defined using the
  * setColor method.
  */
-public class SimulatorView extends JFrame  {
+public class SimulatorView extends JFrame {
     private static final int DEFAULT_HEIGHT = 100;
     private static final int DEFAULT_WIDTH = 100;
     private static final Color EMPTY_COLOR = new Color(229, 229, 229, 255);
@@ -34,7 +34,7 @@ public class SimulatorView extends JFrame  {
      * @param controller the controller instance
      */
     @SuppressWarnings("UnusedDeclaration")
-    public SimulatorView(Controller controller){
+    public SimulatorView(Controller controller) {
         this(DEFAULT_HEIGHT, DEFAULT_WIDTH, controller);
         System.out.println("The dimensions must be greater than zero.");
         System.out.println("Using default values.");
@@ -66,7 +66,6 @@ public class SimulatorView extends JFrame  {
         this.setColor(animals.get("Dodo"), new Color(166, 76, 255)); //Dodo
         this.setColor(animals.get("Hunter"), new Color(219, 0, 37)); //Hunter
 
-
         // Screen setup
         graphView = new GraphView(height, controller, colors);
         setTitle("Vossen en konijnen simulatie");
@@ -97,7 +96,7 @@ public class SimulatorView extends JFrame  {
      * get the control panel of this frame
      * @return the control panel
      */
-    public ControlPanel getControlPanel(){
+    public ControlPanel getControlPanel() {
         return controlPanel;
     }
 
@@ -105,7 +104,7 @@ public class SimulatorView extends JFrame  {
      * get the graph view of this frame
      * @return the graph view
      */
-    public GraphView getGraphView(){
+    public GraphView getGraphView() {
         return graphView;
     }
     
@@ -114,8 +113,7 @@ public class SimulatorView extends JFrame  {
      * @param animalClass The animal's Class object.
      * @param color The color to be used for the given class.
      */
-    public void setColor(Class animalClass, Color color)
-    {
+    public void setColor(Class animalClass, Color color) {
         colors.put(animalClass, color);
     }
 
@@ -128,8 +126,7 @@ public class SimulatorView extends JFrame  {
         Color col = colors.get(animalClass);
         if(col == null) {
             return UNKNOWN_COLOR;
-        }
-        else {
+        } else {
             return col;
         }
     }
@@ -154,8 +151,7 @@ public class SimulatorView extends JFrame  {
                 if(animal != null) {
                     controller.getFieldStats().incrementCount(animal.getClass());
                     fieldView.drawMark(col, row, getColor(animal.getClass()));
-                }
-                else {
+                } else {
                     fieldView.drawMark(col, row, EMPTY_COLOR);
                 }
             }

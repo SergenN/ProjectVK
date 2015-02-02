@@ -10,7 +10,6 @@ import java.awt.*;
  * Class: SettingsFrame
  */
 public class SettingsFrame extends JFrame{
-
     /**
      * Create a new SettingsFrame
      */

@@ -74,7 +74,7 @@ public class Hunter implements Actor {
         Location newLocation = findPrey();
         if(newLocation == null) {
             // No food found - try to move to a free location.
-            newLocation = getField().freeAdjacentLocation(getLocation(), canOverrideGras());
+            newLocation = getField().freeAdjacentLocation(getLocation(), canOverrideGrass());
         }
         // See if it was possible to move.
         if(newLocation != null) {
@@ -116,7 +116,7 @@ public class Hunter implements Actor {
      * Get the prey this hunter is hunting for
      * @return Class[] of prey the hunter can hunt
      */
-    private Class[] getPrey(){
+    private Class[] getPrey() {
         return prey;
     }
 
@@ -124,7 +124,7 @@ public class Hunter implements Actor {
      * Check if the hunter can step on grass
      * @return if the hunter can step on grass
      */
-    private boolean canOverrideGras(){
+    private boolean canOverrideGrass() {
         return overrideGrass;
     }
 }

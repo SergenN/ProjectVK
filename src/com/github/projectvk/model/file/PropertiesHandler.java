@@ -13,7 +13,7 @@ public class PropertiesHandler extends PropertiesFile{
      * Create a new PropertiesHandler
      * will create new propertiesFile and input all default properties
      */
-    public PropertiesHandler(){
+    public PropertiesHandler() {
         super("Properties.txt");
         initializeProperties();
     }
@@ -21,7 +21,7 @@ public class PropertiesHandler extends PropertiesFile{
     /**
      * Create all default properties
      */
-    private void initializeProperties(){
+    private void initializeProperties() {
         getInt("fox-BREEDING_AGE",15);
         getInt("fox-MAX_AGE",150);
         getInt("fox-BREEDING_PROBABILITY",12);
@@ -74,7 +74,7 @@ public class PropertiesHandler extends PropertiesFile{
      * split the keys up in category, key and value
      * @return a hashmap of the categories linked to a hashmap with keys and values
      */
-    public HashMap<String, HashMap<String, Integer>> getCategories(){
+    public HashMap<String, HashMap<String, Integer>> getCategories() {
         HashMap<String, HashMap<String, Integer>> categorizedMap = new HashMap<>();
         Map<String, String> map = returnMap();
         for(String key : map.keySet()){
@@ -93,7 +93,7 @@ public class PropertiesHandler extends PropertiesFile{
      * @param i the string to be parsed
      * @return an int or 0 if failed
      */
-    public int saveParseInt(String i){
+    public int saveParseInt(String i) {
         int toReturn = 0;
         try {
             toReturn = Integer.parseInt(i);
