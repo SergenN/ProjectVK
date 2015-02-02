@@ -3,3 +3,4 @@ com.github.projectvk.controller
 com.github.projectvk.model
 com.github.projectvk.model.file
 com.github.projectvk.view
+com.github.projectvk.view.graph
