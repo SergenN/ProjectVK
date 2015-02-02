@@ -1,6 +1,7 @@
 package com.github.projectvk.view;
 
 import com.github.projectvk.controller.Controller;
+import com.github.projectvk.view.graph.CustomPieChart;
 import com.xeiam.xchart.Chart;
 import com.xeiam.xchart.ChartBuilder;
 import com.xeiam.xchart.StyleManager;
@@ -8,6 +9,7 @@ import com.xeiam.xchart.XChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,6 +21,7 @@ public class GraphView extends JPanel {
     protected JButton birthsStat, deathsStat, stepsStat, lineStatButton, scatterStatButton, barStatButton, areaStatButton, pieStatButton;
     private JStyle jStyle;
     private Chart chart;
+    private CustomPieChart pieChart;
     private String dataSource = "stepsHistory";
     private String dataChartType = "bar";
     private String chartType = "steps";
@@ -33,22 +36,29 @@ public class GraphView extends JPanel {
      * @param colors - Colors of all entities
      */
     public GraphView(int height, Controller controller, Map<Class, Color> colors) {
-        this.setBackground(new Color(210, 210, 210));
+        setBackground(new Color(210, 210, 210));
         this.height = height;
         this.controller = controller;
-        this.jStyle = controller.getJStyle();
+        jStyle = controller.getJStyle();
         this.colors = colors;
         makeGUI();
-        this.setLayout(new BorderLayout());
-        this.chart = getChart(dataChartType, dataSource);
-        this.add(new XChartPanel(chart), BorderLayout.NORTH);
+        setLayout(new BorderLayout());
+        
+        Object currentChart = getChart(dataChartType, dataSource);
+        if(currentChart instanceof CustomPieChart){
+            this.chart = null;
+            pieChart = (CustomPieChart)currentChart;
+            add(pieChart);
+        } else {
+            chart = (Chart)currentChart;
+            add(new XChartPanel(chart), BorderLayout.NORTH);
+        }
     }
 
     /**
      * Returns CharType
      * @return charType - Return the chart type
      */
-    @SuppressWarnings("UnusedDeclaration")
     public String getChartType(){
         return chartType;
     }
@@ -200,12 +210,15 @@ public class GraphView extends JPanel {
      * @param dataSource - What do you want the graph to show? By example the deaths of the rabbits
      * @return chart - This returns the newly built graph
      */
-    public Chart getChart(String dataChartType, String dataSource) {
+    public Object getChart(String dataChartType, String dataSource) {
+        if(dataChartType.equalsIgnoreCase("pie")){
+            return getPieChart(dataSource);
+        }
         // Put the turn steps in a double array
         double[] turns = calculateTurns();
 
         // Create Chart
-        chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step (Current step: " + controller.getCurrentSteps() + ")").yAxisTitle("Amount").build();
+        chart = new ChartBuilder().chartType(getGraphChartType(dataChartType)).width(600).height(400).title(headerTitle).xAxisTitle("Step (Currently " + controller.getCurrentSteps() + ")").yAxisTitle("Amount").build();
         Set<String> it = controller.fetchClassDefinitions().keySet();
         for (String key : it){
             if(headerTitle.equals("Steps")){
@@ -222,13 +235,82 @@ public class GraphView extends JPanel {
     }
 
     /**
+     * Because piecharts are not covered by xCharts here a custom function for our piecharts 
+     * @param dataSource the source of data to be displayed
+     * @return a panel with the piechart
+     */
+    private Component getPieChart(String dataSource){
+        // Put the turn steps in a double array
+        double[] turns = calculateTurns();
+        //init the hashmap of color -> data which is needed for the chart
+        HashMap<String, HashMap<Color, Integer>> data = new HashMap<>();
+        Set<String> it = controller.fetchClassDefinitions().keySet();
+        for (String key : it){
+            if(headerTitle.equals("Steps")){
+                Color color = colors.get(controller.fetchClassDefinitions().get(key));
+                int amount = getAverage(controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key)))));
+                data.put(key, new HashMap<>());
+                data.get(key).put(color, amount);
+            } else {
+                if (!(key.equalsIgnoreCase("Hunter"))) {
+                    Color color = colors.get(controller.fetchClassDefinitions().get(key));
+                    int amount = getAverage(controller.convertToGraphData(controller.getHistory(dataSource).get(controller.fetchClassDefinitions().get((key)))));
+                    data.put(key, new HashMap<>());
+                    data.get(key).put(color, amount);
+                }
+            }
+        }
+        Component pieChart = new CustomPieChart(data, headerTitle);
+        return pieChart;
+    }
+    
+    /**
      * This function will call getChart to make a new graph.
      * @param chartType - What kind of chart do you want to draw?
      */
     public void drawChart(String chartType) {
-        this.remove(9);
+        remove(9);
         this.chartType = chartType;
-        this.chart = getChart(dataChartType, dataSource);
-        this.add(new XChartPanel(chart), BorderLayout.NORTH);
+        
+        Object currentChart = getChart(dataChartType, dataSource);
+        if(currentChart instanceof CustomPieChart){
+            this.chart = null;
+            pieChart = (CustomPieChart)currentChart;
+            add(pieChart);
+        } else {
+            chart = (Chart)currentChart;
+            add(new XChartPanel(chart), BorderLayout.NORTH);
+        }
+    }
+
+    /**
+     * convert a double array to average int 
+     * @param input double array of data
+     * @return int of the average of array content
+     */
+    public int getAverage(double[] input){
+        int toReturn = 0;
+        int total = 0;
+        if(input.length > 0){
+            for (double in : input){
+                total += Math.round(in);
+            }
+            toReturn = total;
+        }
+        return toReturn;
+    }
+
+    /**
+     * Method to add a new Jlabel to the GraphView
+     * @param element kind of element
+     * @param xposition x position of element
+     * @param yposition y position of element
+     * @param width width of element
+     * @param height height of element
+     * @param color color of element
+     * @param fontSize font size of element
+     */
+    public void addComponent(JComponent element, int xposition, int yposition, int width, int height, Color color, int fontSize){
+        jStyle.headerStyle(element, this, xposition, yposition, width, height, color, fontSize);
     }
 }

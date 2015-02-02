@@ -46,7 +46,7 @@ public class JStyle {
     public void headerStyle(JComponent label, JPanel panel, int xposition, int yposition, int width, int height, Color color, int fontSize) {
         label.setForeground(color);
         label.setFont(new Font("Helvetica", Font.BOLD, fontSize));
-        panel.add(label);
         label.setBounds(xposition, yposition, width, height);
+        panel.add(label);
     }
 }

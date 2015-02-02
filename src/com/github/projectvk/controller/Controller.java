@@ -4,6 +4,8 @@ import com.github.projectvk.Main;
 import com.github.projectvk.model.*;
 import com.github.projectvk.view.*;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -142,6 +144,10 @@ public class Controller {
             case "drawArea":
                 simulatorView.getGraphView().setDataChartType("area");
                 setStatisticHistoryTurns(20);
+                break;
+            case "pieChart":
+                simulatorView.getGraphView().setDataChartType("pie");
+                setStatisticHistoryTurns(1);
                 break;
         }
     }
@@ -318,5 +324,19 @@ public class Controller {
      */
     public void playSound(String soundPath){
         audio.playSound(soundPath);
+    }
+
+    /**
+     * add new Component
+     * @param element
+     * @param xposition
+     * @param yposition
+     * @param width
+     * @param height
+     * @param color
+     * @param fontSize
+     */
+    public void addComponent(JComponent element, int xposition, int yposition, int width, int height, Color color, int fontSize){
+        simulatorView.getGraphView().addComponent(element, xposition, yposition, width, height, color, fontSize);
     }
 }
