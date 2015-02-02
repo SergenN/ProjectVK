@@ -4,6 +4,8 @@ import com.github.projectvk.Main;
 import com.github.projectvk.model.*;
 import com.github.projectvk.view.*;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -301,4 +303,8 @@ public class Controller {
      * @param soundPath path of sound to play
      */
     public void playSound(String soundPath){ audio.playSound(soundPath); }
+
+    public void addComponent(JComponent element, int xposition, int yposition, int width, int height, Color color, int fontSize){
+        simulatorView.getGraphView().addComponent(element, xposition, yposition, width, height, color, fontSize);
+    }
 }

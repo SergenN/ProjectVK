@@ -45,9 +45,10 @@ public class JStyle {
      * @param fontSize the fontSize of the label
      */
     public void headerStyle(JComponent label, JPanel panel, int xposition, int yposition, int width, int height, Color color, int fontSize){
+        System.out.println("jStyle");
         label.setForeground(color);
         label.setFont(new Font("Helvetica", Font.BOLD, fontSize));
-        panel.add(label);
         label.setBounds(xposition, yposition, width, height);
+        panel.add(label);
     }
 }

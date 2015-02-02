@@ -261,7 +261,7 @@ public class GraphView extends JPanel{
                 }
             }
         }
-        Component pieChart = new CustomPieChart(data);
+        Component pieChart = new CustomPieChart(data, controller);
         return pieChart;
     }
     
@@ -299,5 +299,19 @@ public class GraphView extends JPanel{
             toReturn = total;
         }
         return toReturn;
+    }
+
+    /**
+     * Method to add a new Jlabel to the GraphView
+     * @param element kind of element
+     * @param xposition x position of element
+     * @param yposition y position of element
+     * @param width width of element
+     * @param height height of element
+     * @param color color of element
+     * @param fontSize font size of element
+     */
+    public void addComponent(JComponent element, int xposition, int yposition, int width, int height, Color color, int fontSize){
+        jStyle.headerStyle(element, this, xposition, yposition, width, height, color, fontSize);
     }
 }

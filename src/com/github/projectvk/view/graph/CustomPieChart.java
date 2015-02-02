@@ -1,5 +1,8 @@
 package com.github.projectvk.view.graph;
 
+import com.github.projectvk.controller.Controller;
+import com.github.projectvk.view.GraphView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -13,11 +16,20 @@ import java.util.stream.Collectors;
 public class CustomPieChart extends Component{
     LinkedList<Slice> slices = new LinkedList<>();
 
+    private static final int HEIGHT = 300;
+    private static final int WIDTH = 300;
+
+    private static final int XPOS = 150;
+    private static final int YPOS = 52;
+
+    private Controller controller;
+
     /**
      * Init de custom pie chart 
      * @param data Naam = Kleur = Data
      */
-    public CustomPieChart(HashMap<String ,HashMap<Color, Integer>> data) {
+    public CustomPieChart(HashMap<String ,HashMap<Color, Integer>> data, Controller controller) {
+        this.controller = controller;
         setName("Piechart");
         for (String key : data.keySet()){
             slices.addAll(data.get(key).keySet().stream().map(color -> new Slice(data.get(key).get(color), color, key)).collect(Collectors.toList()));
@@ -48,18 +60,18 @@ public class CustomPieChart extends Component{
         }
 
         for (Slice slice : slices) {
-            JLabel label = new JLabel();
-            label.setText(slice.name + ": "+ slice.value + " %");
-            label.setLocation(area.x, area.y);//Not shown :(
-            
             startAngle = (int) (curValue * 360 / total);
             int arcAngle = (int) (slice.value * 360 / total);
             g.setColor(slice.color);
-            g.fillArc(area.x, area.y, area.width, area.height, startAngle, arcAngle);
+            g.fillArc(XPOS, YPOS, WIDTH, HEIGHT, startAngle, arcAngle);
             curValue += slice.value;
+
+            JLabel label = new JLabel();
+            label.setText(slice.name + "test: "+ slice.value + " %");
+
+            controller.addComponent(label, area.x, area.y, 300, 300, new Color(33,33,33), 14);
         }
     }
-    
 }
 
 class Slice {
@@ -78,4 +90,5 @@ class Slice {
         this.color = color;
         this.name = name;
     }
+
 }
